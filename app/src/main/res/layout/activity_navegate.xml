@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,7 +7,14 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".navegate">
+        tools:context=".navegate"
+        android:background="@color/white">
+
+    <include
+            layout="@layout/activity_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android"/>
+
 
     <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
@@ -20,6 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:menu="@menu/navigation"/>
+            app:menu="@menu/navigation"
+            app:itemBackground="@color/white"/>
 
 </android.support.constraint.ConstraintLayout>
