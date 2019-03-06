@@ -17,7 +17,7 @@ data class Note(
     var setSecondVersion: Int, //gives the id of the note version, and 0 when it is the first version
     var content: String,
     var userId: Int,
-    var tags:List<String>,
+    var tags:String,
     var version: Int,
     @ColumnInfo(name = "date")
     val date: Date

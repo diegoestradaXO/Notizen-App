@@ -1,5 +1,6 @@
 package com.example.efpro.notizen.ViewModel
 
+import android.database.Cursor
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.efpro.notizen.data.Note.Note
@@ -52,15 +53,15 @@ class NoteViewModel(application: android.app.Application): AndroidViewModel(appl
         return allUsers
     }
 
-    fun getSameID(givenID :Int): Array<Note> {
+    fun getSameID(givenID :Int): Cursor {
         return repository.getSameID(givenID)
     }
 
-    fun getUserIds(): List<User> {
+    fun getUserIds(): Cursor {
         return repository.getUserIds()
     }
 
-    fun getByMail(mail:String): List<User> {
+    fun getByMail(mail:String): Cursor {
         return repository.getByMail(mail)
     }
 }

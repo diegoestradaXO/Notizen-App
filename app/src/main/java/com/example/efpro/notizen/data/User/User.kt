@@ -13,8 +13,8 @@ data class User(
     var nombre: String,
     var email: String,
     var biography: String, //gives the id of the note version, and 0 when it is the first version
-    var followers:List<Int>,
-    var following:List<Int>
+    var followers:String,
+    var following:String
 ) {
 
     /*we need to set the autoGenerate to true, almost we need two id

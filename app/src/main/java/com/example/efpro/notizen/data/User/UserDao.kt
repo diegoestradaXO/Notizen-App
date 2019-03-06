@@ -1,5 +1,6 @@
 package com.example.efpro.notizen.data.User
 
+import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
@@ -22,9 +23,9 @@ interface UserDao {
     fun getAllUsers(): LiveData<List<User>>
 
     @Query("SELECT _id from USER_TABLE")
-    fun getUserIds(): List<User>
+    fun getUserIds(): Cursor
 
-    @Query("SELECT * From user_table WHEN :mail == email")
-    fun getByMail(mail:String): List<User>
+    @Query("SELECT * From user_table WHERE email == :mail")
+    fun getByMail(mail:String): Cursor
 
 }

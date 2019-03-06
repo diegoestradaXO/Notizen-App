@@ -1,6 +1,7 @@
 package com.example.efpro.notizen.data
 
 import android.app.Application
+import android.database.Cursor
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 import com.example.efpro.notizen.data.Note.Note
@@ -72,15 +73,15 @@ class NoteRepository(application: Application) {
         return allUsers
     }
 
-    fun getSameID(givenID :Int):Array<Note>{
+    fun getSameID(givenID :Int): Cursor {
         return noteDao.getSameID(givenID)
     }
 
-    fun getUserIds(): List<User> {
+    fun getUserIds(): Cursor {
         return userDao.getUserIds()
     }
 
-    fun getByMail(mail:String): List<User> {
+    fun getByMail(mail:String): Cursor {
         return userDao.getByMail(mail)
     }
 

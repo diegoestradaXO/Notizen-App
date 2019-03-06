@@ -12,7 +12,7 @@ import com.example.efpro.notizen.data.User.User
 import com.example.efpro.notizen.data.User.UserDao
 import java.util.*
 
-@Database(entities = [Note::class, User::class], version = 2)
+@Database(entities = [Note::class, User::class], version = 2,exportSchema = false)
 abstract class NoteDatabase : RoomDatabase() {
 
     abstract fun noteDao(): NoteDao
@@ -65,7 +65,7 @@ abstract class NoteDatabase : RoomDatabase() {
                     0,
                     "No information",
                     0,
-                    items,
+                    "etiquetas",
                     0,
                     Date() as java.sql.Date
                 )
@@ -75,8 +75,8 @@ abstract class NoteDatabase : RoomDatabase() {
                     "Administrador",
                     "scontreraig@gmail.com",
                     "Just one of the creators",
-                    fans,
-                    following))
+                    "0 1 2 3",
+                    "3 2 1 4"))
         }
     }
 

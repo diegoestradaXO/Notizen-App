@@ -1,5 +1,6 @@
 package com.example.efpro.notizen.data.Note
 
+import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.efpro.notizen.data.Note.Note
@@ -23,6 +24,6 @@ interface NoteDao {
     fun getAllNotes(): LiveData<List<Note>>
 
     @Query("SELECT * FROM note_table WHERE _id == :givenID")
-    fun getSameID(givenID: Int):Array<Note>
+    fun getSameID(givenID: Int):Cursor
 
 }
