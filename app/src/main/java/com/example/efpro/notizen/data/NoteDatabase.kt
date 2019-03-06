@@ -76,7 +76,9 @@ abstract class NoteDatabase : RoomDatabase() {
                     "scontreraig@gmail.com",
                     "Just one of the creators",
                     "0 1 2 3",
-                    "3 2 1 4"))
+                    "3 2 1 4",
+                    "password",
+                    1))
         }
     }
 

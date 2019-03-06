@@ -46,13 +46,21 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         /*First Check if users are already logged in*/
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
         for (item in ApplicationExt.contactlist){
-            for(user in noteViewModel.getUserIds()) {
-                if(item==user.id){
-                    val intento = Intent(this, navigate::class.java)//Redirigimos a contactos
-                    intento.putExtra("id",item)
-                    startActivity(intento)
-                    this.finish()
+            val cursor = noteViewModel.getUserIds()
+            cursor.moveToFirst();
+            val contador = 0
+            while (cursor.isAfterLast() == false)
+            {
+                if(item==cursor.getInt(0)){
+                    if(cursor.getInt(7)==1){
+                        val intento = Intent(this, navigate::class.java)//Redirigimos a contactos
+                        intento.putExtra("id",item)
+                        startActivity(intento)
+                        this.finish()
                 }
+                cursor.moveToNext()
+            }
+
             }
         }
         // Set up the login form.
@@ -295,18 +303,24 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             showProgress(false)
             var gotIt = success
             gotIt = false
-            val intento1 = Intent(applicationContext, navigate::class.java)//
+            var intento = Intent(applicationContext, navigate::class.java)//
             //Now lets evaluate if it is in the database
-            for (user in noteViewModel.getByMail(mEmail)){
-                intento1.putExtra("id",user.id)
-                if(success!!){
-                    ApplicationExt.add(user.id)
+            val cursor = noteViewModel.getByMail(mEmail)
+            cursor.moveToFirst();
+            while (cursor.isAfterLast() == false)
+            {
+                if(cursor.getString(6)==mPassword){
+                    if(success!!){
+                        intento = Intent(applicationContext, navigate::class.java)//Redirigimos a contactos
+                        intento.putExtra("id",cursor.getInt(0))
+                        ApplicationExt.add(cursor.getInt(0))
+                        cursor.moveToNext()
+                    }
                 }
-                gotIt = true
             }
             //if we get success
-            if (gotIt!!) {
-                startActivity(intento1)
+            if (gotIt) {
+                startActivity(intento)
             } else {
                 password.error = "The Password or Email is incorrect"
                 password.requestFocus()
@@ -332,4 +346,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
          */
         private val DUMMY_CREDENTIALS = arrayOf("foo@example.com:hello", "bar@example.com:world")
     }
+
+
 }
