@@ -76,6 +76,14 @@ class NoteRepository(application: Application) {
         return noteDao.getSameID(givenID)
     }
 
+    fun getUserIds(): List<User> {
+        return userDao.getUserIds()
+    }
+
+    fun getByMail(mail:String): List<User> {
+        return userDao.getByMail(mail)
+    }
+
     companion object {
         var counter: Int=0//will count every note in the database, this will be helpful to generate id.
 

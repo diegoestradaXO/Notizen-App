@@ -7,7 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import android.view.View
 import kotlinx.android.synthetic.main.activity_navegate.*
 
-class navegate : AppCompatActivity() {
+class navigate : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {

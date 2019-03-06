@@ -6,7 +6,8 @@ import com.example.efpro.notizen.data.Note.Note
 import com.example.efpro.notizen.data.NoteRepository
 import com.example.efpro.notizen.data.User.User
 
-class ContactViewModel(application: android.app.Application): AndroidViewModel(application){
+class NoteViewModel(application: android.app.Application): AndroidViewModel(application){
+
     private var repository : NoteRepository = NoteRepository(application)
     private var allNotes: LiveData<List<Note>> = repository.getAllNotes()
     private var allUsers: LiveData<List<User>> = repository.getAllUsers()
@@ -49,5 +50,17 @@ class ContactViewModel(application: android.app.Application): AndroidViewModel(a
 
     fun getAllUsers(): LiveData<List<User>> {
         return allUsers
+    }
+
+    fun getSameID(givenID :Int): Array<Note> {
+        return repository.getSameID(givenID)
+    }
+
+    fun getUserIds(): List<User> {
+        return repository.getUserIds()
+    }
+
+    fun getByMail(mail:String): List<User> {
+        return repository.getByMail(mail)
     }
 }

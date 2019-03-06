@@ -19,7 +19,7 @@ interface NoteDao {
     @Query("DELETE FROM note_table")
     fun deleteAllNotes()
 
-    @Query("SELECT * FROM note_table ORDER BY priority DESC")
+    @Query("SELECT * FROM note_table ORDER BY rating DESC")
     fun getAllNotes(): LiveData<List<Note>>
 
     @Query("SELECT * FROM note_table WHERE _id == :givenID")

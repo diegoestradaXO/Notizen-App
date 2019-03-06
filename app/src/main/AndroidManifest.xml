@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".navegate"
+                android:name=".navigate"
                 android:label="@string/title_activity_navegate">
         </activity>
         <activity android:name=".bar">

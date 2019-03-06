@@ -24,6 +24,9 @@ import android.widget.TextView
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
+import androidx.lifecycle.ViewModelProviders
+import com.example.efpro.notizen.ViewModel.NoteViewModel
+import com.example.efpro.notizen.data.User.User
 import com.example.efpro.notizen.models.ApplicationExt
 
 import kotlinx.android.synthetic.main.activity_login.*
@@ -32,19 +35,26 @@ import kotlinx.android.synthetic.main.activity_login.*
  * A login screen that offers login via email/password.
  */
 class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+    private lateinit var noteViewModel: NoteViewModel
+
     private var mAuthTask: UserLoginTask? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
         /*First Check if users are already logged in*/
+        noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
         for (item in ApplicationExt.contactlist){
-
+            for(user in noteViewModel.getUserIds()) {
+                if(item==user.id){
+                    val intento = Intent(this, navigate::class.java)//Redirigimos a contactos
+                    intento.putExtra("id",item)
+                    startActivity(intento)
+                    this.finish()
+                }
+            }
         }
-
         // Set up the login form.
         populateAutoComplete()
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
@@ -283,13 +293,22 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         override fun onPostExecute(success: Boolean?) {
             mAuthTask = null
             showProgress(false)
-
-            if (success!!) {
-                val intento1 = Intent(applicationContext, navegate::class.java)//
+            var gotIt = success
+            gotIt = false
+            val intento1 = Intent(applicationContext, navigate::class.java)//
+            //Now lets evaluate if it is in the database
+            for (user in noteViewModel.getByMail(mEmail)){
+                intento1.putExtra("id",user.id)
+                if(success!!){
+                    ApplicationExt.add(user.id)
+                }
+                gotIt = true
+            }
+            //if we get success
+            if (gotIt!!) {
                 startActivity(intento1)
-                finish()
             } else {
-                password.error = getString(R.string.error_incorrect_password)
+                password.error = "The Password or Email is incorrect"
                 password.requestFocus()
             }
         }
