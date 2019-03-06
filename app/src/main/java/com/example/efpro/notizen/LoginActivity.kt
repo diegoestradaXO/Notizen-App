@@ -24,6 +24,7 @@ import android.widget.TextView
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
+import com.example.efpro.notizen.models.ApplicationExt
 
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -39,6 +40,11 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        /*First Check if users are already logged in*/
+        for (item in ApplicationExt.contactlist){
+
+        }
+
         // Set up the login form.
         populateAutoComplete()
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
