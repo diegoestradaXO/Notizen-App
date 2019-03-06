@@ -72,6 +72,10 @@ class NoteRepository(application: Application) {
         return allUsers
     }
 
+    fun getSameID(givenID :Int):Array<Note>{
+        return noteDao.getSameID(givenID)
+    }
+
     companion object {
         var counter: Int=0//will count every note in the database, this will be helpful to generate id.
 
