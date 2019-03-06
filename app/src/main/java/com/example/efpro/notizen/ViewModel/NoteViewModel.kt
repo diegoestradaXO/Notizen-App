@@ -53,15 +53,15 @@ class NoteViewModel(application: android.app.Application): AndroidViewModel(appl
         return allUsers
     }
 
-    fun getSameID(givenID :Int): Cursor {
+    fun getSameID(givenID :Int): LiveData<List<Note>> {
         return repository.getSameID(givenID)
     }
 
-    fun getUserIds(): Cursor {
+    fun getUserIds(): LiveData<List<Int>> {
         return repository.getUserIds()
     }
 
-    fun getByMail(mail:String): Cursor {
+    fun getByMail(mail:String): LiveData<List<User>> {
         return repository.getByMail(mail)
     }
 }

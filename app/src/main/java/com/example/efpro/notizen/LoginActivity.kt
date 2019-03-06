@@ -34,6 +34,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 /**
  * A login screen that offers login via email/password.
  */
+@Suppress("CAST_NEVER_SUCCEEDS")
 class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     private lateinit var noteViewModel: NoteViewModel
 
@@ -47,6 +48,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
         for (item in ApplicationExt.contactlist){
             val cursor = noteViewModel.getUserIds()
+            for(item in )
             cursor.moveToFirst();
             val contador = 0
             while (cursor.isAfterLast() == false)
@@ -74,6 +76,27 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         })
 
         email_sign_in_button.setOnClickListener { attemptLogin() }
+    }
+
+    private fun login(success: Boolean?,mEmail:String,mPassword: String){
+        var gotIt = success
+        gotIt = false
+        var intento = Intent(applicationContext, navigate::class.java)//
+        //Now lets evaluate if it is in the database
+        val cursor = noteViewModel.getByMail(mEmail) as Cursor
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false)
+        {
+            if(cursor.getString(6)==mPassword){
+                if(success!!){
+                    intento = Intent(applicationContext, navigate::class.java)//Redirigimos a contactos
+                    intento.putExtra("id",cursor.getInt(0))
+                    ApplicationExt.add(cursor.getInt(0))
+                    cursor.moveToNext()
+                    this.finish()
+                }
+            }
+        }
     }
 
     private fun populateAutoComplete() {
@@ -301,26 +324,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         override fun onPostExecute(success: Boolean?) {
             mAuthTask = null
             showProgress(false)
-            var gotIt = success
-            gotIt = false
-            var intento = Intent(applicationContext, navigate::class.java)//
-            //Now lets evaluate if it is in the database
-            val cursor = noteViewModel.getByMail(mEmail)
-            cursor.moveToFirst();
-            while (cursor.isAfterLast() == false)
-            {
-                if(cursor.getString(6)==mPassword){
-                    if(success!!){
-                        intento = Intent(applicationContext, navigate::class.java)//Redirigimos a contactos
-                        intento.putExtra("id",cursor.getInt(0))
-                        ApplicationExt.add(cursor.getInt(0))
-                        cursor.moveToNext()
-                    }
-                }
-            }
             //if we get success
-            if (gotIt) {
-                startActivity(intento)
+            if (success!!) {
+                login(success,mEmail,mPassword)
             } else {
                 password.error = "The Password or Email is incorrect"
                 password.requestFocus()

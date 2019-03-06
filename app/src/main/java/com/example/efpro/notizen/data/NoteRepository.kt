@@ -1,7 +1,6 @@
 package com.example.efpro.notizen.data
 
 import android.app.Application
-import android.database.Cursor
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 import com.example.efpro.notizen.data.Note.Note
@@ -73,20 +72,53 @@ class NoteRepository(application: Application) {
         return allUsers
     }
 
-    fun getSameID(givenID :Int): Cursor {
+    fun getSameID(givenID :Int): LiveData<List<Note>> {
+       // val getSameIDAsyncTask=getSameIDAsyncTask(noteDao).execute(givenID)
         return noteDao.getSameID(givenID)
     }
 
-    fun getUserIds(): Cursor {
+    fun getUserIds(): LiveData<List<Int>> {
+        //val getUserIdsAsyncTask=getUserIdsAsyncTask(userDao).execute()
         return userDao.getUserIds()
     }
 
-    fun getByMail(mail:String): Cursor {
+    fun getByMail(mail:String): LiveData<List<User>> {
+        //val getByMailAsyincTask = getByMailAsyncTask(userDao).execute(mail)
         return userDao.getByMail(mail)
     }
 
     companion object {
         var counter: Int=0//will count every note in the database, this will be helpful to generate id.
+
+        /*
+        private class getSameIDAsyncTask(noteDao: NoteDao) : AsyncTask<Int, Unit, Unit>() {
+
+            val noteDao = noteDao
+
+            override fun doInBackground(vararg p0: Int?) {
+                noteDao.getSameID(p0)
+            }
+
+        }
+
+        private class getByMailAsyncTask(userDao: UserDao) : AsyncTask<String, Unit, Unit>() {
+
+            val userDao = userDao
+
+            override fun doInBackground(vararg p0: String?) {
+                userDao.getByMail(p0)
+            }
+        }
+
+        private class getUserIdsAsyncTask(userDao: UserDao) : AsyncTask<Unit, Unit, Unit>() {
+
+            val userDao = userDao
+
+            override fun doInBackground(vararg p0: Unit?) {
+                userDao.getUserIds()
+            }
+        }
+        */
 
         private class InsertNoteAsyncTask(noteDao: NoteDao) : AsyncTask<Note, Unit, Unit>() {
             val noteDao = noteDao
