@@ -17,32 +17,31 @@ import android.content.pm.PackageManager
 @Suppress("UNREACHABLE_CODE")
 class navigate : AppCompatActivity() {
 
-    val home:Fragment=com.example.efpro.notizen.fragments.home
     val manager = supportFragmentManager
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.home -> {
                 return@OnNavigationItemSelectedListener true
-                manager.beginTransaction().replace(R.id.fragment_container,home).commit()
+                manager.beginTransaction().replace(R.id.fragment_container, home()).commit()
             }
             R.id.Search -> {
                 return@OnNavigationItemSelectedListener true
-                manager.beginTransaction().replace(R.id.fragment_container,Search).commit()
+                manager.beginTransaction().replace(R.id.fragment_container, Search()).commit()
             }
             R.id.AddNote -> {
                 return@OnNavigationItemSelectedListener true
-                manager.beginTransaction().replace(R.id.fragment_container,addNote).commit()
+                manager.beginTransaction().replace(R.id.fragment_container, addNote()).commit()
             }
         }
-            false
+        return@OnNavigationItemSelectedListener false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navegate)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        manager.beginTransaction().replace(R.id.fragment_container,home).commit()
+        manager.beginTransaction().replace(R.id.fragment_container,home()).commit()
     }
 
 }
