@@ -53,15 +53,19 @@ class NoteViewModel(application: android.app.Application): AndroidViewModel(appl
         return allUsers
     }
 
-    fun getSameID(givenID :Int): LiveData<List<Note>> {
+    fun getSameID(givenID :Int): LiveData<List<Note>>? {
         return repository.getSameID(givenID)
     }
 
-    fun getUserIds(): LiveData<List<Int>> {
+    fun getUserIds(): LiveData<List<Int>>? {
         return repository.getUserIds()
     }
 
-    fun getByMail(mail:String): LiveData<List<User>> {
+    fun getByMail(mail:String): LiveData<List<User>>? {
         return repository.getByMail(mail)
+    }
+
+    fun getState(id:Int): LiveData<List<User>> {
+        return repository.getState(id)
     }
 }

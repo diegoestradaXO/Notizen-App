@@ -11,6 +11,7 @@ import com.example.efpro.notizen.data.Note.DateConverter
 data class User(
 
     var nombre: String,
+    @ColumnInfo(name = "email")
     var email: String,
     var biography: String, //gives the id of the note version, and 0 when it is the first version
     var followers:String,
@@ -24,4 +25,5 @@ data class User(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     var id:Int = 0
+
 }

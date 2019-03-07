@@ -72,53 +72,65 @@ class NoteRepository(application: Application) {
         return allUsers
     }
 
-    fun getSameID(givenID :Int): LiveData<List<Note>> {
-       // val getSameIDAsyncTask=getSameIDAsyncTask(noteDao).execute(givenID)
-        return noteDao.getSameID(givenID)
+    fun getSameID(givenID :Int): LiveData<List<Note>>? {
+       val getSameIDAsyncTask=getSameIDAsyncTask(noteDao).execute(givenID).get()
+        return  getSameIDAsyncTask
     }
 
-    fun getUserIds(): LiveData<List<Int>> {
-        //val getUserIdsAsyncTask=getUserIdsAsyncTask(userDao).execute()
-        return userDao.getUserIds()
+    fun getUserIds(): LiveData<List<Int>>? {
+        val getUserIdsAsyncTask=getUserIdsAsyncTask(userDao).execute().get()
+        return getUserIdsAsyncTask
     }
 
-    fun getByMail(mail:String): LiveData<List<User>> {
-        //val getByMailAsyincTask = getByMailAsyncTask(userDao).execute(mail)
-        return userDao.getByMail(mail)
+    fun getByMail(mail:String): LiveData<List<User>>? {
+        val getByMailAsyincTask = getByMailAsyncTask(userDao).execute(mail).get()
+        return getByMailAsyincTask
+    }
+
+    fun getState(id:Int): LiveData<List<User>> {
+        val getState = getByIdAsyncTask(userDao).execute(id).get()
+        return getState
     }
 
     companion object {
         var counter: Int=0//will count every note in the database, this will be helpful to generate id.
 
-        /*
-        private class getSameIDAsyncTask(noteDao: NoteDao) : AsyncTask<Int, Unit, Unit>() {
+        private class getByIdAsyncTask(userDao: UserDao) : AsyncTask<Int, Unit, LiveData<List<User>>>() {
+
+            val userDao = userDao
+
+            override fun doInBackground(vararg p0: Int?): LiveData<List<User>>? {
+                return userDao.getState(p0)
+            }
+
+        }
+
+        private class getSameIDAsyncTask(noteDao: NoteDao) : AsyncTask<Int, Unit, LiveData<List<Note>>>() {
 
             val noteDao = noteDao
 
-            override fun doInBackground(vararg p0: Int?) {
-                noteDao.getSameID(p0)
+            override fun doInBackground(vararg p0: Int?): LiveData<List<Note>> {
+                return noteDao.getSameID(p0)
             }
 
         }
 
-        private class getByMailAsyncTask(userDao: UserDao) : AsyncTask<String, Unit, Unit>() {
+        private class getByMailAsyncTask(userDao: UserDao) : AsyncTask<String, Unit, LiveData<List<User>>>() {
 
             val userDao = userDao
 
-            override fun doInBackground(vararg p0: String?) {
-                userDao.getByMail(p0)
+            override fun doInBackground(vararg p0: String?): LiveData<List<User>>? {
+                return userDao.getByMail(p0)
             }
         }
 
-        private class getUserIdsAsyncTask(userDao: UserDao) : AsyncTask<Unit, Unit, Unit>() {
+        private class getUserIdsAsyncTask(val userDao: UserDao) : AsyncTask<Unit, Unit, LiveData<List<Int>>>() {
 
-            val userDao = userDao
-
-            override fun doInBackground(vararg p0: Unit?) {
-                userDao.getUserIds()
+            override fun doInBackground(vararg p0: Unit?): LiveData<List<Int>> {
+                return userDao.getUserIds()
             }
         }
-        */
+
 
         private class InsertNoteAsyncTask(noteDao: NoteDao) : AsyncTask<Note, Unit, Unit>() {
             val noteDao = noteDao

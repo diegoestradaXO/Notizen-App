@@ -24,7 +24,9 @@ interface UserDao {
     @Query("SELECT _id from USER_TABLE")
     fun getUserIds(): LiveData<List<Int>>
 
-    @Query("SELECT * From user_table WHERE email == :mail")
-    fun getByMail(mail: String): LiveData<List<User>>
+    @Query("SELECT * From user_table u  WHERE u.email LIKE :mail")
+    fun getByMail(mail: Array<out String?>): LiveData<List<User>>
 
+    @Query("SELECT * From user_table u WHERE u._id LIKE :id")
+    fun getState(id: Array<out Int?>) :LiveData<List<User>>
 }

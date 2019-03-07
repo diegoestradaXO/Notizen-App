@@ -2,7 +2,6 @@ package com.example.efpro.notizen.data.Note
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.efpro.notizen.data.User.User
 
 @Dao
 interface NoteDao {
@@ -23,6 +22,6 @@ interface NoteDao {
     fun getAllNotes(): LiveData<List<Note>>
 
     @Query("SELECT * FROM note_table WHERE _id == :givenID")
-    fun getSameID(givenID: Int): LiveData<List<Note>>
+    fun getSameID(givenID: Array<out Int?>): LiveData<List<Note>>
 
 }

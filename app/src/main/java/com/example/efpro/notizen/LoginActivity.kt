@@ -21,50 +21,46 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
+import android.widget.Toast
+import androidx.annotation.Nullable
 import androidx.lifecycle.ViewModelProviders
 import com.example.efpro.notizen.ViewModel.NoteViewModel
 import com.example.efpro.notizen.data.User.User
-import com.example.efpro.notizen.models.ApplicationExt
 
 import kotlinx.android.synthetic.main.activity_login.*
+import java.lang.Exception
+import java.util.*
 
 /**
  * A login screen that offers login via email/password.
  */
 @Suppress("CAST_NEVER_SUCCEEDS")
 class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
-    private lateinit var noteViewModel: NoteViewModel
 
+    val allContacts: ArrayList<User> =  ArrayList()
+    private lateinit var noteViewModel: NoteViewModel
     private var mAuthTask: UserLoginTask? = null
+    var currentid: Int =0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         /*First Check if users are already logged in*/
-        noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
-        for (item in ApplicationExt.contactlist){
-            val cursor = noteViewModel.getUserIds()
-            for(item in )
-            cursor.moveToFirst();
-            val contador = 0
-            while (cursor.isAfterLast() == false)
-            {
-                if(item==cursor.getInt(0)){
-                    if(cursor.getInt(7)==1){
-                        val intento = Intent(this, navigate::class.java)//Redirigimos a contactos
-                        intento.putExtra("id",item)
-                        startActivity(intento)
-                        this.finish()
-                }
-                cursor.moveToNext()
-            }
 
+        noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
+        noteViewModel.getAllUsers().observe(this, androidx.lifecycle.Observer{
+            for (user in it){
+                allContacts.add(user)
             }
-        }
+        })
+        //val stuff = noteViewModel.getAllUsers().value
+        //for (user in stuff!!){
+          //  Toast.makeText(this,user.toString(),Toast.LENGTH_LONG).show()
+        //}
+
         // Set up the login form.
         populateAutoComplete()
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
@@ -78,25 +74,12 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         email_sign_in_button.setOnClickListener { attemptLogin() }
     }
 
-    private fun login(success: Boolean?,mEmail:String,mPassword: String){
-        var gotIt = success
-        gotIt = false
-        var intento = Intent(applicationContext, navigate::class.java)//
-        //Now lets evaluate if it is in the database
-        val cursor = noteViewModel.getByMail(mEmail) as Cursor
-        cursor.moveToFirst();
-        while (cursor.isAfterLast() == false)
-        {
-            if(cursor.getString(6)==mPassword){
-                if(success!!){
-                    intento = Intent(applicationContext, navigate::class.java)//Redirigimos a contactos
-                    intento.putExtra("id",cursor.getInt(0))
-                    ApplicationExt.add(cursor.getInt(0))
-                    cursor.moveToNext()
-                    this.finish()
-                }
-            }
-        }
+    //End Activity, people wont be able to return tho this activity once logged
+    private fun finalizar(){
+        val intento = Intent(this, navigate::class.java)//Redirigimos a contactos
+        intento.putExtra("id",currentid)
+        startActivity(intento)
+        this.finish()
     }
 
     private fun populateAutoComplete() {
@@ -161,7 +144,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         var focusView: View? = null
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
+        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr,emailStr)) {
             password.error = getString(R.string.error_invalid_password)
             focusView = password
             cancel = true
@@ -192,13 +175,29 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     private fun isEmailValid(email: String): Boolean {
-        //TODO: Replace this with your own logic
-        return email.contains("@")
+        for(item in allContacts){
+            if(email==item.email){
+                return true
+            }
+            else{
+                Toast.makeText(this,"The email is incorrect",Toast.LENGTH_LONG).show()
+            }
+        }
+        return false
     }
 
-    private fun isPasswordValid(password: String): Boolean {
-        //TODO: Replace this with your own logic
-        return password.length > 4
+    private fun isPasswordValid(password: String,mail:String): Boolean {
+        for(item in allContacts){
+            Toast.makeText(this,item.email+item.password,Toast.LENGTH_SHORT).show()
+            if(mail==item.email && password==item.password){
+                currentid = item.id
+                return true
+            }
+            else{
+                Toast.makeText(this,"Your password is incorrect",Toast.LENGTH_LONG).show()
+            }
+        }
+        return false
     }
 
     /**
@@ -326,9 +325,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             showProgress(false)
             //if we get success
             if (success!!) {
-                login(success,mEmail,mPassword)
+                finalizar()
             } else {
-                password.error = "The Password or Email is incorrect"
+                password.error = "Something went wrong"
                 password.requestFocus()
             }
         }
