@@ -24,37 +24,38 @@
             android:layout_marginVertical="130dp"
             style="@style/Theme.Design.NoActionBar"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buttonVersiones"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/camara"
-            android:layout_marginRight="100dp"
-            android:layout_gravity="top|right"
-            android:layout_marginVertical="130dp"
-            style="@style/Theme.Design.NoActionBar"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/save"
             android:layout_gravity="top|right"
-            android:layout_marginVertical="130dp"
+            android:layout_marginTop="70dp"
             style="@style/Theme.Design.NoActionBar"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buttonCompartir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/share"
-            android:layout_marginRight="50dp"
-            android:layout_gravity="top|right"
-            android:layout_marginVertical="130dp"
-            style="@style/Theme.Design.NoActionBar"/>
+
     <include
+            xmlns:android="http://schemas.android.com/apk/res/android"
             layout="@layout/activity_bar"
-            android:layout_width="match_parent"
-            android:id="@+id/bar"
-            android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android"/>
+            android:layout_width="match_parent" android:layout_height="match_parent"/>
+
     <LinearLayout android:layout_width="match_parent" android:layout_marginTop="70dp"  android:orientation="vertical" android:layout_height="match_parent">
 
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="vertical">
+                <TextView  android:layout_width="wrap_content"
+                          android:layout_height="wrap_content" android:text="CONTENT" android:textColor="@color/main"/>
+                <EditText android:layout_width="300dp" android:layout_height="wrap_content"
+                          android:id="@+id/content"
+                          android:textSize="11dp"
+                          android:inputType="textMultiLine"
+                          android:outlineSpotShadowColor="@android:color/black"
+                          android:textColorHighlight="@android:color/black"
+                          android:textColor="@android:color/black"
+                          android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </FrameLayout>

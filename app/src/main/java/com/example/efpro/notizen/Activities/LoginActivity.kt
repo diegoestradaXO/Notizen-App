@@ -25,9 +25,12 @@ import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import com.example.efpro.notizen.Activities.navigate.Companion.currentid
+import com.example.efpro.notizen.Activities.navigate.Companion.noteViewModel
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.ViewModel.NoteViewModel
 import com.example.efpro.notizen.data.User.User
+import com.example.efpro.notizen.models.ApplicationExt
 
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
@@ -38,10 +41,8 @@ import java.util.*
 @Suppress("CAST_NEVER_SUCCEEDS")
 class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
-    val allContacts: ArrayList<User> =  ArrayList()
-    private lateinit var noteViewModel: NoteViewModel
+
     private var mAuthTask: UserLoginTask? = null
-    var currentid: Int =0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +50,10 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
         noteViewModel.getAllUsers().observe(this, androidx.lifecycle.Observer{
             for (user in it){
-                allContacts.add(user)
+                ApplicationExt.add(user)
+                for (item in ApplicationExt.contactlist){
+                    Toast.makeText(this,item.nombre,Toast.LENGTH_SHORT).show()
+                }
             }
         })
         //val stuff = noteViewModel.getAllUsers().value
@@ -77,7 +81,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     //End Activity, people wont be able to return tho this activity once logged
     private fun finalizar(){
         val intento = Intent(this, navigate::class.java)//Redirigimos a contactos
-        intento.putExtra("id",currentid)
         startActivity(intento)
         this.finish()
     }
@@ -179,8 +182,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     private fun isEmailValid(email: String,pass: String): Boolean {
-        for(item in allContacts){
+        for(item in ApplicationExt.contactlist){
             if(email==item.email && item.password==pass){
+                ApplicationExt.currentid = item.id
                 return true
             }
         }
@@ -334,6 +338,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         /**
          * Id to identity READ_CONTACTS permission request.
          */
+
+
         private val REQUEST_READ_CONTACTS = 0
 
         /**

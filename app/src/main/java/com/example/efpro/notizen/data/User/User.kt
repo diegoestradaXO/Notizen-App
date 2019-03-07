@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.efpro.notizen.data.Note.DateConverter
+import com.example.efpro.notizen.models.LocalUser
 
 @Entity(tableName = "user_table")
 @TypeConverters(DateConverter::class)
@@ -25,5 +26,9 @@ data class User(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     var id:Int = 0
+
+    fun compare(user: User): Boolean {
+        return (this.id!=user.id)//devolvemos el resultado
+    }
 
 }
