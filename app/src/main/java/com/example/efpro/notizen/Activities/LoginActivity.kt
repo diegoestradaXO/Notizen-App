@@ -183,9 +183,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             if(email==item.email && item.password==pass){
                 return true
             }
-            else{
-                Toast.makeText(this,"The email or password is incorrect",Toast.LENGTH_LONG).show()
-            }
         }
         return false
     }

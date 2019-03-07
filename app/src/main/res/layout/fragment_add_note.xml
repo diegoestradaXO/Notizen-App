@@ -2,8 +2,54 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
+             android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
              tools:context=".fragments.addNote">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonAudio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/audio"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginVertical="70dp"
+            style="@style/Theme.Design.NoActionBar"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonCamara"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/camara"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginVertical="130dp"
+            style="@style/Theme.Design.NoActionBar"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonVersiones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/camara"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginVertical="130dp"
+            style="@style/Theme.Design.NoActionBar"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonGuardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/camara"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginVertical="130dp"
+            style="@style/Theme.Design.NoActionBar"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonCompartir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/camara"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginVertical="130dp"
+            style="@style/Theme.Design.NoActionBar"/>
     <include
             layout="@layout/activity_bar"
             android:layout_width="match_parent"
