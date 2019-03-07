@@ -1,10 +1,9 @@
-package com.example.efpro.notizen
+package com.example.efpro.notizen.Activities
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import android.view.View
+import com.example.efpro.notizen.R
 import kotlinx.android.synthetic.main.activity_navegate.*
 
 class navigate : AppCompatActivity() {

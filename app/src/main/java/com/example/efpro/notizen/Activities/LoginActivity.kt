@@ -1,4 +1,4 @@
-package com.example.efpro.notizen
+package com.example.efpro.notizen.Activities
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -22,14 +22,12 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 
 import android.Manifest.permission.READ_CONTACTS
-import android.content.ContentValues
 import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import com.example.efpro.notizen.R
 import com.example.efpro.notizen.ViewModel.NoteViewModel
 import com.example.efpro.notizen.data.User.User
-import com.example.efpro.notizen.models.ApplicationExt
-import com.example.efpro.notizen.models.LocalUser
 
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
@@ -102,9 +100,13 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(email, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                 .setAction(android.R.string.ok,
-                    { requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS) })
+                    { requestPermissions(arrayOf(READ_CONTACTS),
+                        REQUEST_READ_CONTACTS
+                    ) })
         } else {
-            requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS)
+            requestPermissions(arrayOf(READ_CONTACTS),
+                REQUEST_READ_CONTACTS
+            )
         }
         return false
     }

@@ -16,7 +16,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
-                android:name=".LoginActivity"
+                android:name=".Activities.LoginActivity"
                 android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,12 +25,12 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".navigate"
+                android:name=".Activities.navigate"
                 android:label="@string/title_activity_navegate">
         </activity>
         <activity android:name=".bar">
         </activity>
-        <activity android:name=".sign">
+        <activity android:name=".Activities.sign">
         </activity>
     </application>
 
