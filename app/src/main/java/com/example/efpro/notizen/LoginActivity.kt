@@ -22,15 +22,16 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 
 import android.Manifest.permission.READ_CONTACTS
+import android.content.ContentValues
 import android.content.Intent
 import android.widget.Toast
-import androidx.annotation.Nullable
 import androidx.lifecycle.ViewModelProviders
 import com.example.efpro.notizen.ViewModel.NoteViewModel
 import com.example.efpro.notizen.data.User.User
+import com.example.efpro.notizen.models.ApplicationExt
+import com.example.efpro.notizen.models.LocalUser
 
 import kotlinx.android.synthetic.main.activity_login.*
-import java.lang.Exception
 import java.util.*
 
 /**
@@ -47,9 +48,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        /*First Check if users are already logged in*/
-
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
         noteViewModel.getAllUsers().observe(this, androidx.lifecycle.Observer{
             for (user in it){
