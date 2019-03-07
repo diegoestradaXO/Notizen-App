@@ -65,7 +65,14 @@
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:textColorHint="@android:color/black"/>
+                            android:textColorHint="@android:color/black"
+                            android:outlineAmbientShadowColor="@android:color/black"
+                            android:shadowColor="@android:color/black"
+                            android:textColorLink="@android:color/black"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:textColor="@android:color/black"
+                            android:textColorHighlight="@android:color/black"
+                            style="@android:style/Widget.Holo.AutoCompleteTextView"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,7 +81,13 @@
                         android:layout_height="wrap_content">
 
                     <EditText
+                            android:outlineAmbientShadowColor="@android:color/black"
+                            android:shadowColor="@android:color/black"
+                            android:textColorLink="@android:color/black"
                             android:id="@+id/password"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:textColor="@android:color/black"
+                            android:textColorHighlight="@android:color/black"
                             android:textColorHint="@android:color/black"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -84,7 +97,7 @@
                             android:imeOptions="actionUnspecified"
                             android:inputType="textPassword"
                             android:maxLines="1"
-                            android:singleLine="true"/>
+                            android:singleLine="true" style="@style/Widget.AppCompat.EditText"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,21 +109,21 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/login"
-                        android:textStyle="bold" android:background="@color/main"/>
+                        android:textStyle="bold" android:background="@color/main" android:textColor="@color/white"/>
 
                 <TextView
                         android:layout_marginTop="15dp"
                         android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="OR" android:layout_gravity="center" android:textColor="@android:color/black"/>
 
                 <Button
-                        android:id="@+id/email_sign_in_button"
+                        android:id="@+id/sign_in"
                         style="@style/Widget.AppCompat.Button"
                         android:layout_width="250dp"
                         android:layout_gravity="center"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="SIGN IN"
-                        android:textStyle="bold" android:background="@color/main"/>
+                        android:textStyle="bold" android:background="@color/main" android:textColor="@color/white"/>
 
             </LinearLayout>
         </ScrollView>

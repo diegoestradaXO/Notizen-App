@@ -70,8 +70,12 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             }
             false
         })
-
-        email_sign_in_button.setOnClickListener { attemptLogin() }
+        sign_in.setOnClickListener{
+            val intento = Intent(this, sign::class.java)//Redirigimos a contactos
+            startActivity(intento)
+            this.finish()
+        }
+        login.setOnClickListener { attemptLogin() }
     }
 
     //End Activity, people wont be able to return tho this activity once logged
