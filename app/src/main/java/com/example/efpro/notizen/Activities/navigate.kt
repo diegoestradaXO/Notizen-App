@@ -22,16 +22,16 @@ class navigate : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.home -> {
-                return@OnNavigationItemSelectedListener true
                 manager.beginTransaction().replace(R.id.fragment_container, home()).commit()
+                return@OnNavigationItemSelectedListener true
             }
             R.id.Search -> {
-                return@OnNavigationItemSelectedListener true
                 manager.beginTransaction().replace(R.id.fragment_container, Search()).commit()
+                return@OnNavigationItemSelectedListener true
             }
             R.id.AddNote -> {
-                return@OnNavigationItemSelectedListener true
                 manager.beginTransaction().replace(R.id.fragment_container, addNote()).commit()
+                return@OnNavigationItemSelectedListener true
             }
         }
         return@OnNavigationItemSelectedListener false
@@ -41,7 +41,7 @@ class navigate : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navegate)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        manager.beginTransaction().replace(R.id.fragment_container,home()).commit()
+        manager.beginTransaction().replace(R.id.fragment_container, home()).commit()
     }
 
 }

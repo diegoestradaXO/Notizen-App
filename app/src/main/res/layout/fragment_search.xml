@@ -5,10 +5,24 @@
              android:layout_height="match_parent"
              tools:context=".fragments.Search">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <include
+            layout="@layout/activity_bar"
+            android:layout_width="match_parent"
+            android:id="@+id/bar"
+            android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <SearchView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:layout_marginTop="90dp"/>
+    <LinearLayout android:layout_width="match_parent"   android:orientation="vertical" android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/list_item"
+                tools:itemCount="5"
+        />
+    </LinearLayout>
 
 </FrameLayout>

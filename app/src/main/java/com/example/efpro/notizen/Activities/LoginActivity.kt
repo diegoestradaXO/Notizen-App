@@ -192,11 +192,13 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
     private fun isPasswordValid(password: String,mail:String): Boolean {
         for(item in allContacts){
-            Toast.makeText(this,item.email+item.password,Toast.LENGTH_SHORT).show()
-            if(mail==item.email && password==item.password){
-                currentid = item.id
-                return true
+            if(mail==item.email){
+                if(password==item.password){
+                    currentid = item.id
+                    return password.length>0
+                }
             }
+
             else{
                 Toast.makeText(this,"Your password is incorrect",Toast.LENGTH_LONG).show()
             }
