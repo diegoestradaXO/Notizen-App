@@ -148,7 +148,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         var focusView: View? = null
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr,emailStr)) {
+        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
             password.error = getString(R.string.error_invalid_password)
             focusView = password
             cancel = true
@@ -159,7 +159,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             email.error = getString(R.string.error_field_required)
             focusView = email
             cancel = true
-        } else if (!isEmailValid(emailStr)) {
+        } else if (!isEmailValid(emailStr,passwordStr)) {
             email.error = getString(R.string.error_invalid_email)
             focusView = email
             cancel = true
@@ -178,32 +178,20 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         }
     }
 
-    private fun isEmailValid(email: String): Boolean {
+    private fun isEmailValid(email: String,pass: String): Boolean {
         for(item in allContacts){
-            if(email==item.email){
+            if(email==item.email && item.password==pass){
                 return true
             }
             else{
-                Toast.makeText(this,"The email is incorrect",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"The email or password is incorrect",Toast.LENGTH_LONG).show()
             }
         }
         return false
     }
 
-    private fun isPasswordValid(password: String,mail:String): Boolean {
-        for(item in allContacts){
-            if(mail==item.email){
-                if(password==item.password){
-                    currentid = item.id
-                    return password.length>0
-                }
-            }
-
-            else{
-                Toast.makeText(this,"Your password is incorrect",Toast.LENGTH_LONG).show()
-            }
-        }
-        return false
+    private fun isPasswordValid(password: String): Boolean {
+        return password.length>4
     }
 
     /**
