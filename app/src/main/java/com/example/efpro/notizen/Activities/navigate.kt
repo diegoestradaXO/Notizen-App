@@ -17,7 +17,6 @@ import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.example.efpro.notizen.R.id.home
-import com.example.efpro.notizen.ViewModel.NoteViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.list_item.*
 import java.util.ArrayList
@@ -28,7 +27,6 @@ class navigate : AppCompatActivity() {
 
     companion object {
         var currentid: Int =0
-        lateinit var noteViewModel: NoteViewModel
 
     }
 
