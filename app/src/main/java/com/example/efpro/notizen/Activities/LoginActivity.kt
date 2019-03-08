@@ -29,8 +29,6 @@ import com.example.efpro.notizen.Activities.navigate.Companion.currentid
 import com.example.efpro.notizen.Activities.navigate.Companion.noteViewModel
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.ViewModel.NoteViewModel
-import com.example.efpro.notizen.data.User.User
-import com.example.efpro.notizen.models.ApplicationExt
 
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
@@ -47,15 +45,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
-        noteViewModel.getAllUsers().observe(this, androidx.lifecycle.Observer{
-            for (user in it){
-                ApplicationExt.add(user)
-                for (item in ApplicationExt.contactlist){
-                    Toast.makeText(this,item.nombre,Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
+
         //val stuff = noteViewModel.getAllUsers().value
         //for (user in stuff!!){
           //  Toast.makeText(this,user.toString(),Toast.LENGTH_LONG).show()
@@ -89,8 +79,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         if (!mayRequestContacts()) {
             return
         }
-
-        loaderManager.initLoader(0, null, this)
     }
 
     private fun mayRequestContacts(): Boolean {
@@ -182,13 +170,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     private fun isEmailValid(email: String,pass: String): Boolean {
-        for(item in ApplicationExt.contactlist){
-            if(email==item.email && item.password==pass){
-                ApplicationExt.currentid = item.id
-                return true
-            }
-        }
-        return false
+        return true
     }
 
     private fun isPasswordValid(password: String): Boolean {
