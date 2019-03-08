@@ -14,9 +14,13 @@ import com.example.efpro.notizen.fragments.home
 import android.content.Intent
 import android.content.Intent.*
 import android.content.pm.PackageManager
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.example.efpro.notizen.R.id.home
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.activity_emailpassword.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.list_item.*
 import java.util.ArrayList
@@ -24,11 +28,11 @@ import java.util.ArrayList
 @Suppress("UNREACHABLE_CODE")
 class navigate : AppCompatActivity() {
 
-
+    // [START declare_auth]
     companion object {
-        var currentid: Int =0
-
+        lateinit var auth: FirebaseAuth
     }
+
 
     val manager = supportFragmentManager
 
@@ -55,6 +59,10 @@ class navigate : AppCompatActivity() {
         setContentView(R.layout.activity_navegate)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         manager.beginTransaction().replace(R.id.fragment_container, home()).commit()
+        auth = FirebaseAuth.getInstance()
+
     }
+
+
 
 }

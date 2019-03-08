@@ -4,16 +4,31 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.app.Fragment
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import com.example.efpro.notizen.Activities.LoginActivity
+import com.example.efpro.notizen.Activities.navigate
+import com.example.efpro.notizen.Activities.navigate.Companion.auth
 
 import com.example.efpro.notizen.R
+import com.example.efpro.notizen.R.layout.fragment_home
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.activity_emailpassword.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlin.math.sign
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private lateinit var auth: FirebaseAuth
+
 
 /**
  * A simple [Fragment] subclass.
@@ -24,7 +39,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class home : androidx.fragment.app.Fragment(){
+class home : androidx.fragment.app.Fragment(), View.OnClickListener{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -35,7 +50,10 @@ class home : androidx.fragment.app.Fragment(){
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+            auth = FirebaseAuth.getInstance()
         }
+
+
     }
 
     override fun onCreateView(
@@ -43,7 +61,21 @@ class home : androidx.fragment.app.Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val btn: Button = view.findViewById(R.id.signout)
+        btn.setOnClickListener(this)
+        return view
+    }
+
+
+    override fun onClick(v: View?) = when (v?.id) {
+        R.id.signout -> {
+            navigate.auth.signOut()
+            val intento = Intent(activity, LoginActivity::class.java)//Redirigimos a contactos
+            startActivity(intento)
+        }
+        else -> {
+        }
     }
 /*
     // TODO: Rename method, update argument and hook method into UI event
@@ -100,4 +132,5 @@ class home : androidx.fragment.app.Fragment(){
                 }
             }
     }*/
+
 }
