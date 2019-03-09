@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="350dp"
+              android:layout_height="wrap_content"
+android:background="@color/main">
+    <ImageView
+            android:layout_marginTop="20dp"
+            android:src="@drawable/logo"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/app_name" />
+    <Switch
+            android:layout_marginTop="30dp"
+            android:text="PRIVACITY   "
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/switch1"/>
+
+    <EditText
+            android:id="@+id/title"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:textColorHint="@color/white"
+            android:hint="TIITLE" />
+    <EditText
+            android:id="@+id/description"
+            android:textColorHint="@color/white"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif"
+            android:hint="Description"/>
+    <LinearLayout android:layout_width="wrap_content" android:layout_gravity="center" android:layout_height="wrap_content">
+        <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp" app:srcCompat="@android:drawable/ic_menu_today"
+                android:id="@+id/versiones"/>
+        <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp" app:srcCompat="@android:drawable/ic_menu_set_as"
+                android:id="@+id/share"/>
+
+    </LinearLayout>
+
+</LinearLayout>

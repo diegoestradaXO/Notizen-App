@@ -8,8 +8,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
-
+import com.example.efpro.notizen.Activities.navigate
+import com.example.efpro.notizen.models.Nota
 import com.example.efpro.notizen.R
+import com.example.efpro.notizen.models.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import android.R.string.cancel
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
+import android.content.Intent
+import android.widget.Button
+import android.widget.EditText
+import androidx.fragment.app.DialogFragment
+import com.example.efpro.notizen.Activities.LoginActivity
+import com.example.efpro.notizen.Dialog.ExampleDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_add_note.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,10 +43,11 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class addNote : androidx.fragment.app.Fragment(){
+class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDialog.ExampleDialogListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var database: DatabaseReference
     //private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,15 +56,45 @@ class addNote : androidx.fragment.app.Fragment(){
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        database = FirebaseDatabase.getInstance().reference
     }
 
+    override fun applyTexts(tittle: String, description: String) {
+        prueba.setText(tittle)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_note, container, false)
+        val view = inflater.inflate(R.layout.fragment_add_note, container, false)
+        val btn: FloatingActionButton = view.findViewById(R.id.buttonGuardar)
+        btn.setOnClickListener(this)
+
+        return view
     }
+
+    override fun onClick(v: View?) = when (v?.id) {
+        R.id.buttonGuardar -> {
+            openDialog()
+        }
+        else -> {
+        }
+    }
+
+    private fun writeNewUser(userId: String, name: String, email: String) {
+
+        val currentuser = navigate.auth.currentUser
+        //val note = Nota()
+
+        //database.child("users").child(userId).setValue(user)
+    }
+
+    fun openDialog(): Unit {
+        val exampleDialog = ExampleDialog()
+        exampleDialog.show(this.fragmentManager!!,"example dialog")
+    }
+
 /*
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {

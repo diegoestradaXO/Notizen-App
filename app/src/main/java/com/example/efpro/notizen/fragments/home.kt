@@ -18,6 +18,8 @@ import com.example.efpro.notizen.R
 import com.example.efpro.notizen.R.layout.fragment_home
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_emailpassword.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -43,6 +45,9 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var database: DatabaseReference
+// ...
+
    // private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +57,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
             param2 = it.getString(ARG_PARAM2)
             auth = FirebaseAuth.getInstance()
         }
+        database = FirebaseDatabase.getInstance().reference
 
 
     }
