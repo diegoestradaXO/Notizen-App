@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.models.Nota
@@ -13,8 +14,9 @@ import kotlinx.android.synthetic.main.list_item.*
 import kotlinx.android.synthetic.main.list_item.view.*
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.internal.ContextUtils.getActivity
 
-class NotaAdapter : ListAdapter<Nota, NotaAdapter.NotaHolder>(DIFF_CALLBACK) {
+class NoteAdapter : ListAdapter<Nota, NoteAdapter.NotaHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Nota>() {
@@ -38,7 +40,6 @@ class NotaAdapter : ListAdapter<Nota, NotaAdapter.NotaHolder>(DIFF_CALLBACK) {
 
     override fun onBindViewHolder(holder: NotaHolder, position: Int) {
         val currentNote: Nota = getItem(position)
-
         holder.textViewNombre.text = currentNote.userid
         holder.textViewTitle.text = currentNote.nombre
         holder.textViewDescription.text = currentNote.descripcion

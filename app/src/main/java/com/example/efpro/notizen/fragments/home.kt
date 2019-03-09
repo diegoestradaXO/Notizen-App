@@ -11,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,9 +20,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.efpro.notizen.Activities.LoginActivity
 import com.example.efpro.notizen.Activities.navigate
 import com.example.efpro.notizen.Activities.navigate.Companion.auth
+import com.example.efpro.notizen.Adapters.NoteAdapter
 
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.R.layout.fragment_home
+import com.example.efpro.notizen.ViewHolder.NoteViewModel
 import com.example.efpro.notizen.models.Nota
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -51,7 +55,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var database: DatabaseReference
-    private lateinit var listData: List<Nota>
+    private lateinit var listData: MutableList<Nota>
 // ...
 
    // private var listener: OnFragmentInteractionListener? = null
@@ -65,22 +69,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         }
         database = FirebaseDatabase.getInstance().reference
     }
-    /*
-    val postListener: ValueEventListener = ValueEventListener{
-        override fun onDataChange(DataSnapshot dataSnapshot) {
-            // Get Post object and use the values to update the UI
-            Nota post = dataSnapshot.getValue(Nota.class);
-            // ...
-        }
 
-        override fun onCancelled(DatabaseError databaseError) {
-            // Getting Post failed, log a message
-            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            // ...
-        }
-    };
-    mPostReference.addValueEventListener(postListener);
-*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -88,24 +77,39 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val btn: Button = view.findViewById(R.id.signout)
-        var recycler_view = view!!.findViewById(R.id.recycler_view) as RecyclerView
+        val reference=database.ref
+        reference.addValueEventListener(object :ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.exists())
+                    for (h in p0.children){
+                        val note = h.getValue(Nota::class.java)
+                        NoteViewModel.allNotes.add(note!!)
+                    }
+            }
+
+        })
+        val recycler_view = view!!.findViewById(R.id.recycler_view) as RecyclerView
         recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         recycler_view.setHasFixedSize(true)
         recycler_view.itemAnimator = DefaultItemAnimator()
         recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
-        var FirebaseRecyclerAdapter = object : FirebaseRecyclerAdapter<notes,noteViewHolder>(
-
-        )
+        val adapter = NoteAdapter()
+        for (user in NoteViewModel.allNotes){
+            Toast.makeText(activity,"nombre:"+user.userid+" titulo:"+user.nombre+" descripcion:"+user.descripcion,Toast.LENGTH_LONG).show()
+        }
+        adapter.submitList(NoteViewModel.allNotes)
+        recycler_view.adapter = adapter
         btn.setOnClickListener(this)
         return view
     }
 
 
 
-    fun getDataFirebase(){
-        val reference = database.ref
 
-    }
 
     override fun onClick(v: View?) = when (v?.id) {
         R.id.signout -> {
@@ -171,5 +175,6 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                 }
             }
     }*/
+
 
 }
