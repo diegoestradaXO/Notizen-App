@@ -22,10 +22,12 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.efpro.notizen.Activities.LoginActivity
 import com.example.efpro.notizen.Dialog.ExampleDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.add_dialog.*
 import kotlinx.android.synthetic.main.fragment_add_note.*
 
 
@@ -50,6 +52,10 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
     private lateinit var database: DatabaseReference
     //private var listener: OnFragmentInteractionListener? = null
 
+    companion object {
+        var tittle = ""
+        var descripcion = ""
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -62,6 +68,7 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
     override fun applyTexts(tittle: String, description: String) {
         prueba.setText(tittle)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,7 +77,6 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
         val view = inflater.inflate(R.layout.fragment_add_note, container, false)
         val btn: FloatingActionButton = view.findViewById(R.id.buttonGuardar)
         btn.setOnClickListener(this)
-
         return view
     }
 
@@ -82,16 +88,9 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
         }
     }
 
-    private fun writeNewUser(userId: String, name: String, email: String) {
-
-        val currentuser = navigate.auth.currentUser
-        //val note = Nota()
-
-        //database.child("users").child(userId).setValue(user)
-    }
-
     fun openDialog(): Unit {
         val exampleDialog = ExampleDialog()
+        exampleDialog.content=content.text.toString()
         exampleDialog.show(this.fragmentManager!!,"example dialog")
     }
 

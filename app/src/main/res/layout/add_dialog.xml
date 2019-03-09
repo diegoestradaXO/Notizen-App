@@ -19,7 +19,6 @@ android:background="@color/main">
 
     <EditText
             android:id="@+id/title"
-            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -31,7 +30,6 @@ android:background="@color/main">
     <EditText
             android:id="@+id/description"
             android:textColorHint="@color/white"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -40,6 +38,18 @@ android:background="@color/main">
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif"
             android:hint="Description"/>
+    <EditText
+            android:id="@+id/tags"
+            android:textColorHint="@color/white"
+            android:textSize="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif"
+            android:hint="tags separated by comas"/>
     <LinearLayout android:layout_width="wrap_content" android:layout_gravity="center" android:layout_height="wrap_content">
         <ImageButton
                 android:layout_width="50dp"
