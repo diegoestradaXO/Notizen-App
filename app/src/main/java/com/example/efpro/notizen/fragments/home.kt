@@ -11,6 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.efpro.notizen.Activities.LoginActivity
 import com.example.efpro.notizen.Activities.navigate
 import com.example.efpro.notizen.Activities.navigate.Companion.auth
@@ -20,10 +24,7 @@ import com.example.efpro.notizen.R.layout.fragment_home
 import com.example.efpro.notizen.models.Nota
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_emailpassword.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -50,6 +51,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var database: DatabaseReference
+    private lateinit var listData: List<Nota>
 // ...
 
    // private var listener: OnFragmentInteractionListener? = null
@@ -62,7 +64,6 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
             auth = FirebaseAuth.getInstance()
         }
         database = FirebaseDatabase.getInstance().reference
-
     }
     /*
     val postListener: ValueEventListener = ValueEventListener{
@@ -87,10 +88,24 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val btn: Button = view.findViewById(R.id.signout)
+        var recycler_view = view!!.findViewById(R.id.recycler_view) as RecyclerView
+        recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
+        recycler_view.setHasFixedSize(true)
+        recycler_view.itemAnimator = DefaultItemAnimator()
+        recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
+        var FirebaseRecyclerAdapter = object : FirebaseRecyclerAdapter<notes,noteViewHolder>(
+
+        )
         btn.setOnClickListener(this)
         return view
     }
 
+
+
+    fun getDataFirebase(){
+        val reference = database.ref
+
+    }
 
     override fun onClick(v: View?) = when (v?.id) {
         R.id.signout -> {
