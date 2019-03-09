@@ -77,12 +77,13 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val btn: Button = view.findViewById(R.id.signout)
+
+       /*Here starts how to read contacts and place them in recycle view*/
         val reference=database.ref
         reference.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
-
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists())
                     for (h in p0.children){
@@ -103,6 +104,10 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         }
         adapter.submitList(NoteViewModel.allNotes)
         recycler_view.adapter = adapter
+        /*Here it ends*/
+
+
+
         btn.setOnClickListener(this)
         return view
     }
