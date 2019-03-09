@@ -10,8 +10,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.efpro.notizen.R
+import com.example.efpro.notizen.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_emailpassword.detail
 import kotlinx.android.synthetic.main.activity_emailpassword.emailCreateAccountButton
 import kotlinx.android.synthetic.main.activity_emailpassword.emailPasswordButtons
@@ -195,6 +197,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             signedInButtons.visibility = View.VISIBLE
 
             verifyEmailButton.isEnabled = !user.isEmailVerified
+            writeNewUser()
+
         } else {
             status.setText(R.string.signed_out)
             detail.text = null
@@ -203,6 +207,17 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             emailPasswordFields.visibility = View.VISIBLE
             signedInButtons.visibility = View.GONE
         }
+    }
+
+    private fun writeNewUser(
+    ) {
+        var mDatabase = FirebaseDatabase.getInstance().reference
+        val user = auth.currentUser
+        val seguidores = listOf<String>(user!!.uid)
+        val seguidos= listOf<String>(user.uid)
+        val newuser= User(user.uid, user.email!!,"","",seguidores,seguidos)
+        mDatabase.child("users").child(user.uid).setValue(newuser)
+
     }
 
     override fun onClick(v: View) {

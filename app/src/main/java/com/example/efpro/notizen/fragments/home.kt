@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.app.Fragment
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,10 +17,13 @@ import com.example.efpro.notizen.Activities.navigate.Companion.auth
 
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.R.layout.fragment_home
+import com.example.efpro.notizen.models.Nota
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_emailpassword.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -59,9 +63,23 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         }
         database = FirebaseDatabase.getInstance().reference
 
-
     }
+    /*
+    val postListener: ValueEventListener = ValueEventListener{
+        override fun onDataChange(DataSnapshot dataSnapshot) {
+            // Get Post object and use the values to update the UI
+            Nota post = dataSnapshot.getValue(Nota.class);
+            // ...
+        }
 
+        override fun onCancelled(DatabaseError databaseError) {
+            // Getting Post failed, log a message
+            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            // ...
+        }
+    };
+    mPostReference.addValueEventListener(postListener);
+*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

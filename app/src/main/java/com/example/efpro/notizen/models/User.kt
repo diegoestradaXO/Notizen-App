@@ -5,6 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 class User {
 
+    lateinit var id:String
     lateinit var email: String
     lateinit var biografia:String
     lateinit var nombre:String
@@ -15,12 +16,20 @@ class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    constructor(email: String,biografia:String,nombre:String,seguidores:List<String>,seguidos: List<String>) {
+    constructor(
+        id:String,
+        email: String,
+        biografia:String,
+        nombre:String,
+        seguidores: List<String>,
+        seguidos: List<String>
+    ) {
+        this.id=id
         this.biografia = biografia
         this.email = email
         this.nombre=nombre
-        this.seguidores=seguidores
-        this.seguidos=seguidos
+        this.seguidores= seguidores
+        this.seguidos= seguidos
     }
 
 }

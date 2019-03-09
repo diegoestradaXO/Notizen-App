@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatDialogFragment
+import com.example.efpro.notizen.Activities.navigate
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.fragments.addNote
 import com.example.efpro.notizen.models.Nota
@@ -14,6 +15,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.add_dialog.*
 import java.lang.ClassCastException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ExampleDialog : AppCompatDialogFragment() {
     private var tittle: EditText? = null
@@ -36,9 +39,11 @@ class ExampleDialog : AppCompatDialogFragment() {
             .setPositiveButton("SAVE") {dialog,which ->
                 addNote.tittle = tittle!!.getText().toString()
                 addNote.descripcion = description!!.getText().toString()
-                val versiones = listOf<String>("0",content,"08/03/2019")
+                val sdf = SimpleDateFormat("dd/M/yyyy")
+                val currentDate = sdf.format(Date())
+                val versiones = listOf<String>("0",content,currentDate)
                 val versiones1= listOf<List<String>>(versiones)
-                writeNewNote(tittle!!.text.toString(), description!!.text.toString(), swich1!!.isChecked,
+                writeNewNote(tittle!!.text.toString(), description!!.text.toString  (), swich1!!.isChecked,
                     tags!!.text.toString().split(",".toRegex()),versiones1)
 
             }
@@ -58,8 +63,10 @@ class ExampleDialog : AppCompatDialogFragment() {
         etiquetas:List<String>,
         versiones: List<List<String>>
     ) {
-        val note= Nota(nombre,descripcion,etiquetas,versiones,privacidad)
+        val user = navigate.auth.currentUser
+        val note= Nota(nombre,descripcion,etiquetas,versiones,privacidad, user!!.uid)
         mDatabase.child("notes").child(nombre).setValue(note)
+
     }
 
     override fun onAttach(context: Context) {
