@@ -72,7 +72,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val btn: Button = view.findViewById(R.id.signout)
-
+        val edit: Button = view.findViewById(R.id.editbutton)
 
         val reference = database
         val referencia = FirebaseDatabase.getInstance().getReference("users")
@@ -173,6 +173,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
             }
         })
         btn.setOnClickListener(this)
+        edit.setOnClickListener(this)
         return view
     }
 
@@ -190,7 +191,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
             val intento = Intent(activity, LoginActivity::class.java)//Redirigimos a contactos
             startActivity(intento)
         }
-        R.id.edit-> {
+        R.id.editbutton-> {
             val intento = Intent(activity,  EditUser::class.java)//Redirigimos a contactos
             startActivity(intento)
         }

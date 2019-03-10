@@ -64,7 +64,7 @@
                         android:theme="@style/ThemeOverlay.MyDarkButton"
                         android:text="EDIT"
                         android:layout_width="95dp"
-                        android:layout_height="40dp" android:id="@+id/edit"/>
+                        android:layout_height="40dp" android:id="@+id/editbutton"/>
 
             </LinearLayout>
 
