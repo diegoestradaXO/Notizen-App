@@ -12,6 +12,7 @@ class Nota {
     var versiones : List<List<String>>? = null
     var privacidad : String? = null
     var userid: String? = null
+    var id:String?=null
 
     constructor() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -29,6 +30,7 @@ class Nota {
         this.versiones=versiones
         this.privacidad=privacidad
         this.userid=userid
+        this.id=nombre+userid
     }
 
 }

@@ -26,7 +26,7 @@ android:background="@color/main">
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
             android:textColorHint="@color/white"
-            android:hint="TIITLE" />
+            android:hint="TIITLE" android:inputType="text"/>
     <EditText
             android:id="@+id/description"
             android:textColorHint="@color/white"
@@ -37,7 +37,7 @@ android:background="@color/main">
             android:layout_marginRight="4dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif"
-            android:hint="Description"/>
+            android:hint="Description" android:inputType="text"/>
     <EditText
             android:id="@+id/tags"
             android:textColorHint="@color/white"
@@ -49,7 +49,7 @@ android:background="@color/main">
             android:layout_marginRight="4dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif"
-            android:hint="tags separated by comas"/>
+            android:hint="tags separated by comas" android:inputType="text"/>
     <LinearLayout android:layout_width="wrap_content" android:layout_gravity="center" android:layout_height="wrap_content">
         <ImageButton
                 android:layout_width="50dp"

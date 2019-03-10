@@ -23,7 +23,7 @@ class WarningDeleteDialog @SuppressLint("ValidFragment") constructor(val get: No
         val builder = AlertDialog.Builder(activity)
         builder.setMessage("Do you want to discard this note?")
             .setPositiveButton("YES") { dialog, id ->
-                val identificador = get.nombre.toString()
+                val identificador = get.nombre + navigate.auth.currentUser!!.uid
                 FirebaseDatabase.getInstance().reference.child("notes").child(identificador).setValue(null)
                 Toast.makeText(activity, "Note Deleted!", Toast.LENGTH_SHORT).show()
                 navigate.fragmentControl=0

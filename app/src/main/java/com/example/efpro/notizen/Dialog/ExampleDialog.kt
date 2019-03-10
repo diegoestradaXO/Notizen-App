@@ -41,7 +41,7 @@ class ExampleDialog : AppCompatDialogFragment() {
                 addNote.descripcion = description!!.getText().toString()
                 val sdf = SimpleDateFormat("dd/M/yyyy")
                 val currentDate = sdf.format(Date())
-                val versiones = listOf<String>("0",content,currentDate)
+                val versiones = listOf<String>(content,currentDate)
                 val versiones1= listOf<List<String>>(versiones)
                 writeNewNote(tittle!!.text.toString(), description!!.text.toString  (), swich1!!.isChecked,
                     tags!!.text.toString().split(",".toRegex()),versiones1)
@@ -72,7 +72,7 @@ class ExampleDialog : AppCompatDialogFragment() {
         }
         val user = navigate.auth.currentUser
         val note= Nota(nombre,descripcion,etiquetas,versiones,privacity, user!!.uid)
-        mDatabase.child("notes").child(nombre).setValue(note)
+        mDatabase.child("notes").child(note.id!!).setValue(note)
         navigate.fragmentControl=0
         val intento = Intent(activity, navigate::class.java)//Redirigimos a contactos
         startActivity(intento)

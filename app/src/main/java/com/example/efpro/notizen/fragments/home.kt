@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.*
 import com.example.efpro.notizen.Activities.LoginActivity
+import com.example.efpro.notizen.Activities.ViewNoteActivity
 import com.example.efpro.notizen.Activities.navigate
 import com.example.efpro.notizen.Activities.navigate.Companion.auth
 import com.example.efpro.notizen.Adapters.NoteAdapter
@@ -138,7 +140,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
         val adapter = NoteAdapter()
         listData =  NoteViewModel.allNotes.shuffled()
-        adapter.submitList(NoteViewModel.allNotes)
+        adapter.submitList(listData)
         recycler_view.adapter = adapter
 
         /*Here it ends*/
@@ -160,9 +162,13 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
 
         adapter.setOnItemClickListener(object : NoteAdapter.OnItemClickListener {
             override fun onItemClick(note: Nota) {
-                //var intent = Intent(activity, EditNoteActivity::class.java)
-
-                //startActivity(intent)
+                val intent = Intent(activity, ViewNoteActivity::class.java)
+                intent.putExtra("identificador",note.nombre+ navigate.auth.currentUser!!.uid)
+                intent.putExtra("content", note.versiones!![note.versiones!!.size-1][0])
+                intent.putExtra("correo",note.userid)
+                intent.putExtra("titulo",note.nombre)
+                intent.putExtra("descripcion",note.descripcion)
+                startActivity(intent)
             }
         })
         btn.setOnClickListener(this)

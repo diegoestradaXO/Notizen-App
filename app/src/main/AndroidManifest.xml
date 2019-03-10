@@ -27,9 +27,13 @@
                 android:name=".Activities.navigate"
                 android:label="@string/title_activity_navegate">
         </activity>
-        <activity android:name=".bar">
-        </activity>
         <activity android:name=".Activities.sign">
+        </activity>
+        <activity android:name=".Activities.ViewNoteActivity">
+        </activity>
+        <activity android:name=".Activities.OtherViewNoteActivity">
+        </activity>
+        <activity android:name=".Activities.EditNoteActivity">
         </activity>
     </application>
 
