@@ -215,7 +215,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         val user = auth.currentUser
         val seguidores = listOf<String>(user!!.uid)
         val seguidos= listOf<String>(user.uid)
-        val newuser= User(user.uid, user.email!!,"","",seguidores,seguidos)
+        val newuser= User(user.uid, user.email!!,"NoBiography","UnNamed",seguidores,seguidos)
         mDatabase.child("users").child(user.uid).setValue(newuser)
 
     }

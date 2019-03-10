@@ -59,7 +59,7 @@ class NoteAdapter : ListAdapter<Nota, NoteAdapter.NotaHolder>(DIFF_CALLBACK) {
                     val key = it.next()
                     val currentUser = user.get(key) as HashMap<*,*>
                     if(currentUser.get("id")==currentNote.userid){
-                        holder.textViewNombre.text = currentUser.get("email") as String
+                        holder.textViewNombre.text = currentUser.get("nombre").toString() + " | " + currentUser.get("email").toString()
                     }
 
                 }

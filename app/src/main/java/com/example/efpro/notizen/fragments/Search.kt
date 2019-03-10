@@ -77,14 +77,16 @@ class Search : androidx.fragment.app.Fragment(){
                             nombre = i.email
                         }
                     }
-                    val nota = Nota(currentNote.get("nombre") as String,
-                        currentNote.get("descripcion") as String,
-                        currentNote.get("etiquetas") as List<String>,
-                        currentNote.get("versiones") as List<List<String>>,
-                        currentNote.get("privacidad") as String,
-                        currentNote.get("userid") as String
-                    )
-                    NoteViewModel.Notes.add(nota)
+                    if(currentNote.get("privacidad")=="false"){
+                        val nota = Nota(currentNote.get("nombre") as String,
+                            currentNote.get("descripcion") as String,
+                            currentNote.get("etiquetas") as List<String>,
+                            currentNote.get("versiones") as List<List<String>>,
+                            currentNote.get("privacidad") as String,
+                            currentNote.get("userid") as String
+                        )
+                        NoteViewModel.Notes.add(nota)
+                    }
                 }
             }
 
