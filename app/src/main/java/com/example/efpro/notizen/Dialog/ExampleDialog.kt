@@ -14,7 +14,6 @@ import com.example.efpro.notizen.fragments.addNote
 import com.example.efpro.notizen.models.Nota
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.add_dialog.*
 import java.lang.ClassCastException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -64,8 +63,9 @@ class ExampleDialog : AppCompatDialogFragment() {
         etiquetas:List<String>,
         versiones: List<List<String>>
     ) {
+        val privacity = privacidad as String
         val user = navigate.auth.currentUser
-        val note= Nota(nombre,descripcion,etiquetas,versiones,privacidad, user!!.uid)
+        val note= Nota(nombre,descripcion,etiquetas,versiones,privacity, user!!.uid)
         mDatabase.child("notes").child(nombre).setValue(note)
         val intento = Intent(activity, navigate::class.java)//Redirigimos a contactos
         startActivity(intento)

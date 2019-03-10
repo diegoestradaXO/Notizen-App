@@ -10,14 +10,19 @@ class Nota {
     var descripcion: String? = null
     var etiquetas: List<String>? = null
     var versiones : List<List<String>>? = null
-    var privacidad : Boolean? = null
+    var privacidad : String? = null
     var userid: String? = null
 
     constructor() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    constructor(nombre:String,descripcion:String,etiquetas:List<String>,versiones :List<List<String>>, privacidad : Boolean,userid:String) {
+    constructor(
+        nombre:String,
+        descripcion:String,
+        etiquetas:List<String>,
+        versiones:List<List<String>>, privacidad: String,
+        userid:String) {
         this.nombre =nombre
         this.descripcion=descripcion
         this.etiquetas=etiquetas

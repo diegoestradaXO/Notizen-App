@@ -1,18 +1,12 @@
 package com.example.efpro.notizen.fragments
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.app.Fragment
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,18 +17,12 @@ import com.example.efpro.notizen.Activities.navigate.Companion.auth
 import com.example.efpro.notizen.Adapters.NoteAdapter
 
 import com.example.efpro.notizen.R
-import com.example.efpro.notizen.R.layout.fragment_home
 import com.example.efpro.notizen.ViewHolder.NoteViewModel
 import com.example.efpro.notizen.models.Nota
-import com.example.efpro.notizen.models.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.activity_emailpassword.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import java.util.ArrayList
-import kotlin.math.sign
+import kotlin.collections.HashMap
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,7 +57,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
             param2 = it.getString(ARG_PARAM2)
             auth = FirebaseAuth.getInstance()
         }
-        database = FirebaseDatabase.getInstance().reference
+        database = FirebaseDatabase.getInstance().getReference("notes")
     }
 
     override fun onCreateView(
@@ -109,14 +97,21 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
             override fun onDataChange(p0: DataSnapshot) {
-                if(p0.exists())
-                    for (h in p0.children){
-                        val note = h.getValue(Nota::class.java)
-                        Log.i(TAG, " " + note!!.nombre)    //Always returning null
-                        Log.i(TAG, " " + note.userid)    //Always returning null
-                        Log.i(TAG, " " + note.descripcion)  //Always returning null
-                        NoteViewModel.allNotes.add(note)
-                    }
+                val nota =p0.getValue() as HashMap<*, *>
+                NoteViewModel.allNotes = mutableListOf()
+                val it = nota.keys.iterator()//We iterate the hash
+			    while(it.hasNext()){
+				    val key = it.next()
+                    val currentNote = nota.get(key) as HashMap<*,*>
+				    val nota = Nota(currentNote.get("nombre") as String,
+                        currentNote.get("descripcion") as String,
+                        currentNote.get("etiquetas") as List<String>,
+                        currentNote.get("versiones") as List<List<String>>,
+                        currentNote.get("privacidad") as String ,
+                        currentNote.get("userid") as String
+                    )
+                    NoteViewModel.allNotes.add(nota)
+                }
             }
 
         })
@@ -128,6 +123,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         val adapter = NoteAdapter()
         adapter.submitList(NoteViewModel.allNotes)
         recycler_view.adapter = adapter
+
         /*Here it ends*/
 
 
