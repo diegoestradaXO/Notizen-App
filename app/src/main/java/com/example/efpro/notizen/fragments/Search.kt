@@ -7,8 +7,21 @@ import android.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.efpro.notizen.Activities.navigate
+import com.example.efpro.notizen.Adapters.NoteAdapter
 
 import com.example.efpro.notizen.R
+import com.example.efpro.notizen.ViewHolder.NoteViewModel
+import com.example.efpro.notizen.models.Nota
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.activity_navegate.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,8 +55,46 @@ class Search : androidx.fragment.app.Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        val view = inflater.inflate(R.layout.fragment_search, container, false)
+            // Inflate the layout for this fragment
+        val reference = FirebaseDatabase.getInstance().getReference("notes")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+            override fun onDataChange(p0: DataSnapshot) {
+                val nota =p0.getValue() as HashMap<*, *>
+                NoteViewModel.Notes = mutableListOf()
+                val it = nota.keys.iterator()//We iterate the hash
+                while(it.hasNext()){
+                    val key = it.next()
+                    val currentNote = nota.get(key) as HashMap<*,*>
+                    var nombre = ""
+                    for (i in NoteViewModel.allUsers){
+                        if(i.id== currentNote.get("userid").toString()){
+                            nombre = i.email
+                        }
+                    }
+                    val nota = Nota(currentNote.get("nombre") as String,
+                        currentNote.get("descripcion") as String,
+                        currentNote.get("etiquetas") as List<String>,
+                        currentNote.get("versiones") as List<List<String>>,
+                        currentNote.get("privacidad") as String,
+                        nombre
+                    )
+                    NoteViewModel.Notes.add(nota)
+                }
+            }
+
+        })
+        val recycler_view = view!!.findViewById(R.id.recycler_view) as RecyclerView
+        recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
+        recycler_view.setHasFixedSize(true)
+        recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
+        val adapter = NoteAdapter()
+        adapter.submitList(NoteViewModel.Notes)
+        recycler_view.adapter = adapter
+        return view
     }
 /*
     // TODO: Rename method, update argument and hook method into UI event

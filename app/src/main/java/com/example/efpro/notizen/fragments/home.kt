@@ -3,10 +3,14 @@ package com.example.efpro.notizen.fragments
 import android.os.Bundle
 import android.app.Fragment
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,8 +23,12 @@ import com.example.efpro.notizen.Adapters.NoteAdapter
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.ViewHolder.NoteViewModel
 import com.example.efpro.notizen.models.Nota
+import com.example.efpro.notizen.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.list_item.view.*
+import java.util.concurrent.TimeoutException
 import kotlin.collections.HashMap
 
 
@@ -70,55 +78,70 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
 
 
         val reference = database
-
-
-/*Here starts my attempt to add database to recycle view
-        val connectedUser = ArrayList<User>()
-        reference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (item in dataSnapshot.children) {
-
-                    if (item.key === navigate.auth.currentUser!!.uid) {
-                        val user = dataSnapshot.getValue(User::class.java)
-                        connectedUser.add(user!!)
+        val referencia = FirebaseDatabase.getInstance().getReference("users")
+        referencia.addValueEventListener(object :ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+            override fun onDataChange(p0: DataSnapshot) {
+                val user =p0.getValue() as HashMap<*, *>
+                NoteViewModel.allUsers = mutableListOf()
+                val it = user.keys.iterator()//We iterate the hash
+                while(it.hasNext()){
+                    val key = it.next()
+                    val currentUser = user.get(key) as HashMap<*,*>
+                    val idToExtract =navigate.auth.currentUser!!.uid
+                    val user = User(
+                        currentUser.get("id") as String,
+                        currentUser.get("email") as String,
+                        currentUser.get("biografia") as String,
+                        currentUser.get("nombre") as String,
+                        currentUser.get("seguidores") as List<String>,
+                        currentUser.get("seguidos") as List<String>
+                    )
+                    if(idToExtract==user.id){
+                        val followers :TextView= view.findViewById(R.id.followers)
+                        val following:TextView=view.findViewById(R.id.following)
+                        val descripcion:TextView = view.findViewById(R.id.descripcion)
+                        followers.text = user.seguidores.size.toString()
+                        following.text = user.seguidos.size.toString()
+                        descripcion.text = user.biografia
                     }
-
+                    NoteViewModel.allUsers.add(user)
                 }
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
-
         })
-*/
+
         reference.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
             override fun onDataChange(p0: DataSnapshot) {
                 val nota =p0.getValue() as HashMap<*, *>
-                NoteViewModel.allNotes = mutableListOf()
+                NoteViewModel.allNotes.clear()
                 val it = nota.keys.iterator()//We iterate the hash
 			    while(it.hasNext()){
 				    val key = it.next()
                     val currentNote = nota.get(key) as HashMap<*,*>
-				    val nota = Nota(currentNote.get("nombre") as String,
-                        currentNote.get("descripcion") as String,
-                        currentNote.get("etiquetas") as List<String>,
-                        currentNote.get("versiones") as List<List<String>>,
-                        currentNote.get("privacidad") as String ,
-                        currentNote.get("userid") as String
-                    )
-                    NoteViewModel.allNotes.add(nota)
-                }
+                    if(currentNote.get("userid")== navigate.auth.currentUser!!.uid){
+                        val nota = Nota(currentNote.get("nombre") as String,
+                            currentNote.get("descripcion") as String,
+                            currentNote.get("etiquetas") as List<String>,
+                            currentNote.get("versiones") as List<List<String>>,
+                            currentNote.get("privacidad") as String,
+                            navigate.auth.currentUser!!.email!!
+                        )
+                        NoteViewModel.allNotes.add(nota)
+
+                    }
+			    }
             }
 
         })
         val recycler_view = view!!.findViewById(R.id.recycler_view) as RecyclerView
         recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         recycler_view.setHasFixedSize(true)
-        recycler_view.itemAnimator = DefaultItemAnimator()
         recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
         val adapter = NoteAdapter()
         adapter.submitList(NoteViewModel.allNotes)

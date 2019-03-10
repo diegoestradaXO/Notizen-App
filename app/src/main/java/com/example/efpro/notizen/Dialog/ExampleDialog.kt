@@ -63,10 +63,17 @@ class ExampleDialog : AppCompatDialogFragment() {
         etiquetas:List<String>,
         versiones: List<List<String>>
     ) {
-        val privacity = privacidad as String
+        var privacity=""
+        if(privacidad){
+            privacity="true"
+        }
+        else{
+            privacity="false"
+        }
         val user = navigate.auth.currentUser
         val note= Nota(nombre,descripcion,etiquetas,versiones,privacity, user!!.uid)
         mDatabase.child("notes").child(nombre).setValue(note)
+        navigate.fragmentControl=0
         val intento = Intent(activity, navigate::class.java)//Redirigimos a contactos
         startActivity(intento)
         activity!!.finish()
