@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.*
+import com.example.efpro.notizen.Activities.EditUser
 import com.example.efpro.notizen.Activities.LoginActivity
 import com.example.efpro.notizen.Activities.ViewNoteActivity
 import com.example.efpro.notizen.Activities.navigate
@@ -187,6 +188,10 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         R.id.signout -> {
             navigate.auth.signOut()
             val intento = Intent(activity, LoginActivity::class.java)//Redirigimos a contactos
+            startActivity(intento)
+        }
+        R.id.edit-> {
+            val intento = Intent(activity, EditUser::class.java)//Redirigimos a contactos
             startActivity(intento)
         }
         else -> {
