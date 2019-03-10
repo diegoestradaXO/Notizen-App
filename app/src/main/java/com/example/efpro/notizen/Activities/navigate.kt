@@ -97,7 +97,7 @@ class navigate : AppCompatActivity() {
             manager.beginTransaction().replace(R.id.fragment_container, home()).commit()
         }
         else if(fragmentControl==2){
-            manager.beginTransaction().replace(R.id.fragment_container, addNote()).commit()
+            manager.beginTransaction().replace(R.id.fragment_container, Search()).commit()
         }
         auth = FirebaseAuth.getInstance()
 
