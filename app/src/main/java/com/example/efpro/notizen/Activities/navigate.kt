@@ -53,6 +53,9 @@ class navigate : AppCompatActivity() {
                         manager.beginTransaction().replace(R.id.fragment_container, home()).commit()
                     }
                 }
+                else{
+                    manager.beginTransaction().replace(R.id.fragment_container, home()).commit()
+                }
                 return@OnNavigationItemSelectedListener true
             }
             R.id.AddNote -> {
@@ -70,8 +73,10 @@ class navigate : AppCompatActivity() {
                     if(fragmentControl==2){
                         fragmentControl=2
                         manager.beginTransaction().replace(R.id.fragment_container, Search()).commit()
-
                     }
+                }
+                else{
+                    manager.beginTransaction().replace(R.id.fragment_container, Search()).commit()
                 }
                 return@OnNavigationItemSelectedListener true
             }
