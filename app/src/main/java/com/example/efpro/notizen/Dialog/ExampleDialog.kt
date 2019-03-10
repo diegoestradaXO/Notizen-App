@@ -3,6 +3,7 @@ package com.example.efpro.notizen.Dialog
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Switch
@@ -66,7 +67,9 @@ class ExampleDialog : AppCompatDialogFragment() {
         val user = navigate.auth.currentUser
         val note= Nota(nombre,descripcion,etiquetas,versiones,privacidad, user!!.uid)
         mDatabase.child("notes").child(nombre).setValue(note)
-
+        val intento = Intent(activity, navigate::class.java)//Redirigimos a contactos
+        startActivity(intento)
+        activity!!.finish()
     }
 
     override fun onAttach(context: Context) {
