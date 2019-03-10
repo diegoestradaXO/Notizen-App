@@ -92,7 +92,7 @@ class Search : androidx.fragment.app.Fragment(){
         recycler_view.setHasFixedSize(true)
         recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
         val adapter = NoteAdapter()
-        adapter.submitList(NoteViewModel.Notes)
+        adapter.submitList(NoteViewModel.Notes.shuffled())
         recycler_view.adapter = adapter
         return view
     }

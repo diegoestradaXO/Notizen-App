@@ -1,9 +1,15 @@
 package com.example.efpro.notizen.ViewHolder
 
+import android.content.ContentValues.TAG
+import android.nfc.Tag
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.efpro.notizen.models.Nota
 import com.example.efpro.notizen.models.User
+import com.google.android.material.tabs.TabLayout
+import java.math.BigInteger
 
 class NoteViewModel(application: android.app.Application): AndroidViewModel(application){
 
@@ -11,6 +17,7 @@ class NoteViewModel(application: android.app.Application): AndroidViewModel(appl
         public var allNotes: MutableList<Nota> = mutableListOf()
         public var allUsers: MutableList<User> = mutableListOf()
         public var Notes: MutableList<Nota> = mutableListOf()
+
     }
 
     fun insert(nota: Nota){
@@ -25,7 +32,6 @@ class NoteViewModel(application: android.app.Application): AndroidViewModel(appl
         //repository.delete(nota)
     }
 
-    fun getAllNotes(): List<Nota> {
-        return allNotes
-    }
+
 }
+

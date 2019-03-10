@@ -1,8 +1,10 @@
 package com.example.efpro.notizen.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.app.Fragment
 import android.content.Intent
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -68,6 +70,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         database = FirebaseDatabase.getInstance().getReference("notes")
     }
 
+    @SuppressLint("WrongConstant")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -133,7 +136,6 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                             navigate.auth.currentUser!!.email!!
                         )
                         NoteViewModel.allNotes.add(nota)
-
                     }
 			    }
             }
@@ -144,7 +146,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         recycler_view.setHasFixedSize(true)
         recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
         val adapter = NoteAdapter()
-        adapter.submitList(NoteViewModel.allNotes)
+        adapter.submitList(NoteViewModel.allNotes.shuffled())
         recycler_view.adapter = adapter
 
         /*Here it ends*/
