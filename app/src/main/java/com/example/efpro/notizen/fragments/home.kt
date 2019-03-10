@@ -26,12 +26,14 @@ import com.example.efpro.notizen.R
 import com.example.efpro.notizen.R.layout.fragment_home
 import com.example.efpro.notizen.ViewHolder.NoteViewModel
 import com.example.efpro.notizen.models.Nota
+import com.example.efpro.notizen.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_emailpassword.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.util.ArrayList
 import kotlin.math.sign
 
 // TODO: Rename parameter arguments, choose names that match
@@ -78,8 +80,30 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val btn: Button = view.findViewById(R.id.signout)
 
-       /*Here starts how to read contacts and place them in recycle view*/
-        val reference=database.ref
+
+        val reference = database
+
+
+/*Here starts my attempt to add database to recycle view
+        val connectedUser = ArrayList<User>()
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (item in dataSnapshot.children) {
+
+                    if (item.key === navigate.auth.currentUser!!.uid) {
+                        val user = dataSnapshot.getValue(User::class.java)
+                        connectedUser.add(user!!)
+                    }
+
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+
+        })
+*/
         reference.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -88,7 +112,10 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                 if(p0.exists())
                     for (h in p0.children){
                         val note = h.getValue(Nota::class.java)
-                        NoteViewModel.allNotes.add(note!!)
+                        Log.i(TAG, " " + note!!.nombre)    //Always returning null
+                        Log.i(TAG, " " + note.userid)    //Always returning null
+                        Log.i(TAG, " " + note.descripcion)  //Always returning null
+                        NoteViewModel.allNotes.add(note)
                     }
             }
 
@@ -99,9 +126,6 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         recycler_view.itemAnimator = DefaultItemAnimator()
         recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
         val adapter = NoteAdapter()
-        for (user in NoteViewModel.allNotes){
-            Toast.makeText(activity,"nombre:"+user.userid+" titulo:"+user.nombre+" descripcion:"+user.descripcion,Toast.LENGTH_LONG).show()
-        }
         adapter.submitList(NoteViewModel.allNotes)
         recycler_view.adapter = adapter
         /*Here it ends*/

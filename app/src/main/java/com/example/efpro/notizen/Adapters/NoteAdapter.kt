@@ -26,7 +26,6 @@ class NoteAdapter : ListAdapter<Nota, NoteAdapter.NotaHolder>(DIFF_CALLBACK) {
 
             override fun areContentsTheSame(oldItem: Nota, newItem: Nota): Boolean {
                 return oldItem.nombre == newItem.nombre && oldItem.descripcion == newItem.descripcion
-                        && oldItem.versiones[1] == newItem.versiones[1] && oldItem.versiones[2]==newItem.versiones[2]
             }
         }
     }

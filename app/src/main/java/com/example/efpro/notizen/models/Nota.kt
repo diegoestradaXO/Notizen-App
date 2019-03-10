@@ -6,12 +6,12 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 class Nota {
 
-    var nombre:String = ""
-    var descripcion:String = ""
-    var etiquetas:List<String> = listOf()
-    var versiones :List<List<String>> = listOf()
-    var privacidad : Boolean = false
-    var userid:String = ""
+    var nombre: String? = null
+    var descripcion: String? = null
+    var etiquetas: List<String>? = null
+    var versiones : List<List<String>>? = null
+    var privacidad : Boolean? = null
+    var userid: String? = null
 
     constructor() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
