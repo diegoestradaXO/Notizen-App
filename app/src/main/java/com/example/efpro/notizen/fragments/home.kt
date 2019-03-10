@@ -4,23 +4,17 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.app.Fragment
 import android.content.Intent
-import android.provider.ContactsContract
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.example.efpro.notizen.Activities.LoginActivity
 import com.example.efpro.notizen.Activities.navigate
 import com.example.efpro.notizen.Activities.navigate.Companion.auth
 import com.example.efpro.notizen.Adapters.NoteAdapter
+import com.example.efpro.notizen.Dialog.WarningDeleteDialog
 
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.ViewHolder.NoteViewModel
@@ -28,9 +22,6 @@ import com.example.efpro.notizen.models.Nota
 import com.example.efpro.notizen.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.list_item.view.*
-import java.util.concurrent.TimeoutException
 import kotlin.collections.HashMap
 
 
@@ -55,7 +46,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var database: DatabaseReference
-    private lateinit var listData: MutableList<Nota>
+    private lateinit var listData: List<Nota>
 // ...
 
    // private var listener: OnFragmentInteractionListener? = null
@@ -146,18 +137,43 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         recycler_view.setHasFixedSize(true)
         recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
         val adapter = NoteAdapter()
-        adapter.submitList(NoteViewModel.allNotes.shuffled())
+        listData =  NoteViewModel.allNotes.shuffled()
+        adapter.submitList(NoteViewModel.allNotes)
         recycler_view.adapter = adapter
 
         /*Here it ends*/
 
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
 
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                warningDeleteDialog(listData.get(viewHolder.adapterPosition))
+            }
+        }
+        ).attachToRecyclerView(recycler_view)
 
+        adapter.setOnItemClickListener(object : NoteAdapter.OnItemClickListener {
+            override fun onItemClick(note: Nota) {
+                //var intent = Intent(activity, EditNoteActivity::class.java)
+
+                //startActivity(intent)
+            }
+        })
         btn.setOnClickListener(this)
         return view
     }
 
 
+    fun warningDeleteDialog(get: Nota) {
+        val warningDeleteDialog = WarningDeleteDialog(get)
+        warningDeleteDialog.show(this.fragmentManager!!,"example dialog")
+    }
 
 
 

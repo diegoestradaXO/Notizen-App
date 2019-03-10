@@ -94,6 +94,15 @@ class Search : androidx.fragment.app.Fragment(){
         val adapter = NoteAdapter()
         adapter.submitList(NoteViewModel.Notes.shuffled())
         recycler_view.adapter = adapter
+
+        adapter.setOnItemClickListener(object : NoteAdapter.OnItemClickListener {
+            override fun onItemClick(note: Nota) {
+                //var intent = Intent(activity, EditNoteActivity::class.java)
+
+                //startActivity(intent)
+            }
+        })
+
         return view
     }
 /*
