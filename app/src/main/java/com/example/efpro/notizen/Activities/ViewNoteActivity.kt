@@ -67,7 +67,7 @@ class ViewNoteActivity : AppCompatActivity() {
         }
 
 
-        if(correo!=navigate.auth.currentUser!!.email){
+        if(correo!=navigate.auth.currentUser!!.uid){
             val intent = Intent(this, OtherViewNoteActivity::class.java)
             intent.putExtra("content", contenido)
             intent.putExtra("titulo",titulo)

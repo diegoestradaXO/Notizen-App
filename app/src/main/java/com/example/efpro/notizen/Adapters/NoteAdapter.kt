@@ -14,7 +14,14 @@ import kotlinx.android.synthetic.main.list_item.*
 import kotlinx.android.synthetic.main.list_item.view.*
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.efpro.notizen.Activities.navigate
+import com.example.efpro.notizen.ViewHolder.NoteViewModel
+import com.example.efpro.notizen.models.User
 import com.google.android.material.internal.ContextUtils.getActivity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class NoteAdapter : ListAdapter<Nota, NoteAdapter.NotaHolder>(DIFF_CALLBACK) {
 
@@ -39,8 +46,26 @@ class NoteAdapter : ListAdapter<Nota, NoteAdapter.NotaHolder>(DIFF_CALLBACK) {
 
     override fun onBindViewHolder(holder: NotaHolder, position: Int) {
         val currentNote: Nota = getItem(position)
-        holder.textViewNombre.text = currentNote.userid
         holder.textViewTitle.text = currentNote.nombre
+        val referencia = FirebaseDatabase.getInstance().getReference("users")
+        referencia.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+            override fun onDataChange(p0: DataSnapshot) {
+                val user =p0.getValue() as HashMap<*, *>
+                val it = user.keys.iterator()//We iterate the hash
+                while(it.hasNext()){
+                    val key = it.next()
+                    val currentUser = user.get(key) as HashMap<*,*>
+                    if(currentUser.get("id")==currentNote.userid){
+                        holder.textViewNombre.text = currentUser.get("email") as String
+                    }
+
+                }
+            }
+
+        })
         holder.textViewDescription.text = currentNote.descripcion
     }
 

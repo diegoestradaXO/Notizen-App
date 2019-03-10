@@ -82,7 +82,7 @@ class Search : androidx.fragment.app.Fragment(){
                         currentNote.get("etiquetas") as List<String>,
                         currentNote.get("versiones") as List<List<String>>,
                         currentNote.get("privacidad") as String,
-                        nombre
+                        currentNote.get("userid") as String
                     )
                     NoteViewModel.Notes.add(nota)
                 }

@@ -115,7 +115,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
             override fun onDataChange(p0: DataSnapshot) {
-                val nota =p0.getValue() as HashMap<*, *>
+                val nota =p0.getValue() as HashMap<*,*>
                 NoteViewModel.allNotes.clear()
                 val it = nota.keys.iterator()//We iterate the hash
 			    while(it.hasNext()){
@@ -127,7 +127,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                             currentNote.get("etiquetas") as List<String>,
                             currentNote.get("versiones") as List<List<String>>,
                             currentNote.get("privacidad") as String,
-                            navigate.auth.currentUser!!.email!!
+                            currentNote.get("userid") as String
                         )
                         NoteViewModel.allNotes.add(nota)
                     }
@@ -191,7 +191,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
             startActivity(intento)
         }
         R.id.edit-> {
-            val intento = Intent(activity, EditUser::class.java)//Redirigimos a contactos
+            val intento = Intent(activity,  EditUser::class.java)//Redirigimos a contactos
             startActivity(intento)
         }
         else -> {
