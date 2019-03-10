@@ -14,10 +14,18 @@ class OtherViewNoteActivity : AppCompatActivity() {
         val titulo = getIntent().getStringExtra("titulo")
         val description = getIntent().getStringExtra("descripcion")
         val contenido = getIntent().getStringExtra("content")
+        buttonHome.setOnClickListener{
+            this.finish()
+        }
+        buttonShare.setOnClickListener{
+            //Broadcast Reciever
+        }
+
         tittle.text = titulo
         correo.text = mail
         descripcion.text = description
         content.text = contenido
+
 
     }
 }

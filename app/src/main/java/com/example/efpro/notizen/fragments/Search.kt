@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.app.Fragment
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.efpro.notizen.Activities.ViewNoteActivity
 import com.example.efpro.notizen.Activities.navigate
 import com.example.efpro.notizen.Adapters.NoteAdapter
 
@@ -97,9 +99,13 @@ class Search : androidx.fragment.app.Fragment(){
 
         adapter.setOnItemClickListener(object : NoteAdapter.OnItemClickListener {
             override fun onItemClick(note: Nota) {
-                //var intent = Intent(activity, EditNoteActivity::class.java)
-
-                //startActivity(intent)
+                val intent = Intent(activity, ViewNoteActivity::class.java)
+                intent.putExtra("identificador",note.nombre+ navigate.auth.currentUser!!.uid)
+                intent.putExtra("content", note.versiones!![note.versiones!!.size-1][0])
+                intent.putExtra("correo",note.userid)
+                intent.putExtra("titulo",note.nombre)
+                intent.putExtra("descripcion",note.descripcion)
+                startActivity(intent)
             }
         })
 
