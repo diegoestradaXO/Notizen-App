@@ -41,7 +41,7 @@ class OtherViewNoteActivity : AppCompatActivity() {
                     val key = it.next()
                     val currentNote = nota.get(key) as HashMap<*,*>
                     if(currentNote.get("id").toString() == mail){
-                        correo.text = currentNote.get("nombre").toString() + " | " + currentNote.get("e mail").toString()
+                        correo.text = currentNote.get("nombre").toString() + " | " + currentNote.get("email").toString()
                     }
                 }
             }
