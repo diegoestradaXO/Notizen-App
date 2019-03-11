@@ -59,38 +59,6 @@ class Search : androidx.fragment.app.Fragment(){
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
             // Inflate the layout for this fragment
-        val reference = FirebaseDatabase.getInstance().getReference("notes")
-        reference.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-            override fun onDataChange(p0: DataSnapshot) {
-                val nota =p0.getValue() as HashMap<*, *>
-                NoteViewModel.Notes = mutableListOf()
-                val it = nota.keys.iterator()//We iterate the hash
-                while(it.hasNext()){
-                    val key = it.next()
-                    val currentNote = nota.get(key) as HashMap<*,*>
-                    var nombre = ""
-                    for (i in NoteViewModel.allUsers){
-                        if(i.id== currentNote.get("userid").toString()){
-                            nombre = i.email
-                        }
-                    }
-                    if(currentNote.get("privacidad")=="false"){
-                        val nota = Nota(currentNote.get("nombre") as String,
-                            currentNote.get("descripcion") as String,
-                            currentNote.get("etiquetas") as List<String>,
-                            currentNote.get("versiones") as List<List<String>>,
-                            currentNote.get("privacidad") as String,
-                            currentNote.get("userid") as String
-                        )
-                        NoteViewModel.Notes.add(nota)
-                    }
-                }
-            }
-
-        })
         val recycler_view = view!!.findViewById(R.id.recycler_view) as RecyclerView
         recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         recycler_view.setHasFixedSize(true)

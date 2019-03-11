@@ -9,20 +9,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/audio"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/ThemeOverlay.MyDarkButton"
             android:layout_marginBottom="16dp"
             android:layout_gravity="bottom|right"
-            android:layout_marginVertical="70dp"
-            style="@style/Theme.Design.NoActionBar"/>
+            android:layout_marginVertical="70dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonCamara"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/ThemeOverlay.MyDarkButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/camara"
             android:layout_marginBottom="16dp"
             android:layout_gravity="bottom|right"
-            android:layout_marginVertical="130dp"
-            style="@style/Theme.Design.NoActionBar"/>
+            android:layout_marginVertical="130dp"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonGuardar"
             android:layout_width="wrap_content"
@@ -30,7 +32,8 @@
             android:src="@drawable/save"
             android:layout_gravity="top|right"
             android:layout_marginTop="70dp"
-            style="@style/Theme.Design.NoActionBar"/>
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/ThemeOverlay.MyDarkButton"/>
 
     <include
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -49,7 +52,7 @@
                 <EditText android:layout_width="300dp" android:layout_height="wrap_content"
                           android:id="@+id/content"
                           android:textSize="11dp"
-                          android:text="Write Here"
+                          android:hint="Write Here"
                           android:inputType="textMultiLine"
                           android:outlineSpotShadowColor="@android:color/black"
                           android:textColorHighlight="@android:color/black"

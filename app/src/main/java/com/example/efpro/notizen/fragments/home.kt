@@ -23,8 +23,10 @@ import com.example.efpro.notizen.R
 import com.example.efpro.notizen.ViewHolder.NoteViewModel
 import com.example.efpro.notizen.models.Nota
 import com.example.efpro.notizen.models.User
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlin.collections.HashMap
 
 
@@ -61,7 +63,6 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
             param2 = it.getString(ARG_PARAM2)
             auth = FirebaseAuth.getInstance()
         }
-        database = FirebaseDatabase.getInstance().getReference("notes")
     }
 
     @SuppressLint("WrongConstant")
@@ -71,10 +72,8 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-        val btn: Button = view.findViewById(R.id.signout)
-        val edit: Button = view.findViewById(R.id.editbutton)
-
-        val reference = database
+        val btn: FloatingActionButton = view.findViewById(R.id.signout)
+        val edit: FloatingActionButton = view.findViewById(R.id.editbutton)
         val referencia = FirebaseDatabase.getInstance().getReference("users")
         referencia.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
@@ -106,32 +105,6 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                     }
                     NoteViewModel.allUsers.add(user)
                 }
-            }
-
-        })
-
-        reference.addValueEventListener(object :ValueEventListener{
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-            override fun onDataChange(p0: DataSnapshot) {
-                val nota =p0.getValue() as HashMap<*,*>
-                NoteViewModel.allNotes.clear()
-                val it = nota.keys.iterator()//We iterate the hash
-			    while(it.hasNext()){
-				    val key = it.next()
-                    val currentNote = nota.get(key) as HashMap<*,*>
-                    if(currentNote.get("userid")== navigate.auth.currentUser!!.uid){
-                        val nota = Nota(currentNote.get("nombre") as String,
-                            currentNote.get("descripcion") as String,
-                            currentNote.get("etiquetas") as List<String>,
-                            currentNote.get("versiones") as List<List<String>>,
-                            currentNote.get("privacidad") as String,
-                            currentNote.get("userid") as String
-                        )
-                        NoteViewModel.allNotes.add(nota)
-                    }
-			    }
             }
 
         })

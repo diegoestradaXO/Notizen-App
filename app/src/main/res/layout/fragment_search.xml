@@ -17,6 +17,7 @@
 
 
         <SearchView
+                android:background="@color/white"
                 android:id="@+id/buscar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
