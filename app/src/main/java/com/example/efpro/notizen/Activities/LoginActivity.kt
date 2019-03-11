@@ -7,13 +7,18 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.efpro.notizen.R
+import com.example.efpro.notizen.ViewHolder.NoteViewModel
 import com.example.efpro.notizen.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_emailpassword.detail
 import kotlinx.android.synthetic.main.activity_emailpassword.emailCreateAccountButton
 import kotlinx.android.synthetic.main.activity_emailpassword.emailPasswordButtons
@@ -195,9 +200,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             emailPasswordButtons.visibility = View.GONE
             emailPasswordFields.visibility = View.GONE
             signedInButtons.visibility = View.VISIBLE
-
             verifyEmailButton.isEnabled = !user.isEmailVerified
-            writeNewUser()
 
         } else {
             status.setText(R.string.signed_out)
@@ -209,14 +212,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun writeNewUser(
-    ) {
-        var mDatabase = FirebaseDatabase.getInstance().reference
-        val user = auth.currentUser
-        val seguidores = listOf<String>(user!!.uid)
-        val seguidos= listOf<String>(user.uid)
-        val newuser= User(user.uid, user.email!!,"NoBiography","UnNamed",seguidores,seguidos)
-        mDatabase.child("users").child(user.uid).setValue(newuser)
+    private fun writeNewUser(){
+
+            var mDatabase = FirebaseDatabase.getInstance().reference
+            val user = auth.currentUser
+            val seguidores = listOf<String>(user!!.uid)
+            val seguidos= listOf<String>(user.uid)
+            val newuser= User(user.uid, user.email!!,"NoBiography","UnNamed",seguidores,seguidos)
+            mDatabase.child("users").child(user.uid).setValue(newuser)
 
     }
 
@@ -226,7 +229,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             R.id.emailCreateAccountButton -> createAccount(fieldEmail.text.toString(), fieldPassword.text.toString())
             R.id.emailSignInButton -> signIn(fieldEmail.text.toString(), fieldPassword.text.toString())
             R.id.signOutButton -> signOut()
-            R.id.verifyEmailButton -> sendEmailVerification()
+            R.id.verifyEmailButton -> {
+                sendEmailVerification()
+                writeNewUser()
+            }
+
         }
     }
 

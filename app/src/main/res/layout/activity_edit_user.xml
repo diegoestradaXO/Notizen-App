@@ -54,7 +54,9 @@
 
         </LinearLayout>
         <ImageButton android:layout_width="35dp" android:layout_height="35dp" android:layout_gravity="center"
-                    android:id="@+id/save" android:src="@android:drawable/ic_menu_save" android:background="@color/main"/>
+                     style="@style/Widget.AppCompat.Button.Colored"
+                     android:theme="@style/ThemeOverlay.MyDarkButton"
+                     android:id="@+id/save" android:src="@android:drawable/ic_menu_save" android:background="@color/main"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

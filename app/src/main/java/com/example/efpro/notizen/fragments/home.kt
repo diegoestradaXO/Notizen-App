@@ -163,6 +163,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
             navigate.auth.signOut()
             val intento = Intent(activity, LoginActivity::class.java)//Redirigimos a contactos
             startActivity(intento)
+            activity!!.finish()
         }
         R.id.editbutton-> {
             val intento = Intent(activity,  EditUser::class.java)//Redirigimos a contactos

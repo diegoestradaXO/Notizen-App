@@ -54,11 +54,15 @@ android:background="@color/main">
         <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp" app:srcCompat="@android:drawable/ic_menu_today"
-                android:id="@+id/versiones"/>
+                android:id="@+id/versiones"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:theme="@style/ThemeOverlay.MyDarkButton"/>
         <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp" app:srcCompat="@android:drawable/ic_menu_set_as"
-                android:id="@+id/share"/>
+                android:id="@+id/share"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:theme="@style/ThemeOverlay.MyDarkButton"/>
 
     </LinearLayout>
 
