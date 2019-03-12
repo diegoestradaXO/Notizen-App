@@ -15,6 +15,16 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:theme="@style/ThemeOverlay.MyDarkButton"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginVertical="70dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/ThemeOverlay.MyDarkButton" android:src="@android:drawable/ic_menu_share"
+            app:rippleColor="@color/common_google_signin_btn_text_dark_focused" android:tint="@android:color/black"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonTrash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,8 +1,10 @@
 package com.example.efpro.notizen.Activities
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.efpro.notizen.Dialog.WarningDeleteDialog
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.models.Nota
@@ -26,6 +28,22 @@ class ViewNoteActivity : AppCompatActivity() {
 
         buttonHome.setOnClickListener{
             this.finish()
+        }
+        buttonShare.setOnClickListener{
+            val emailIntent = Intent(Intent.ACTION_SEND)
+            //Making the intent for email
+            emailIntent.data = Uri.parse("mailto:")
+            emailIntent.type = "text/plain"
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, correo)
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Hello:\n I have just found this note named $titulo, please read it:\n\n $contenido \n\n\n\n" +
+                    "  Or you can read it on NOTIZEN:\n" +
+                    " $id.NOTIZEN.com ")
+            try {
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."))
+                Toast.makeText(this,"Sending mail", Toast.LENGTH_LONG).show()
+            } catch (ex: android.content.ActivityNotFoundException) {
+                Toast.makeText(this, "Unexpected Error", Toast.LENGTH_LONG).show()
+            }
         }
 
         buttonTrash.setOnClickListener{
@@ -70,6 +88,7 @@ class ViewNoteActivity : AppCompatActivity() {
             intent.putExtra("titulo",titulo)
             intent.putExtra("correo",correo)
             intent.putExtra("descripcion",descripcion)
+            intent.putExtra("identificador",id)
             startActivity(intent)
             this.finish()
         }

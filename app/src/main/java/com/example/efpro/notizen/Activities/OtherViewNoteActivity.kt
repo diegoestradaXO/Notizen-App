@@ -1,7 +1,11 @@
 package com.example.efpro.notizen.Activities
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.models.Nota
 import com.google.firebase.database.DataSnapshot
@@ -19,11 +23,25 @@ class OtherViewNoteActivity : AppCompatActivity() {
         val titulo = getIntent().getStringExtra("titulo")
         val description = getIntent().getStringExtra("descripcion")
         val contenido = getIntent().getStringExtra("content")
+        val id = getIntent().getStringExtra("identificador")
         buttonHome.setOnClickListener{
             this.finish()
         }
         buttonShare.setOnClickListener{
-            //Broadcast Reciever
+            val emailIntent = Intent(Intent.ACTION_SEND)
+            //Making the intent for email
+            emailIntent.data = Uri.parse("mailto:")
+            emailIntent.type = "text/plain"
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, mail)
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Hello:\n I have just found this note named $titulo, please read it: \n\n $contenido \n\n\n\n" +
+                    "  Or you can read it on NOTIZEN:\n" +
+                    " $id.NOTIZEN.com ")
+            try {
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."))
+                Toast.makeText(this,"Sending mail",Toast.LENGTH_LONG).show()
+            } catch (ex: android.content.ActivityNotFoundException) {
+                Toast.makeText(this, "Unexpected Error", Toast.LENGTH_LONG).show()
+            }
         }
 
         tittle.text = titulo
