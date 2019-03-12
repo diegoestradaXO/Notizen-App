@@ -3,18 +3,14 @@ package com.example.efpro.notizen.Activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.fragment.app.FragmentManager
 import com.example.efpro.notizen.Dialog.WarningDeleteDialog
 import com.example.efpro.notizen.R
-import com.example.efpro.notizen.ViewHolder.NoteViewModel
 import com.example.efpro.notizen.models.Nota
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_view_note.*
-import kotlinx.android.synthetic.main.add_dialog.*
 
 class ViewNoteActivity : AppCompatActivity() {
 
@@ -62,6 +58,7 @@ class ViewNoteActivity : AppCompatActivity() {
         buttonEdit.setOnClickListener{
             val intent = Intent(this, EditNoteActivity::class.java)
             intent.putExtra("content", contenido)
+            intent.putExtra("identificador",id)
             startActivity(intent)
             this.finish()
         }

@@ -50,20 +50,6 @@ android:background="@color/main">
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif"
             android:hint="tags separated by comas" android:inputType="text"/>
-    <LinearLayout android:layout_width="wrap_content" android:layout_gravity="center" android:layout_height="wrap_content">
-        <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp" app:srcCompat="@android:drawable/ic_menu_today"
-                android:id="@+id/versiones"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:theme="@style/ThemeOverlay.MyDarkButton"/>
-        <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp" app:srcCompat="@android:drawable/ic_menu_set_as"
-                android:id="@+id/share"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:theme="@style/ThemeOverlay.MyDarkButton"/>
 
-    </LinearLayout>
 
 </LinearLayout>

@@ -15,7 +15,7 @@
         <LinearLayout android:gravity="left" android:background="@color/main" android:layout_width="match_parent" android:layout_height="wrap_content">
             <ImageView android:layout_width="50dp" android:layout_height="50dp" android:id="@+id/foto"
                        app:srcCompat="@drawable/logo"/>
-            <TextView android:gravity="center" android:layout_gravity="center" android:textColor="@color/white" android:layout_width="wrap_content" android:id="@+id/nombre" android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:text="nombre"/>
+            <TextView android:gravity="center" android:layout_gravity="center" android:textColor="@color/white" android:layout_width="wrap_content" android:id="@+id/nombre" android:layout_height="wrap_content" android:layout_marginLeft="15dp"/>
 
 
         </LinearLayout>
@@ -24,10 +24,9 @@
         <LinearLayout android:layout_width="350sp" android:layout_height="200dp" android:orientation="vertical" android:layout_gravity="left" android:gravity="left" android:layout_marginLeft="7sp"
                       tools:ignore="RtlHardcoded">
 
-            <TextView android:textSize="25sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/titulo" android:text="Titulo"/>
+            <TextView android:textSize="25sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/titulo" />
             <TextView
                     android:textSize="15sp"
-                    android:text="TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/descripcion"

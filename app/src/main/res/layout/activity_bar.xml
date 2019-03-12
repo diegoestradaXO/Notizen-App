@@ -34,11 +34,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:id="@+id/textView3"
                         app:fontFamily="sans-serif-smallcaps"/>
+
             </LinearLayout>
 
-
         </androidx.appcompat.widget.Toolbar>
-
+<androidx.appcompat.widget.Toolbar android:layout_height="5dp" android:background="@android:color/black"
+                                   android:layout_width="match_parent"/>
 
 
     </com.google.android.material.appbar.AppBarLayout>
