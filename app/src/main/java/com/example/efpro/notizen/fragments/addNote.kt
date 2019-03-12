@@ -66,7 +66,7 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
     }
 
     override fun applyTexts(tittle: String, description: String) {
-        prueba.setText(tittle)
+        //do nothing
     }
 
     override fun onCreateView(
