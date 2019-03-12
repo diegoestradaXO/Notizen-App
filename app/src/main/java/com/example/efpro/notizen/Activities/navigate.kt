@@ -30,7 +30,6 @@ class navigate : AppCompatActivity() {
         public var contenido = ""
     }
 
-
     val manager = supportFragmentManager
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

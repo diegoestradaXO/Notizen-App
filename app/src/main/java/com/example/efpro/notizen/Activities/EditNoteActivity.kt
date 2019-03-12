@@ -79,13 +79,14 @@ class EditNoteActivity : AppCompatActivity() {
             val nota = Nota(editTitulo.text.toString(),editdescription.text.toString(),tags!!.text.toString().split(",".toRegex()),newVersions as List<List<String>>,privacidad,
                 navigate.auth.currentUser!!.uid)
             database.child("notes").child(nota.nombre+navigate.auth.currentUser!!.uid).setValue(nota)
-            val intento = Intent(this, navigate::class.java)//Redirigimos a la viewnoteactivity
+            val intento = Intent(this, ViewNoteActivity::class.java)//Redirigimos a la viewnoteactivity
             intento.putExtra("content",nota.versiones[nota.versiones.size-1][0])
             intento.putExtra("identificador",nota.id)
             intento.putExtra("correo", navigate.auth.currentUser!!.email)
             intento.putExtra("titulo",nota.nombre)
             intento.putExtra("descripcion",nota.descripcion)
             startActivity(intento)
+            this.finish()
         }
     }
 }

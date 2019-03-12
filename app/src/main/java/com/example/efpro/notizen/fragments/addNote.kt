@@ -93,11 +93,11 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
         }
     }
 
-    fun openDialog(): Unit {
-        val exampleDialog = ExampleDialog()
-        exampleDialog.content=content.text.toString()
-        exampleDialog.show(this.fragmentManager!!,"example dialog")
-    }
+        fun openDialog(): Unit {
+            val exampleDialog = ExampleDialog()
+            exampleDialog.content=content.text.toString()
+            exampleDialog.show(this.fragmentManager!!,"example dialog")
+        }
 
 /*
     // TODO: Rename method, update argument and hook method into UI event
