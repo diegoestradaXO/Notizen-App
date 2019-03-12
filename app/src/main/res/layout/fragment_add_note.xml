@@ -8,12 +8,12 @@
             android:id="@+id/buttonAudio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/audio"
+            android:src="@android:drawable/ic_btn_speak_now"
             style="@style/Widget.AppCompat.Button.Colored"
             android:theme="@style/ThemeOverlay.MyDarkButton"
             android:layout_marginBottom="16dp"
             android:layout_gravity="bottom|right"
-            android:layout_marginVertical="70dp"/>
+            android:layout_marginVertical="70dp" android:tint="@android:color/black"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonCamara"
@@ -21,19 +21,19 @@
             android:theme="@style/ThemeOverlay.MyDarkButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/camara"
+            android:src="@android:drawable/ic_menu_camera"
             android:layout_marginBottom="16dp"
             android:layout_gravity="bottom|right"
-            android:layout_marginVertical="130dp"/>
+            android:layout_marginVertical="130dp" android:tint="@android:color/black"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/save"
+            android:src="@android:drawable/ic_menu_save"
             android:layout_gravity="top|right"
             android:layout_marginTop="70dp"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:theme="@style/ThemeOverlay.MyDarkButton"/>
+            android:theme="@style/ThemeOverlay.MyDarkButton" android:tint="@android:color/black"/>
 
     <include
             xmlns:android="http://schemas.android.com/apk/res/android"
