@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.ViewHolder.NoteViewModel
 import com.example.efpro.notizen.models.User
@@ -56,10 +57,18 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     // [START on_start_check_user]
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
+        // Check if user is signed in (non-null) and update UI accordingly.
         if(currentUser!=null){
             val intento = Intent(this, navigate::class.java)//Redirigimos a contactos
+            when {
+                intent?.action == Intent.ACTION_SEND -> {
+                    if ("text/plain" == intent.type) {
+                        val message = intent.getStringExtra(Intent.EXTRA_TEXT)
+                        intento.putExtra("content",message)
+                    }
+                }
+            }
             startActivity(intento)
             this.finish()
         }

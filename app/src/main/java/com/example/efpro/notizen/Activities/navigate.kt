@@ -1,6 +1,8 @@
 package com.example.efpro.notizen.Activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.efpro.notizen.R
@@ -25,6 +27,7 @@ class navigate : AppCompatActivity() {
         lateinit var auth: FirebaseAuth
         public var fragmentControl = 0
         public var fragmentRequested = 0
+        public var contenido = ""
     }
 
 
@@ -79,6 +82,7 @@ class navigate : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+
         val reference = FirebaseDatabase.getInstance().getReference("notes")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -142,7 +146,11 @@ class navigate : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navegate)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        if(fragmentControl==0){
+        if(getIntent().getStringExtra("content")!=null){
+            contenido = getIntent().getStringExtra("content")
+            manager.beginTransaction().replace(R.id.fragment_container, addNote()).commit()
+        }
+        else if(fragmentControl==0){
             manager.beginTransaction().replace(R.id.fragment_container, home()).commit()
         }
         else if(fragmentControl==2){

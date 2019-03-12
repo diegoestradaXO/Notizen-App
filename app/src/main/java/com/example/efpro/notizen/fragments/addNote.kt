@@ -63,6 +63,7 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
             param2 = it.getString(ARG_PARAM2)
         }
         database = FirebaseDatabase.getInstance().reference
+
     }
 
     override fun applyTexts(tittle: String, description: String) {
@@ -77,6 +78,10 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
         val view = inflater.inflate(R.layout.fragment_add_note, container, false)
         val btn: FloatingActionButton = view.findViewById(R.id.buttonGuardar)
         btn.setOnClickListener(this)
+        if(navigate.contenido!=""){
+            val content : EditText= view.findViewById(R.id.content)
+            content.setText(navigate.contenido)
+        }
         return view
     }
 

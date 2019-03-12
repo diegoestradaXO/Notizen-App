@@ -33,9 +33,7 @@ class OtherViewNoteActivity : AppCompatActivity() {
             emailIntent.data = Uri.parse("mailto:")
             emailIntent.type = "text/plain"
             emailIntent.putExtra(Intent.EXTRA_EMAIL, mail)
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "Hello:\n I have just found this note named $titulo, please read it: \n\n $contenido \n\n\n\n" +
-                    "  Or you can read it on NOTIZEN:\n" +
-                    " $id.NOTIZEN.com ")
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Hello:\n I have just found this note named $titulo, please read it: \n\n $contenido \n\n\n\n")
             try {
                 startActivity(Intent.createChooser(emailIntent, "Send mail..."))
                 Toast.makeText(this,"Sending mail",Toast.LENGTH_LONG).show()
