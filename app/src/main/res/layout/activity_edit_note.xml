@@ -63,7 +63,9 @@
                         android:id="@+id/editcontent"
                         style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense" android:textSize="12sp"/>
 
-        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/actualizar" android:layout_gravity="right" android:layout_marginRight="15dp" android:text="Actualizar"/>
+        <Button android:layout_width="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:theme="@style/ThemeOverlay.MyDarkButton" android:layout_height="wrap_content" android:id="@+id/actualizar" android:layout_gravity="right" android:layout_marginRight="15dp" android:text="Actualizar"/>
 
     </LinearLayout>
 

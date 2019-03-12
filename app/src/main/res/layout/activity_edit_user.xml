@@ -53,10 +53,13 @@
                       android:inputType="text"/>
 
         </LinearLayout>
-        <ImageButton android:layout_width="35dp" android:layout_height="35dp" android:layout_gravity="center"
-                     style="@style/Widget.AppCompat.Button.Colored"
-                     android:theme="@style/ThemeOverlay.MyDarkButton"
-                     android:id="@+id/save" android:src="@android:drawable/ic_menu_save" android:background="@color/main"/>
+        <Button
+                android:text="UPDATE"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/save"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
