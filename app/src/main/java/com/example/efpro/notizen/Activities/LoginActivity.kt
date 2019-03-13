@@ -76,6 +76,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
     // [END on_start_check_user]
 
+        //Function to create account, requires an email and password
     private fun createAccount(email: String, password: String) {
         Log.d(TAG, "createAccount:$email")
         if (!validateForm()) {
@@ -107,6 +108,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         // [END create_user_with_email]
     }
 
+    //Function to Sign In, in order to get into the app, the user must fill the spaces
     private fun signIn(email: String, password: String) {
         Log.d(TAG, "signIn:$email")
         if (!validateForm()) {
@@ -149,6 +151,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         updateUI(null)
     }
 
+    //After the user filled the spaces with the info required, a verification msg is sent to the user´s mail
+    //The user must click the verification URL in order to sign In
+
     private fun sendEmailVerification() {
         // Disable button
         verifyEmailButton.isEnabled = false
@@ -177,6 +182,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         // [END send_email_verification]
     }
 
+    //This function is used in the Sign In fun. Verify if the user has filled the text fields, if
+    //not, the fun returns false, and the sign in can not be completed
     private fun validateForm(): Boolean {
         var valid = true
 
@@ -221,6 +228,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    //Adds the new Acount to the global list in the DB
     private fun writeNewUser(){
 
             var mDatabase = FirebaseDatabase.getInstance().reference
