@@ -19,14 +19,20 @@ class OtherViewNoteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_other_view_note)
+
+        //Gets all the Extras from the previous activity
         val mail=getIntent().getStringExtra("correo")
         val titulo = getIntent().getStringExtra("titulo")
         val description = getIntent().getStringExtra("descripcion")
         val contenido = getIntent().getStringExtra("content")
         val id = getIntent().getStringExtra("identificador")
+
+        //Home button, ends the actual activity and goes to the last screen opened
         buttonHome.setOnClickListener{
             this.finish()
         }
+
+        //Button for share note function (not working)
         buttonShare.setOnClickListener{
             val emailIntent = Intent(Intent.ACTION_SEND)
             //Making the intent for email
@@ -45,6 +51,8 @@ class OtherViewNoteActivity : AppCompatActivity() {
         tittle.text = titulo
         descripcion.text = description
         content.text = contenido
+
+        //Creates a reference to "users" db in firebase
         val reference = FirebaseDatabase.getInstance().getReference("users")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {

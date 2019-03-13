@@ -20,15 +20,20 @@ class ViewNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_note)
 
+        //Gets all the Extras from the previous activity
         val contenido = getIntent().getStringExtra("content")
         val id = getIntent().getStringExtra("identificador")
         val correo=getIntent().getStringExtra("correo")
         val titulo = getIntent().getStringExtra("titulo")
         val descripcion = getIntent().getStringExtra("descripcion")
 
+
+        //Home button, ends the actual activity and goes to the last screen opened
         buttonHome.setOnClickListener{
             this.finish()
         }
+
+        //Share button, (State: not working)
         buttonShare.setOnClickListener{
             val emailIntent = Intent(Intent.ACTION_SEND)
             //Making the intent for email
@@ -44,13 +49,16 @@ class ViewNoteActivity : AppCompatActivity() {
             }
         }
 
+        //Delete button
         buttonTrash.setOnClickListener{
+            //Creates a reference to "notes" db in firebase
             val reference = FirebaseDatabase.getInstance().getReference("notes")
             reference.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
                 override fun onDataChange(p0: DataSnapshot) {
+                    //gets the note
                     val nota =p0.getValue() as HashMap<*, *>
                     val it = nota.keys.iterator()//We iterate the hash
                     while(it.hasNext()){
@@ -71,8 +79,12 @@ class ViewNoteActivity : AppCompatActivity() {
             })
         }
 
+
+        //Edit button, uses EditNoteActivity
         buttonEdit.setOnClickListener{
             val intent = Intent(this, EditNoteActivity::class.java)
+
+            //Sends the actual info as Extra to the new Activity so the user can know what it needs to be changed.
             intent.putExtra("content", contenido)
             intent.putExtra("identificador",id)
             startActivity(intent)

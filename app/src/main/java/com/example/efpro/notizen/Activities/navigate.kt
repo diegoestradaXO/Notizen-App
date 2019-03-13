@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
+//Navigation, Tab Bar, 3 fragments: Home, Add Note and Search
+
 @Suppress("UNREACHABLE_CODE")
 class navigate : AppCompatActivity() {
 
@@ -34,6 +36,8 @@ class navigate : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
+
+            //For Home Fragment
             R.id.home -> {
                 fragmentRequested=0
                 if(fragmentControl==1){
@@ -48,6 +52,8 @@ class navigate : AppCompatActivity() {
                 }
                 return@OnNavigationItemSelectedListener true
             }
+
+            //For "Add Note" Fragment
             R.id.AddNote -> {
                 if(fragmentControl!=1){
                     fragmentRequested=1
@@ -56,6 +62,8 @@ class navigate : AppCompatActivity() {
                 }
                 return@OnNavigationItemSelectedListener true
             }
+
+            //For Search Fragment
             R.id.Search -> {
                 fragmentRequested=2
                 if(fragmentControl==1){
@@ -82,6 +90,7 @@ class navigate : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        //Creates a reference to "notes" db in firebase
         val reference = FirebaseDatabase.getInstance().getReference("notes")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -100,6 +109,7 @@ class navigate : AppCompatActivity() {
                             nombre = i.email
                         }
                     }
+                    //Shows only public notes
                     if(currentNote.get("privacidad")=="false"){
                         val nota = Nota(currentNote.get("nombre") as String,
                             currentNote.get("descripcion") as String,

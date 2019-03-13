@@ -21,9 +21,15 @@ class EditUser : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_user)
-        var seguidores : List<String>?= null
-        var seguidos : List<String>?= null
+
+        //listas para seguidores
+
+        var followers : List<String>?= null
+        var following : List<String>?= null
+
+        //Create reference to firebase DataBase
         val referencia = FirebaseDatabase.getInstance().getReference("users")
+
         referencia.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -43,15 +49,17 @@ class EditUser : AppCompatActivity() {
                         currentUser.get("seguidores") as List<String>,
                         currentUser.get("seguidos") as List<String>
                     )
-                    seguidores = currentUser.get("seguidores") as List<String>
-                    seguidos = currentUser.get("seguidos") as List<String>
+                    followers = currentUser.get("seguidores") as List<String>
+                    following = currentUser.get("seguidos") as List<String>
                     if(idToExtract==user.id){
                         val followers : TextView = findViewById(R.id.followers)
                         val following: TextView = findViewById(R.id.following)
+
                         val descripcion: TextView = findViewById(R.id.biografia)
                         followers.text = user.seguidores.size.toString()
                         following.text = user.seguidos.size.toString()
                         descripcion.text = user.biografia
+                        //put the values in space
                         nombre.setText(user.nombre)
                         biografia.setHint(user.biografia)
                         correo.setText(user.email)
@@ -60,10 +68,18 @@ class EditUser : AppCompatActivity() {
             }
 
         })
+
+        //Save button, it saves the changes made by the user
+
         save.setOnClickListener{
+            //Create a reference to the DB
             val database = FirebaseDatabase.getInstance().reference
+
+            //reference to users db and set new Values.
             database.child("users").child(navigate.auth.currentUser!!.uid).child("nombre").setValue(nombre.text.toString())
             database.child("users").child(navigate.auth.currentUser!!.uid).child("biografia").setValue(biografia.text.toString())
+
+            //moves to navigate activity
             val intento = Intent(this, navigate::class.java)//Redirigimos a contactos
             startActivity(intento)
         }
