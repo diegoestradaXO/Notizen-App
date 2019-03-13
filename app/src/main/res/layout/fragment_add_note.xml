@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_save"
             android:layout_gravity="top|right"
-            android:layout_marginTop="500dp"
+            android:layout_marginTop="70dp"
             style="@style/Widget.AppCompat.Button.Colored"
             android:theme="@style/ThemeOverlay.MyDarkButton" android:tint="@android:color/white"
             app:fabCustomSize="50dp"
