@@ -13,7 +13,7 @@
             android:theme="@style/ThemeOverlay.MyDarkButton"
             android:layout_marginBottom="16dp"
             android:layout_gravity="bottom|right"
-            android:layout_marginVertical="70dp" android:tint="@android:color/black"/>
+            android:layout_marginVertical="180dp" android:tint="@android:color/white"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonCamara"
@@ -24,16 +24,18 @@
             android:src="@android:drawable/ic_menu_camera"
             android:layout_marginBottom="16dp"
             android:layout_gravity="bottom|right"
-            android:layout_marginVertical="130dp" android:tint="@android:color/black"/>
+            android:layout_marginVertical="250dp" android:tint="@android:color/white"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_save"
             android:layout_gravity="top|right"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="500dp"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:theme="@style/ThemeOverlay.MyDarkButton" android:tint="@android:color/black"/>
+            android:theme="@style/ThemeOverlay.MyDarkButton" android:tint="@android:color/white"
+            app:fabCustomSize="50dp"
+    />
 
     <include
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -45,19 +47,19 @@
         <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:orientation="vertical">
                 <EditText android:layout_width="300dp" android:layout_height="wrap_content"
                           android:id="@+id/content"
-                          android:textSize="11dp"
-                          android:hint="Write Here"
+                          android:textSize="20dp"
+                          android:hint="Escribe tu nota aquí..."
                           android:inputType="textMultiLine"
                           android:outlineSpotShadowColor="@android:color/black"
                           android:textColorHighlight="@android:color/black"
                           android:textColor="@android:color/black"
                           android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                           style="@style/Base.Widget.MaterialComponents.TextInputEditText"/>
-
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
