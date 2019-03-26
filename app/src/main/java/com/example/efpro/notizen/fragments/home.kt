@@ -96,8 +96,6 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                         currentUser.get("seguidos") as List<String>
                     )
                     if(idToExtract==user.id){
-                        val followers :TextView= view.findViewById(R.id.followers)
-                        val following:TextView=view.findViewById(R.id.following)
                         val descripcion:TextView = view.findViewById(R.id.descripcion)
                         followers.text = user.seguidores.size.toString()
                         following.text = user.seguidos.size.toString()
