@@ -78,7 +78,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         //Function to create account, requires an email and password
     private fun createAccount(email: String, password: String) {
-        Log.d(TAG, "createAccount:$email")
         if (!validateForm()) {
             return
         }
@@ -92,11 +91,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
+                    Toast.makeText(this,"DON´T FORGET TO SEND VERIFICATION EMAIL",Toast.LENGTH_LONG).show()
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
+                    Toast.makeText(baseContext, "Authentication failed, probably this email is already in use",
                         Toast.LENGTH_SHORT).show()
                     updateUI(null)
                 }

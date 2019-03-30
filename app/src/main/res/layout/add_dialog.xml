@@ -2,7 +2,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
               android:layout_width="350dp"
               android:layout_height="wrap_content"
-android:background="@drawable/backdialog">
+android:background="@drawable/fondox">
     <ImageView
             android:layout_marginTop="20dp"
             android:src="@drawable/logo"
