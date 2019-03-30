@@ -3,7 +3,8 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".fragments.Search">
+             tools:context=".fragments.Search"
+            android:background="@drawable/fondo">
 
     <include
             layout="@layout/activity_bar"
@@ -17,7 +18,8 @@
 
 
         <SearchView
-                android:background="@color/white"
+                android:outlineSpotShadowColor="@color/white"
+                android:outlineAmbientShadowColor="@color/white"
                 android:id="@+id/buscar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>

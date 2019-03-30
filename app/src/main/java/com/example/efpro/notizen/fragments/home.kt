@@ -97,8 +97,6 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                     )
                     if(idToExtract==user.id){
                         val descripcion:TextView = view.findViewById(R.id.descripcion)
-                        followers.text = user.seguidores.size.toString()
-                        following.text = user.seguidos.size.toString()
                         descripcion.text = user.biografia
                     }
                     NoteViewModel.allUsers.add(user)

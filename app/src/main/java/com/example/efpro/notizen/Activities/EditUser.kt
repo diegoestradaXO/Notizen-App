@@ -52,12 +52,8 @@ class EditUser : AppCompatActivity() {
                     followers = currentUser.get("seguidores") as List<String>
                     following = currentUser.get("seguidos") as List<String>
                     if(idToExtract==user.id){
-                        val followers : TextView = findViewById(R.id.followers)
-                        val following: TextView = findViewById(R.id.following)
 
                         val descripcion: TextView = findViewById(R.id.biografia)
-                        followers.text = user.seguidores.size.toString()
-                        following.text = user.seguidos.size.toString()
                         descripcion.text = user.biografia
                         //put the values in space
                         nombre.setText(user.nombre)

@@ -3,6 +3,7 @@
              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+             android:background="@drawable/fondo"
              tools:context=".fragments.addNote">
 
 
@@ -12,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|right"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:theme="@style/ThemeOverlay.MyDarkButton" android:src="@drawable/hometwo"/>
+            android:theme="@style/ThemeOverlay.MyDarkButton" app:srcCompat="@drawable/home" android:tint="@color/white"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonShare"
@@ -21,8 +22,8 @@
             android:layout_gravity="top|right"
             android:layout_marginTop="70dp"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:theme="@style/ThemeOverlay.MyDarkButton" android:src="@android:drawable/ic_menu_share"
-            app:rippleColor="@color/common_google_signin_btn_text_dark_focused" android:tint="@android:color/black"/>
+            android:theme="@style/ThemeOverlay.MyDarkButton" app:srcCompat="@drawable/share"
+            app:rippleColor="@color/common_google_signin_btn_text_dark_focused" android:tint="@color/white"/>
 
     <include
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,20 +38,18 @@
                 android:layout_height="match_parent">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:orientation="vertical">
-                <TextView  android:layout_width="wrap_content" android:id="@+id/tittle" android:layout_gravity="center"
-                           android:layout_height="wrap_content" android:text="NO TITTE" android:textColor="@color/main"/>
+                <TextView android:layout_width="wrap_content" android:id="@+id/tittle" android:layout_gravity="center"
+                           android:layout_height="wrap_content" android:text="NO TITTE" android:textColor="@color/white"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="made by" android:id="@+id/correo"/>
-                <TextView android:layout_width="330dp" android:layout_marginTop="15dp" android:layout_height="wrap_content"
+                          android:text="made by" android:id="@+id/correo" android:textColor="@color/white"/>
+                <TextView android:textColor="@color/white" android:layout_width="330dp" android:layout_marginTop="15dp" android:layout_height="wrap_content"
                           android:text="without description" android:id="@+id/descripcion" />
                 <TextView android:layout_width="300dp" android:layout_height="wrap_content"
                           android:id="@+id/content"
                           android:layout_marginTop="25dp"
                           android:layout_marginLeft="15dp"
-                          android:textSize="11dp"
-                          android:outlineSpotShadowColor="@android:color/black"
-                          android:textColorHighlight="@android:color/black"
-                          android:textColor="@android:color/black"
+                          android:textSize="15dp"
+                          android:textColor="@color/white"
                           android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
             </LinearLayout>

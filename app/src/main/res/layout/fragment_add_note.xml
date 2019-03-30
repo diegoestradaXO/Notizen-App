@@ -3,12 +3,14 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-             tools:context=".fragments.addNote">
+             tools:context=".fragments.addNote"
+                android:background="@drawable/fondo">
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonAudio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_btn_speak_now"
+            app:srcCompat="@drawable/micro"
             style="@style/Widget.AppCompat.Button.Colored"
             android:theme="@style/ThemeOverlay.MyDarkButton"
             android:layout_marginBottom="16dp"
@@ -21,7 +23,7 @@
             android:theme="@style/ThemeOverlay.MyDarkButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_camera"
+            app:srcCompat="@drawable/camera"
             android:layout_marginBottom="16dp"
             android:layout_gravity="bottom|right"
             android:layout_marginVertical="250dp" android:tint="@android:color/white"/>
@@ -29,7 +31,7 @@
             android:id="@+id/buttonGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_save"
+            app:srcCompat="@drawable/save"
             android:layout_gravity="top|right"
             android:layout_marginTop="70dp"
             style="@style/Widget.AppCompat.Button.Colored"
@@ -42,24 +44,28 @@
             layout="@layout/activity_bar"
             android:layout_width="match_parent" android:layout_height="match_parent"/>
 
-    <LinearLayout android:layout_width="match_parent" android:layout_marginTop="70dp"  android:orientation="vertical" android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_marginTop="70dp"  android:orientation="vertical" android:layout_height="match_parent" android:background="@drawable/backdialog"
+                  android:layout_marginLeft="10dp" android:layout_marginRight="65dp" android:layout_marginBottom="100dp">
 
         <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:orientation="vertical">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="50dp"
+                          android:orientation="vertical" android:layout_marginRight="60dp" android:layout_marginLeft="10dp">
                 <EditText android:layout_width="300dp" android:layout_height="wrap_content"
+                          android:textColorHint="@color/white"
+                          android:layout_marginBottom="200dp"
                           android:id="@+id/content"
-                          android:textSize="20dp"
+                          android:textSize="15dp"
                           android:hint="Escribe tu nota aquí..."
                           android:inputType="textMultiLine"
                           android:outlineSpotShadowColor="@android:color/black"
                           android:textColorHighlight="@android:color/black"
                           android:textColor="@android:color/black"
                           android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                          style="@style/Base.Widget.MaterialComponents.TextInputEditText"/>
+                          style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+                          />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
