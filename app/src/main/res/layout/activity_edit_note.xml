@@ -15,12 +15,12 @@
         <LinearLayout android:layout_marginRight="15dp" android:layout_marginLeft="15dp" android:layout_width="match_parent" android:layout_height="match_parent"
                       android:orientation="vertical">
 
-    <LinearLayout  android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+    <LinearLayout  android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:layout_marginTop="15dp">
 
 
         <EditText
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"
+                android:textColorHint="@color/main"
+                android:textColor="@color/main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -30,11 +30,10 @@
                 android:ems="10"
                 android:id="@+id/editTitulo"/>
         <EditText
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"
-                android:layout_marginTop="15dp"
+                android:textColorHint="@color/main"
+                android:textColor="@color/main"
                 android:layout_marginRight="15dp"
-                android:layout_margin="15dp"
+                android:layout_marginLeft="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -43,8 +42,8 @@
                 android:id="@+id/editdescription"/>
 
         <EditText
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"
+                android:textColorHint="@color/main"
+                android:textColor="@color/main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -56,15 +55,20 @@
                 android:id="@+id/tags"/>
         <Switch
                 android:text="Privacity   "
-                android:textColor="@color/white"
+                android:textColor="@color/main"
+                android:textColorHint="@color/main"
+                android:thumbTint="@color/main"
+                android:trackTint="@color/main"
+                android:buttonTint="@color/main"
+                android:backgroundTint="@color/main"
                 android:layout_width="wrap_content"
                 android:layout_marginRight="15dp"
                 android:layout_gravity="right"
                 android:layout_height="wrap_content" android:id="@+id/switch2"/>
 
                 <EditText
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/white"
+                        android:textColorHint="@color/main"
+                        android:textColor="@color/main"
                         android:layout_marginTop="25dp"
                         android:layout_width="match_parent"
                         android:layout_height="250dp"

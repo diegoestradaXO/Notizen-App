@@ -4,12 +4,17 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.app.Fragment
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.*
 import com.example.efpro.notizen.Activities.EditUser
 import com.example.efpro.notizen.Activities.LoginActivity
@@ -65,6 +70,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     @SuppressLint("WrongConstant")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,6 +80,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val btn: FloatingActionButton = view.findViewById(R.id.signout)
         val edit: FloatingActionButton = view.findViewById(R.id.editbutton)
+        val searchView: SearchView = view.findViewById(R.id.search)
         val referencia = FirebaseDatabase.getInstance().getReference("users")
         referencia.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {

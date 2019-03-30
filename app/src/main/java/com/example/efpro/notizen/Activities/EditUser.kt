@@ -22,10 +22,6 @@ class EditUser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_user)
 
-        //listas para seguidores
-
-        var followers : List<String>?= null
-        var following : List<String>?= null
 
         //Create reference to firebase DataBase
         val referencia = FirebaseDatabase.getInstance().getReference("users")
@@ -49,8 +45,6 @@ class EditUser : AppCompatActivity() {
                         currentUser.get("seguidores") as List<String>,
                         currentUser.get("seguidos") as List<String>
                     )
-                    followers = currentUser.get("seguidores") as List<String>
-                    following = currentUser.get("seguidos") as List<String>
                     if(idToExtract==user.id){
 
                         val descripcion: TextView = findViewById(R.id.biografia)
