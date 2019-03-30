@@ -33,7 +33,6 @@ class ExampleDialog : AppCompatDialogFragment() {
         val builder = AlertDialog.Builder(activity)
         val inflater = activity!!.layoutInflater
         val view = inflater.inflate(R.layout.add_dialog, null)
-
         builder.setView(view)
             .setTitle("Configuration")
             .setNegativeButton("CANCEL") { dialog, which -> }

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,17 +21,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_emailpassword.detail
-import kotlinx.android.synthetic.main.activity_emailpassword.emailCreateAccountButton
-import kotlinx.android.synthetic.main.activity_emailpassword.emailPasswordButtons
-import kotlinx.android.synthetic.main.activity_emailpassword.emailPasswordFields
-import kotlinx.android.synthetic.main.activity_emailpassword.emailSignInButton
-import kotlinx.android.synthetic.main.activity_emailpassword.fieldEmail
-import kotlinx.android.synthetic.main.activity_emailpassword.fieldPassword
-import kotlinx.android.synthetic.main.activity_emailpassword.signOutButton
-import kotlinx.android.synthetic.main.activity_emailpassword.signedInButtons
-import kotlinx.android.synthetic.main.activity_emailpassword.status
-import kotlinx.android.synthetic.main.activity_emailpassword.verifyEmailButton
+import kotlinx.android.synthetic.main.activity_emailpassword.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -47,7 +38,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         emailCreateAccountButton.setOnClickListener(this)
         signOutButton.setOnClickListener(this)
         verifyEmailButton.setOnClickListener(this)
-
+        val animation = AnimationUtils.loadAnimation(this,R.anim.rotate)
+        icon.startAnimation(animation)
         // [START initialize_auth]
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()

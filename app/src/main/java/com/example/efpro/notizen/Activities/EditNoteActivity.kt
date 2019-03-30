@@ -74,7 +74,7 @@ class EditNoteActivity : AppCompatActivity() {
             newVersions.add(newOne)
             var privacidad = "false"
             if (switch2.isChecked){
-                privacidad="false"
+                privacidad="true"
             }
             val nota = Nota(editTitulo.text.toString(),editdescription.text.toString(),tags!!.text.toString().split(",".toRegex()),newVersions as List<List<String>>,privacidad,
                 navigate.auth.currentUser!!.uid)

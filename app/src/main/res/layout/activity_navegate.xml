@@ -8,7 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Activities.navigate"
+        android:layout_gravity="center"
+        android:foregroundGravity="center"
+        app:layout_anchorGravity="center"
         android:background="@drawable/fondo">
+
 
     <include
             layout="@layout/activity_bar"
@@ -19,7 +23,7 @@
 
     <FrameLayout
             android:id="@+id/fragment_container"
-            android:layout_width="match_parent" android:layout_height="match_parent">
+            android:layout_width="match_parent" android:layout_height="match_parent" android:foregroundGravity="center">
 
     </FrameLayout>
 

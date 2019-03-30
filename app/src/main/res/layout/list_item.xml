@@ -10,7 +10,7 @@
         android:layout_marginTop="8dp">
 
 
-    <LinearLayout android:background="@drawable/backdialog" android:layout_width="match_parent" android:layout_height="250sp" android:orientation="vertical">
+    <LinearLayout android:background="@drawable/backdialog" android:layout_width="match_parent" android:layout_marginTop="10dp" android:layout_height="250sp" android:orientation="vertical" android:layout_marginBottom="10dp">
 
         <LinearLayout android:layout_marginTop="20dp" android:gravity="left" android:layout_width="match_parent" android:layout_height="wrap_content">
             <ImageView android:layout_width="50dp" android:layout_height="50dp" android:id="@+id/foto" android:layout_marginLeft="10dp"
@@ -36,7 +36,6 @@
                     tools:ignore="HardcodedText"/>
 
         </LinearLayout>
-
-    </LinearLayout>
+ </LinearLayout>
 
 </androidx.cardview.widget.CardView>
