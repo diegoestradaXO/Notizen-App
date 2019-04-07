@@ -10,10 +10,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.SearchView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.*
 import com.example.efpro.notizen.Activities.EditUser
@@ -57,6 +54,8 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
     private var param2: String? = null
     private lateinit var database: DatabaseReference
     private lateinit var listData: List<Nota>
+    private lateinit var adapter: NoteAdapter
+
 // ...
 
    // private var listener: OnFragmentInteractionListener? = null
@@ -75,12 +74,15 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+        var editText = view.findViewById(R.id.buscarEdit) as EditText
+        val botonBuscar = view.findViewById(R.id.botonBuscar) as Button
         val btn: FloatingActionButton = view.findViewById(R.id.signout)
         val edit: FloatingActionButton = view.findViewById(R.id.editbutton)
-        val searchView: SearchView = view.findViewById(R.id.search)
+
         val referencia = FirebaseDatabase.getInstance().getReference("users")
         referencia.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
@@ -117,9 +119,25 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
         val adapter = NoteAdapter()
         listData =  NoteViewModel.allNotes.shuffled()
+        //Aqui agregar, If el query esta vacio, agregar el ListData, si no, agregar la que es con parametro
+
         adapter.submitList(listData)
+
+
         recycler_view.adapter = adapter
 
+        botonBuscar.setOnClickListener{
+            val parameter = editText!!.text.toString()
+            if (parameter == ""){
+                adapter.submitList(NoteViewModel.allNotes)
+                recycler_view.adapter = adapter
+            }else{
+                val filteredList = NoteViewModel.allNotes.filter {it.etiquetas.contains(parameter)}
+                adapter.submitList(filteredList)
+                recycler_view.adapter = adapter
+            }
+
+        }
         /*Here it ends*/
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)) {
@@ -174,7 +192,19 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         }
         else -> {
         }
+
     }
+
+    //fun filterList(): List<Nota>{
+      //  var filteredList: MutableList<Nota> = mutableListOf<Nota>()
+        //listData.forEach{
+          //  if(it.etiquetas.contains(searchView.query)){
+            //    filteredList.add(it)
+            //}
+        //}
+        //return filteredList
+    //}
+
 /*
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
