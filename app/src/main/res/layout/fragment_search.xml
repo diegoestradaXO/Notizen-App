@@ -12,17 +12,24 @@
             android:id="@+id/bar"
             android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android"/>
 
-
-
-    <LinearLayout android:layout_width="match_parent" android:layout_marginTop="70dp" android:orientation="vertical" android:layout_height="match_parent">
-
-
-        <SearchView
+    <LinearLayout android:layout_width="match_parent" android:layout_marginTop="70dp" android:orientation="horizontal"
+                  android:layout_height="match_parent">
+        <EditText
                 android:outlineSpotShadowColor="@color/white"
                 android:outlineAmbientShadowColor="@color/white"
-                android:id="@+id/buscar"
-                android:layout_width="match_parent"
+                android:hint="Buscar..."
+                android:id="@+id/buscarEdit"
+                android:layout_width="295dp"
                 android:layout_height="50dp"/>
+        <Button
+                android:text="Buscar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/botonBuscar"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_marginTop="110dp" android:orientation="vertical" android:layout_height="match_parent">
 
 
         <androidx.recyclerview.widget.RecyclerView

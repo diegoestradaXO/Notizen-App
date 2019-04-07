@@ -8,10 +8,14 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.efpro.notizen.Activities.EditUser
+import com.example.efpro.notizen.Activities.LoginActivity
 import com.example.efpro.notizen.Activities.ViewNoteActivity
 import com.example.efpro.notizen.Activities.navigate
 import com.example.efpro.notizen.Adapters.NoteAdapter
@@ -24,6 +28,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_navegate.*
+import kotlinx.android.synthetic.main.fragment_search.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,8 +63,10 @@ class Search : androidx.fragment.app.Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
-            // Inflate the layout for this fragment
+        // Inflate the layout for this fragment
         val recycler_view = view!!.findViewById(R.id.recycler_view) as RecyclerView
+        var editText = view.findViewById(R.id.buscarEdit) as EditText
+        val botonBuscar = view.findViewById(R.id.botonBuscar) as Button
         recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         recycler_view.setHasFixedSize(true)
         recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
@@ -77,16 +84,31 @@ class Search : androidx.fragment.app.Fragment(){
                 intent.putExtra("descripcion",note.descripcion)
                 startActivity(intent)
             }
-        })
 
+
+
+        })
+        botonBuscar.setOnClickListener{
+            val parameter = editText.text.toString()
+            if (parameter == ""){
+                adapter.submitList(NoteViewModel.Notes)
+                recycler_view.adapter = adapter
+            }else{
+                val filteredList = NoteViewModel.Notes.filter {it.etiquetas.contains(parameter)}
+                adapter.submitList(filteredList)
+                recycler_view.adapter = adapter
+            }
+
+        }
         return view
+
     }
+
 /*
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
     }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
@@ -95,12 +117,10 @@ class Search : androidx.fragment.app.Fragment(){
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
     }
-
     override fun onDetach() {
         super.onDetach()
         listener = null
     }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

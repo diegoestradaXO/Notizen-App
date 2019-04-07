@@ -4,6 +4,8 @@ package com.example.efpro.notizen.Adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
@@ -96,4 +98,5 @@ class NoteAdapter : ListAdapter<Nota, NoteAdapter.NotaHolder>(DIFF_CALLBACK) {
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }
+
 }
