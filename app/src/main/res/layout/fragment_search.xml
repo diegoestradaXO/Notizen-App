@@ -20,11 +20,15 @@
                 android:hint="Buscar..."
                 android:id="@+id/buscarEdit"
                 android:layout_width="295dp"
-                android:layout_height="50dp"/>
+                android:layout_height="50dp"
+                android:textColorHint="@color/main"
+        />
         <Button
                 android:text="Buscar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/botonBuscar"/>
+                android:layout_height="wrap_content" android:id="@+id/botonBuscar" android:textColor="@color/main"
+                style="@style/Widget.AppCompat.Button"/>
+
 
     </LinearLayout>
 
