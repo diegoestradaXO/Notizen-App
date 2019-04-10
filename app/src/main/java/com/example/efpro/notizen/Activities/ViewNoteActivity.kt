@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.efpro.notizen.Dialog.WarningDeleteDialog
 import com.example.efpro.notizen.R
+import com.example.efpro.notizen.ViewHolder.NoteViewModel
 import com.example.efpro.notizen.models.Nota
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,8 +27,32 @@ class ViewNoteActivity : AppCompatActivity() {
         val correo=getIntent().getStringExtra("correo")
         val titulo = getIntent().getStringExtra("titulo")
         val descripcion = getIntent().getStringExtra("descripcion")
+        NoteViewModel.versions.clear()
+        val referencia = FirebaseDatabase.getInstance().getReference("notes")
+        referencia.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+            override fun onDataChange(p0: DataSnapshot) {
+                val note =p0.getValue() as HashMap<*, *>
+                val it = note.keys.iterator()//We iterate the hash
+                while(it.hasNext()){
+                    val key = it.next()
+                    val currentnote = note.get(key) as HashMap<*,*>
 
+                    if(id==currentnote.get("id") as String){
+                        val versiones = currentnote.get("versiones") as List<List<String>>
+                        for (version in versiones){
+                            val currentVersion = mutableListOf<String>()
+                            currentVersion.add(version[1])
+                            currentVersion.add(version[0])
+                            NoteViewModel.versions.add(currentVersion)
+                        }
+                    }
+                }
+            }
 
+        })
         //Home button, ends the actual activity and goes to the last screen opened
         buttonHome.setOnClickListener{
             this.finish()
@@ -91,6 +116,18 @@ class ViewNoteActivity : AppCompatActivity() {
             this.finish()
         }
 
+        buttonVersions.setOnClickListener{
+            val intent = Intent(this, versions::class.java)
+            //Sends the actual info as Extra to the new Activity so the user can know what it needs to be changed.
+            intent.putExtra("identificador",id)
+            intent.putExtra("correo",correo)
+            intent.putExtra("titulo",titulo)
+            intent.putExtra("descripcion",descripcion)
+            startActivity(intent)
+            this.finish()
+
+        }
+
 
         if(correo!=navigate.auth.currentUser!!.uid){
             val intent = Intent(this, OtherViewNoteActivity::class.java)
@@ -117,7 +154,6 @@ class ViewNoteActivity : AppCompatActivity() {
                         val versiones = currentNote["versiones"] as List<List<String>>
                         var index = versiones.size - 1
                         val contenido = versiones[index]
-                        content.setText(contenido[0])
                         tittle.setText(currentNote.get("nombre").toString())
                         descrip.setText(currentNote.get("descripcion").toString())
                     }
@@ -125,6 +161,7 @@ class ViewNoteActivity : AppCompatActivity() {
             }
 
         })
+        content.setText(contenido)
     }
     fun warningDeleteDialog(get: Nota) {
         val warningDeleteDialog = WarningDeleteDialog(get)

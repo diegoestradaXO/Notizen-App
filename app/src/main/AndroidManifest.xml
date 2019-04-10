@@ -19,12 +19,15 @@
                 android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
+                <action android:name="android.intent.action.SEND"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
         <activity
@@ -39,11 +42,17 @@
         </activity>
         <activity android:name=".Activities.EditUser">
         </activity>
+
         <receiver
                 android:name=".BroadcastReceiver.idReceiver"
                 android:enabled="true"
                 android:exported="true">
         </receiver>
+
+        <activity android:name=".Activities.charging">
+        </activity>
+        <activity android:name=".Activities.versions">
+        </activity>
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ class NoteViewModel(application: android.app.Application): AndroidViewModel(appl
         public var allNotes: MutableList<Nota> = mutableListOf()
         public var allUsers: MutableList<User> = mutableListOf()
         public var Notes: MutableList<Nota> = mutableListOf()
+        public var versions: MutableList<MutableList<String>> = mutableListOf()
 
     }
 

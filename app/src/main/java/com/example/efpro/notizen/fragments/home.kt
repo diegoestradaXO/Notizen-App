@@ -79,7 +79,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         var editText = view.findViewById(R.id.buscarEdit) as EditText
-        val botonBuscar = view.findViewById(R.id.botonBuscar) as Button
+        val botonBuscar = view.findViewById(R.id.botonBuscar) as ImageButton
         val btn: FloatingActionButton = view.findViewById(R.id.signout)
         val edit: FloatingActionButton = view.findViewById(R.id.editbutton)
 
@@ -116,11 +116,10 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         val recycler_view = view!!.findViewById(R.id.recycler_view) as RecyclerView
         recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         recycler_view.setHasFixedSize(true)
-        recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
+        recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.VERTICAL))
         val adapter = NoteAdapter()
-        listData =  NoteViewModel.allNotes.shuffled()
+        listData =  NoteViewModel.allNotes
         //Aqui agregar, If el query esta vacio, agregar el ListData, si no, agregar la que es con parametro
-
         adapter.submitList(listData)
 
 

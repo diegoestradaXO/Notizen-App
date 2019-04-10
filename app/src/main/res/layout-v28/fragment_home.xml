@@ -39,32 +39,37 @@
 
     <LinearLayout android:layout_width="match_parent" android:layout_gravity="center_horizontal"
                   android:orientation="vertical" android:layout_height="match_parent">
+        <TextView  android:textColor="@color/main" android:layout_width="match_parent"
+                  android:layout_marginLeft="15dp"
+                  android:text="NO DESCRIPTION"
+                  android:layout_height="40dp" android:layout_marginRight="15dp" android:layout_marginTop="62dp"
+                  android:id="@+id/descripcion" android:layout_gravity="center" android:gravity="center"/>
 
         <LinearLayout
-                android:layout_marginTop="63dp" android:orientation="horizontal"
+                 android:orientation="horizontal"
                 android:layout_width="match_parent" android:layout_gravity="center" android:layout_height="35dp">
+
             <EditText
                     android:outlineSpotShadowColor="@color/white"
                     android:outlineAmbientShadowColor="@color/white"
-                    android:hint="Buscar..."
+                    android:hint="Search"
+                    android:textColor="@android:color/darker_gray"
                     android:id="@+id/buscarEdit"
                     android:layout_width="295dp"
                     android:layout_height="50dp"
-                    android:textColorHint="@color/main"
+                    android:textColorHint="@android:color/darker_gray"
             />
-            <Button
-                    android:text="Buscar"
+            <ImageButton
+                    android:theme="@style/ThemeOverlay.MyDarkButton"
+                    android:src="@android:drawable/ic_menu_search"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/botonBuscar" android:textColor="@color/main"
-                    style="@style/Widget.AppCompat.Button"/>
+                    android:layout_height="40dp" android:id="@+id/botonBuscar" android:layout_weight="1"
+                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"/>
 
         </LinearLayout>
-        <TextView android:textColor="@color/main" android:layout_width="match_parent"
-                  android:layout_marginLeft="15dp"
-                  android:text="NO DESCRIPTION"
-                  android:layout_height="40dp" android:layout_marginRight="15dp" android:layout_marginTop="5dp"
-                  android:id="@+id/descripcion" android:layout_gravity="center" android:gravity="center"/>
         <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="60dp"
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -2,6 +2,7 @@ package com.example.efpro.notizen.Activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -89,8 +90,8 @@ class navigate : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
         //Creates a reference to "notes" db in firebase
+        auth = FirebaseAuth.getInstance()
         val reference = FirebaseDatabase.getInstance().getReference("notes")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -155,18 +156,20 @@ class navigate : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navegate)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        if(getIntent().getStringExtra("content")!=null){
-            contenido = getIntent().getStringExtra("content")
-            manager.beginTransaction().replace(R.id.fragment_container, addNote()).commit()
+        val animation = AnimationUtils.loadAnimation(this,R.anim.rotate)
+        icon.startAnimation(animation)
+        if(NoteViewModel.allNotes.size!=0){
+            if(getIntent().getStringExtra("content")!=null){
+                contenido = getIntent().getStringExtra("content")
+                manager.beginTransaction().replace(R.id.fragment_container, addNote()).commit()
+            }
+            else if(fragmentControl==0){
+                manager.beginTransaction().replace(R.id.fragment_container, home()).commit()
+            }
+            else if(fragmentControl==2){
+                manager.beginTransaction().replace(R.id.fragment_container, Search()).commit()
+            }
         }
-        else if(fragmentControl==0){
-            manager.beginTransaction().replace(R.id.fragment_container, home()).commit()
-        }
-        else if(fragmentControl==2){
-            manager.beginTransaction().replace(R.id.fragment_container, Search()).commit()
-        }
-        auth = FirebaseAuth.getInstance()
-
     }
 
 

@@ -20,17 +20,21 @@ android:background="@drawable/fondox">
             android:layout_height="wrap_content" android:id="@+id/switch1"/>
 
     <EditText
+            android:maxLength="20"
             android:id="@+id/title"
             android:layout_width="match_parent"
+            android:textColor="@color/white"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
             android:textColorHint="@color/white"
-            android:hint="TIITLE" android:inputType="text"/>
+            android:hint="TITLE" android:inputType="text|textShortMessage" android:singleLine="true"/>
     <EditText
+            android:maxLength="150"
             android:id="@+id/description"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,9 +43,10 @@ android:background="@drawable/fondox">
             android:layout_marginRight="4dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif"
-            android:hint="Description" android:inputType="text"/>
+            android:hint="Description" android:inputType="text|textShortMessage"/>
     <EditText
             android:id="@+id/tags"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="10dp"
             android:layout_width="match_parent"

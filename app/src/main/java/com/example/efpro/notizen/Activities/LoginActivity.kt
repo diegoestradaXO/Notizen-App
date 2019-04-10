@@ -38,8 +38,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         emailCreateAccountButton.setOnClickListener(this)
         signOutButton.setOnClickListener(this)
         verifyEmailButton.setOnClickListener(this)
-        val animation = AnimationUtils.loadAnimation(this,R.anim.rotate)
-        icon.startAnimation(animation)
         // [START initialize_auth]
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()

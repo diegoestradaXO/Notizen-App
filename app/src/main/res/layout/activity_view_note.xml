@@ -44,6 +44,7 @@ android:background="@drawable/fondo">
             android:layout_marginTop="70dp"
             style="@style/Widget.AppCompat.Button.Colored"
             android:theme="@style/ThemeOverlay.MyDarkButton" android:tint="@color/white"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonHome"
             android:layout_width="wrap_content"
@@ -64,12 +65,18 @@ android:background="@drawable/fondo">
         <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            <LinearLayout android:layout_marginBottom="15dp" android:layout_marginTop="5dp" android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:orientation="vertical">
-                <TextView  android:layout_width="wrap_content"  android:id="@+id/tittle" android:layout_gravity="center"
-                           android:layout_height="wrap_content" android:text="NO TITTE" android:textColor="@color/main"/>
-                <TextView android:layout_width="330dp" android:layout_height="wrap_content" android:textColor="@color/main"
-                            android:text="without description" android:id="@+id/descrip" />
+                <TextView android:layout_width="wrap_content" android:id="@+id/tittle" android:layout_gravity="center"
+                          android:layout_height="wrap_content" android:text="NO TITTE" android:textColor="@color/main"
+                          app:fontFamily="monospace" android:textSize="24sp"/>
+                <TextView android:layout_marginTop="15dp" android:layout_marginLeft="15dp"
+                          android:layout_width="match_parent"
+                          android:layout_marginRight="45dp" android:layout_height="wrap_content"
+                          android:textColor="@color/main"
+                          android:textSize="11dp"
+                          android:text="without description" android:id="@+id/descrip"
+                          app:fontFamily="serif-monospace"/>
                 <TextView android:layout_width="300dp" android:layout_height="wrap_content"
                           android:id="@+id/content"
                           android:layout_marginTop="25dp"
@@ -77,7 +84,9 @@ android:background="@drawable/fondo">
                           android:textSize="15dp"
                           android:text="Write Here"
                           android:textColor="@color/main"
-                          android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                          android:layout_marginBottom="15dp"
+                          android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                          app:fontFamily="monospace"/>
 
             </LinearLayout>
         </ScrollView>

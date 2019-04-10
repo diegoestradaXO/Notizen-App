@@ -36,20 +36,28 @@
         <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            <LinearLayout android:layout_width="match_parent" android:layout_marginBottom="15dp" android:layout_marginTop="5dp" android:layout_height="wrap_content"
                           android:orientation="vertical">
                 <TextView android:layout_width="wrap_content" android:id="@+id/tittle" android:layout_gravity="center"
-                           android:layout_height="wrap_content" android:text="NO TITTE" android:textColor="@color/main"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="made by" android:id="@+id/correo" android:textColor="@color/main"/>
-                <TextView android:textColor="@color/main" android:layout_width="330dp" android:layout_marginTop="15dp" android:layout_height="wrap_content"
-                          android:text="without description" android:id="@+id/descripcion" />
+                          android:layout_height="wrap_content" android:text="NO TITTE" android:textColor="@color/main"
+                          app:fontFamily="monospace"/>
+                <TextView android:layout_marginTop="15dp" android:layout_marginLeft="15dp" android:layout_marginRight="15dp"
+                          android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="made by" android:id="@+id/correo" android:textColor="@color/main"
+                          app:fontFamily="serif-monospace"/>
+                <TextView android:layout_marginRight="15dp" android:layout_marginLeft="15dp"
+                          android:textColor="@color/main" android:layout_width="330dp" android:layout_marginTop="15dp"
+                          android:layout_height="wrap_content"
+                          android:text="without description" android:id="@+id/descripcion"
+                          app:fontFamily="serif-monospace"/>
                 <TextView android:layout_width="300dp" android:layout_height="wrap_content"
                           android:id="@+id/content"
                           android:layout_marginTop="25dp"
                           android:layout_marginLeft="15dp"
+                          android:layout_marginRight="15dp"
                           android:textSize="15dp"
                           android:textColor="@color/main"
+                          android:layout_marginBottom="15dp"
                           android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
             </LinearLayout>

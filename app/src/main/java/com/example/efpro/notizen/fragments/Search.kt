@@ -3,13 +3,13 @@ package com.example.efpro.notizen.fragments
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.app.Fragment
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -66,7 +66,7 @@ class Search : androidx.fragment.app.Fragment(){
         // Inflate the layout for this fragment
         val recycler_view = view!!.findViewById(R.id.recycler_view) as RecyclerView
         var editText = view.findViewById(R.id.buscarEdit) as EditText
-        val botonBuscar = view.findViewById(R.id.botonBuscar) as Button
+        val botonBuscar = view.findViewById(R.id.botonBuscar) as ImageButton
         recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         recycler_view.setHasFixedSize(true)
         recycler_view.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.HORIZONTAL))
@@ -78,7 +78,7 @@ class Search : androidx.fragment.app.Fragment(){
             override fun onItemClick(note: Nota) {
                 val intent = Intent(activity, ViewNoteActivity::class.java)
                 intent.putExtra("identificador",note.nombre+ navigate.auth.currentUser!!.uid)
-                intent.putExtra("content", note.versiones!![note.versiones!!.size-1][0])
+                intent.putExtra("content", note.versiones[note.versiones.size-1][0])
                 intent.putExtra("correo",note.userid)
                 intent.putExtra("titulo",note.nombre)
                 intent.putExtra("descripcion",note.descripcion)
