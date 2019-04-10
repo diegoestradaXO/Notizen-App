@@ -96,19 +96,19 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                     val key = it.next()
                     val currentUser = user.get(key) as HashMap<*,*>
                     val idToExtract =navigate.auth.currentUser!!.uid
-                    val user = User(
-                        currentUser.get("id") as String,
-                        currentUser.get("email") as String,
-                        currentUser.get("biografia") as String,
-                        currentUser.get("nombre") as String,
-                        currentUser.get("seguidores") as List<String>,
-                        currentUser.get("seguidos") as List<String>
-                    )
-                    if(idToExtract==user.id){
-                        val descripcion:TextView = view.findViewById(R.id.descripcion)
-                        descripcion.text = user.biografia
-                    }
-                    NoteViewModel.allUsers.add(user)
+                    //val user = User(
+                    //    currentUser.get("id") as String,
+                     //   currentUser.get("email") as String,
+                    //    currentUser.get("biografia") as String,
+                    //    currentUser.get("nombre") as String,
+                     //   currentUser.get("seguidores") as List<String>,
+                    //    currentUser.get("seguidos") as List<String>
+                    //)
+                    //if(idToExtract==user.id){
+                    //    val descripcion:TextView = view.findViewById(R.id.descripcion)
+                     //   descripcion.text = user.biografia
+                    //}
+                    //NoteViewModel.allUsers.add(user)
                 }
             }
 
