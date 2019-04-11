@@ -3,7 +3,9 @@ package com.example.efpro.notizen.Activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.R.id.correo
 import com.example.efpro.notizen.ViewHolder.NoteViewModel
@@ -33,9 +35,12 @@ class EditUser : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 val user =p0.getValue() as HashMap<*, *>
                 val it = user.keys.iterator()//We iterate the hash
+                var contador = 0
                 while(it.hasNext()){
+                    contador++
                     val key = it.next()
                     val currentUser = user.get(key) as HashMap<*,*>
+                    Log.d("text" ,contador.toString() + currentUser.toString())
                     val idToExtract =navigate.auth.currentUser!!.uid
                     val user = User(
                         currentUser.get("id") as String,

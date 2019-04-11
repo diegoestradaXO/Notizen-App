@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ import com.example.efpro.notizen.models.User
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_edit_user.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlin.collections.HashMap
 
@@ -83,6 +85,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         val btn: FloatingActionButton = view.findViewById(R.id.signout)
         val edit: FloatingActionButton = view.findViewById(R.id.editbutton)
 
+
         val referencia = FirebaseDatabase.getInstance().getReference("users")
         referencia.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
@@ -109,6 +112,38 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                      //   descripcion.text = user.biografia
                     //}
                     //NoteViewModel.allUsers.add(user)
+                }
+            }
+
+        })
+        val reference = FirebaseDatabase.getInstance().getReference("users")
+
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+            override fun onDataChange(p0: DataSnapshot) {
+                val user =p0.getValue() as HashMap<*, *>
+                val it = user.keys.iterator()//We iterate the hash
+                var contador = 0
+                while(it.hasNext()){
+                    contador++
+                    val key = it.next()
+                    val currentUser = user.get(key) as HashMap<*,*>
+                    Log.d("text" ,contador.toString() + currentUser.toString())
+                    val idToExtract =navigate.auth.currentUser!!.uid
+                    val user = User(
+                        currentUser.get("id") as String,
+                        currentUser.get("email") as String,
+                        currentUser.get("biografia") as String,
+                        currentUser.get("nombre") as String,
+                        currentUser.get("seguidores") as List<String>,
+                        currentUser.get("seguidos") as List<String>
+                    )
+                    if(idToExtract==user.id){
+                        val description: TextView = view.findViewById(R.id.descripcion)
+                        description.text = user.biografia
+                    }
                 }
             }
 
