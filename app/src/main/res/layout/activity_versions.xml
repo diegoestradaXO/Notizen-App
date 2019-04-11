@@ -27,24 +27,33 @@
 
     <LinearLayout android:layout_width="match_parent" android:orientation="vertical" android:layout_marginTop="65dp" android:layout_height="match_parent">
 
-        <CalendarView
-
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" tools:layout_editor_absoluteY="70dp"
-                tools:layout_editor_absoluteX="18dp" android:id="@+id/calendarView" tools:ignore="MissingConstraints"
-                android:selectedWeekBackgroundColor="@color/colorAccent" android:theme="@style/AppTheme"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="5dp"
-                android:id="@+id/recycler_view"
+        <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/vesion_item"
-                tools:itemCount="5"
-        />
+                android:layout_height="match_parent">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="vertical">
+
+
+            <CalendarView
+
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:layout_editor_absoluteY="70dp"
+                    tools:layout_editor_absoluteX="18dp" android:id="@+id/calendarView" tools:ignore="MissingConstraints"
+                    android:selectedWeekBackgroundColor="@color/colorAccent" android:theme="@style/AppTheme"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minHeight="250dp"
+                    tools:listitem="@layout/vesion_item"
+            />
+            </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
 
 
