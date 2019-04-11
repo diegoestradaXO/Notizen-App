@@ -54,7 +54,7 @@
                 android:ems="10"
                 android:id="@+id/tags"/>
         <Switch
-                android:text="Privacity   "
+                android:text="Privacy   "
                 android:textColor="@color/main"
                 android:textColorHint="@color/main"
                 android:thumbTint="@color/main"
