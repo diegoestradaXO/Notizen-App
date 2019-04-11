@@ -25,7 +25,6 @@ class OtherViewNoteActivity : AppCompatActivity() {
         val titulo = getIntent().getStringExtra("titulo")
         val description = getIntent().getStringExtra("descripcion")
         val contenido = getIntent().getStringExtra("content")
-        val id = getIntent().getStringExtra("identificador")
 
         //Home button, ends the actual activity and goes to the last screen opened
         buttonHome.setOnClickListener{

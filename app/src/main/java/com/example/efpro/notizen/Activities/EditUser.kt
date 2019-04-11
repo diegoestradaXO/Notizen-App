@@ -77,6 +77,7 @@ class EditUser : AppCompatActivity() {
             //moves to navigate activity
             val intento = Intent(this, navigate::class.java)//Redirigimos a contactos
             startActivity(intento)
+            this.finish()
         }
 
     }

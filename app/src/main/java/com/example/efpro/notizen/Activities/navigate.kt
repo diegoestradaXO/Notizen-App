@@ -170,6 +170,10 @@ class navigate : AppCompatActivity() {
                 manager.beginTransaction().replace(R.id.fragment_container, Search()).commit()
             }
         }
+        else if(getIntent().getStringExtra("content")!=null){
+                contenido = getIntent().getStringExtra("content")
+                manager.beginTransaction().replace(R.id.fragment_container, addNote()).commit()
+            }
     }
 
 

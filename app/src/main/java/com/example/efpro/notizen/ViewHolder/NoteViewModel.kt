@@ -14,23 +14,15 @@ import java.math.BigInteger
 class NoteViewModel(application: android.app.Application): AndroidViewModel(application){
 
     companion object {
-        public var allNotes: MutableList<Nota> = mutableListOf()
-        public var allUsers: MutableList<User> = mutableListOf()
-        public var Notes: MutableList<Nota> = mutableListOf()
-        public var versions: MutableList<MutableList<String>> = mutableListOf()
+        var allNotes: MutableList<Nota> = mutableListOf()
+        var allUsers: MutableList<User> = mutableListOf()
+        var Notes: MutableList<Nota> = mutableListOf()
+        var versions: MutableList<MutableList<String>> = mutableListOf()
 
     }
 
-    fun insert(nota: Nota){
-        //repository.insert(nota)
-    }
+    fun delete(){
 
-    fun update(nota: Nota){
-        //repository.update((nota))
-    }
-
-    fun delete(nota: Nota){
-        //repository.delete(nota)
     }
 
 
