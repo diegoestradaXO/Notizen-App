@@ -1,5 +1,6 @@
 package com.example.efpro.notizen.fragments
 
+import android.Manifest
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -16,17 +17,29 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import android.R.string.cancel
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.drawable.BitmapDrawable
+import android.provider.MediaStore
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.efpro.notizen.Activities.LoginActivity
 import com.example.efpro.notizen.Dialog.ExampleDialog
+import com.google.android.gms.vision.Frame
+import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.add_dialog.*
 import kotlinx.android.synthetic.main.fragment_add_note.*
 
@@ -52,9 +65,18 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
     private lateinit var database: DatabaseReference
     //private var listener: OnFragmentInteractionListener? = null
 
+    lateinit var cameraPermission: Array<String>
+    lateinit var storagePermission: Array<String>
+    lateinit var image_uri: Uri
+
+
     companion object {
         var tittle = ""
         var descripcion = ""
+        private val CAMERA_REQUEST_CODE = 200
+        private val STORAGE_REQUEST_CODE = 400
+        private val IMAGE_PICK_CAMERA_CODE = 1001
+        private val IMAGE_PICK_GALLERY_CODE = 1000
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +85,8 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
             param2 = it.getString(ARG_PARAM2)
         }
         database = FirebaseDatabase.getInstance().reference
+
+
 
     }
 
@@ -75,9 +99,15 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        cameraPermission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        storagePermission = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         val view = inflater.inflate(R.layout.fragment_add_note, container, false)
         val btn: FloatingActionButton = view.findViewById(R.id.buttonGuardar)
+        val btnCamera: FloatingActionButton = view.findViewById(R.id.buttonCamara)
         btn.setOnClickListener(this)
+        btnCamera.setOnClickListener{
+            showImageImportDialog()
+        }
         if(navigate.contenido!=""){
             val content : EditText= view.findViewById(R.id.content)
             content.setText(navigate.contenido)
@@ -98,6 +128,167 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
             exampleDialog.content=content.text.toString()
             exampleDialog.show(this.fragmentManager!!,"example dialog")
         }
+
+    private fun showImageImportDialog() {
+        //items to display in dialog
+        val items = arrayOf(" Camera", " Gallery")
+        val dialog = AlertDialog.Builder(activity)
+        //set title
+        dialog.setTitle("Selecciona opcion")
+        dialog.setItems(items) { dialog, which ->
+            if (which == 0) {
+                //camera option clicked
+                if (!checkCameraPermission()) {
+                    //camera permission not allowed, request it
+                    requestCameraPermission()
+                } else {
+                    //permission allowed, take picture
+                    pickCamera()
+                }
+            }
+            if (which == 1) {
+                //gallery option
+                if (!checkStoragePermission()) {
+                    //camera permission not allowed, request it
+                    requestStoragePermission()
+                } else {
+                    //permission allowed, take picture
+                    pickGallery()
+                }
+            }
+        }
+        dialog.create().show()
+
+    }
+
+    private fun checkCameraPermission(): Boolean {
+        val result =
+            ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+
+        val result1 = ContextCompat.checkSelfPermission(
+            activity!!,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+        return result && result1
+    }
+
+    private fun requestCameraPermission(){
+        ActivityCompat.requestPermissions(requireActivity(),
+            this.cameraPermission,
+            addNote.CAMERA_REQUEST_CODE)
+    }
+
+    private fun checkStoragePermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireActivity(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestStoragePermission() {
+        ActivityCompat.requestPermissions(requireActivity(),
+            this.storagePermission,
+            addNote.STORAGE_REQUEST_CODE)
+    }
+
+    private fun pickCamera() {
+        val values = ContentValues()
+        values.put(MediaStore.Images.Media.TITLE, "NewPic") //Title of the picture
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Image to text") //description
+        image_uri = activity!!.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
+
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+        startActivityForResult(cameraIntent, addNote.IMAGE_PICK_CAMERA_CODE)
+    }
+
+    private fun pickGallery() {
+        //intent to pick from gallery
+        val intent = Intent(Intent.ACTION_PICK)
+        //set intent type
+        intent.type = "image/*"
+        startActivityForResult(intent, addNote.IMAGE_PICK_GALLERY_CODE)
+    }
+
+    //handle permission result
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            CAMERA_REQUEST_CODE -> if (grantResults.size > 0) {
+                val cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                val writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                if (cameraAccepted && writeStorageAccepted) {
+                    pickCamera()
+                } else {
+                    Toast.makeText(activity, "permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            STORAGE_REQUEST_CODE -> if (grantResults.size > 0) {
+                val writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                if (writeStorageAccepted) {
+                    pickGallery()
+                } else {
+                    Toast.makeText(activity, "permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+    }
+
+    //handle image result
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //got image from camera
+        val myImage: ImageView = view!!.findViewById(R.id.imageViewP)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
+                //got image from gallery now crop it
+                CropImage.activity(data!!.data)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .start(activity!!.applicationContext, this)// enable image guidelines
+
+            }
+            if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+                //got image from camera now crop it
+                CropImage.activity(image_uri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .start(activity!!.applicationContext, this)// enable image guidelines
+
+            }
+        }
+        //get cropped image
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
+                val resultUri = result.uri//get image uri
+                myImage.setImageURI(resultUri)
+                //get drawable bitmap for text recognition
+                val bitmapDrawable = myImage.getDrawable() as BitmapDrawable
+                val bitmap = bitmapDrawable.bitmap
+                val recognizer = TextRecognizer.Builder(activity!!.applicationContext).build()
+
+                if (!recognizer.isOperational) {
+                    Toast.makeText(activity, "COULDN'T READ IMAGE", Toast.LENGTH_SHORT).show()
+                } else {
+                    val frame = Frame.Builder().setBitmap(bitmap).build()
+                    val items = recognizer.detect(frame)
+                    val sb = StringBuilder()
+                    //get text from sb untill there is no text
+                    for (i in 0 until items.size()) {
+                        val myItem = items.valueAt(i)
+                        sb.append(myItem.value)
+                        sb.append("\n")
+                    }
+                    //set Text to edit Text
+                    content.setText(sb.toString())
+                }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                //if there is any error show it
+                val error = result.error
+                Toast.makeText(activity, "" + error, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
 /*
     // TODO: Rename method, update argument and hook method into UI event
