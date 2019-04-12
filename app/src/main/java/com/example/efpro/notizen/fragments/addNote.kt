@@ -151,6 +151,8 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
 
         // Inflate the layout for this fragment
         cameraPermission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        // Permisos para la utilizacion de la grabacion del audio
         recordPermission = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.RECORD_AUDIO)
         storagePermission = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         val view = inflater.inflate(R.layout.fragment_add_note, container, false)
@@ -162,16 +164,18 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
 
         menuBtn.setOnClickListener {
             if (isOpen){
-
+                // Botones
                 menuBtn.startAnimation(AnimationUtils.loadAnimation(context, R.anim.rotatefoward))
                 btnCamera.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabclose))
                 btnAudio.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabclose))
+                // Visibilida de los botones
                 btnCamera.isClickable = false
                 btnAudio.isClickable = false
                 btnCamera.visibility = View.INVISIBLE
                 btnAudio.visibility = View.INVISIBLE
                 isOpen = !isOpen
             }else{
+                // Visibilidad de los botones
                 menu.startAnimation(AnimationUtils.loadAnimation(context, R.anim.backwardrotate))
                 buttonCamara.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabopen))
                 buttonAudio.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabopen))
@@ -191,6 +195,8 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
             val content : EditText= view.findViewById(R.id.content)
             content.setText(navigate.contenido)
         }
+
+        // Permiso para la grabacion
         btnAudio.setOnTouchListener { v, event ->
             when(event.action) {
                 MotionEvent.ACTION_UP ->
