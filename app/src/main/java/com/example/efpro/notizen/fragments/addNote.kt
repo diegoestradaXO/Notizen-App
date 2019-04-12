@@ -195,6 +195,8 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
             val content : EditText= view.findViewById(R.id.content)
             content.setText(navigate.contenido)
         }
+
+        // Permiso para la grabacion
         btnAudio.setOnTouchListener { v, event ->
             when(event.action) {
                 MotionEvent.ACTION_UP ->
