@@ -31,7 +31,6 @@ class ViewNoteActivity : AppCompatActivity() {
         val referencia = FirebaseDatabase.getInstance().getReference("notes")
         referencia.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
             override fun onDataChange(p0: DataSnapshot) {
                 val note =p0.getValue() as HashMap<*, *>
@@ -80,7 +79,6 @@ class ViewNoteActivity : AppCompatActivity() {
             val reference = FirebaseDatabase.getInstance().getReference("notes")
             reference.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
                 override fun onDataChange(p0: DataSnapshot) {
                     //gets the note
@@ -142,7 +140,6 @@ class ViewNoteActivity : AppCompatActivity() {
         val reference = FirebaseDatabase.getInstance().getReference("notes")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
             override fun onDataChange(p0: DataSnapshot) {
                 val nota =p0.getValue() as HashMap<*, *>
