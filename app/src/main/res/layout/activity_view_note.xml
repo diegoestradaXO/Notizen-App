@@ -12,8 +12,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/edit"
-            android:layout_gravity="bottom|right"
-            android:layout_marginVertical="220dp"
+            android:layout_gravity="top|right"
+            android:layout_marginVertical="130dp"
             style="@style/Widget.AppCompat.Button.Colored"
             android:theme="@style/ThemeOverlay.MyDarkButton" android:tint="@color/white"/>
 
@@ -59,8 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/delete"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="290dp"
+            android:layout_gravity="top|right"
+            android:layout_marginTop="70dp"
             style="@style/Widget.AppCompat.Button.Colored"
             android:theme="@style/ThemeOverlay.MyDarkButton" android:tint="@color/white"/>
 
