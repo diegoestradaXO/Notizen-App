@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import android.R.string.cancel
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.app.Dialog
@@ -25,7 +26,13 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.BitmapDrawable
+import android.os.Build
 import android.provider.MediaStore
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
+import android.view.MotionEvent
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -42,6 +49,7 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.add_dialog.*
 import kotlinx.android.synthetic.main.fragment_add_note.*
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -67,6 +75,8 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
 
     lateinit var cameraPermission: Array<String>
     lateinit var storagePermission: Array<String>
+    lateinit var recordPermission: Array<String>
+    var isOpen = false
     lateinit var image_uri: Uri
 
 
@@ -74,6 +84,7 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
         var tittle = ""
         var descripcion = ""
         private val CAMERA_REQUEST_CODE = 200
+        private val RECORD_REQUEST_CODE = 100
         private val STORAGE_REQUEST_CODE = 400
         private val IMAGE_PICK_CAMERA_CODE = 1001
         private val IMAGE_PICK_GALLERY_CODE = 1000
@@ -94,23 +105,109 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
         //do nothing
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        var speechRecognize = SpeechRecognizer.createSpeechRecognizer(context)
+        var speechIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        speechRecognize.setRecognitionListener(object: RecognitionListener {
+            override fun onReadyForSpeech(p0: Bundle?) {
+            }
+
+            override fun onRmsChanged(p0: Float) {
+            }
+
+            override fun onBufferReceived(p0: ByteArray?) {
+            }
+
+            override fun onPartialResults(p0: Bundle?) {
+            }
+
+            override fun onEvent(p0: Int, p1: Bundle?) {
+            }
+
+            override fun onBeginningOfSpeech() {
+            }
+
+            override fun onEndOfSpeech() {
+            }
+
+            override fun onError(p0: Int) {
+            }
+
+            override fun onResults(p0: Bundle?) {
+                val matches = p0?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                if(matches != null) {
+                    content.setText(matches.first())
+                }
+            }
+
+        })
+
         // Inflate the layout for this fragment
         cameraPermission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        recordPermission = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.RECORD_AUDIO)
         storagePermission = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         val view = inflater.inflate(R.layout.fragment_add_note, container, false)
         val btn: FloatingActionButton = view.findViewById(R.id.buttonGuardar)
         val btnCamera: FloatingActionButton = view.findViewById(R.id.buttonCamara)
+        val btnAudio: FloatingActionButton = view.findViewById(R.id.buttonAudio)
+        val menuBtn: FloatingActionButton = view.findViewById(R.id.menu)
         btn.setOnClickListener(this)
+
+        menuBtn.setOnClickListener {
+            if (isOpen){
+
+                menuBtn.startAnimation(AnimationUtils.loadAnimation(context, R.anim.rotatefoward))
+                btnCamera.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabclose))
+                btnAudio.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabclose))
+                btnCamera.isClickable = false
+                btnAudio.isClickable = false
+                btnCamera.visibility = View.INVISIBLE
+                btnAudio.visibility = View.INVISIBLE
+                isOpen = !isOpen
+            }else{
+                menu.startAnimation(AnimationUtils.loadAnimation(context, R.anim.backwardrotate))
+                buttonCamara.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabopen))
+                buttonAudio.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabopen))
+                btnCamera.isClickable = true
+                btnAudio.isClickable = true
+                btnCamera.visibility = View.VISIBLE
+                btnAudio.visibility = View.VISIBLE
+
+                isOpen = !isOpen
+
+            }
+        }
         btnCamera.setOnClickListener{
             showImageImportDialog()
         }
         if(navigate.contenido!=""){
             val content : EditText= view.findViewById(R.id.content)
             content.setText(navigate.contenido)
+        }
+        btnAudio.setOnTouchListener { v, event ->
+            when(event.action) {
+                MotionEvent.ACTION_UP ->
+                    if (checkRecordPermission())
+                        speechRecognize.stopListening()
+                MotionEvent.ACTION_DOWN -> {
+                    if (checkRecordPermission())
+                        speechRecognize.startListening(speechIntent)
+                    else
+                        permissionRecord()
+                }
+                else -> {
+
+                }
+            }
+            false
+
         }
         return view
     }
@@ -191,6 +288,27 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
             addNote.STORAGE_REQUEST_CODE)
     }
 
+    private fun checkRecordPermission(): Boolean{
+        val result =
+            ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+        return result
+    }
+
+    private fun permissionRecord() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                        Manifest.permission.RECORD_AUDIO)) {
+
+                } else {
+                    ActivityCompat.requestPermissions(requireActivity(),
+                        arrayOf(Manifest.permission.RECORD_AUDIO),
+                        addNote.RECORD_REQUEST_CODE)
+                }
+
+        }
+    }
     private fun pickCamera() {
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, "NewPic") //Title of the picture
@@ -230,7 +348,16 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
                 } else {
                     Toast.makeText(activity, "permission denied", Toast.LENGTH_SHORT).show()
                 }
+
             }
+            RECORD_REQUEST_CODE ->
+                if (grantResults.size > 0) {
+                    val audioAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    if (audioAccepted) {
+                    } else {
+                        Toast.makeText(activity, "permission denied", Toast.LENGTH_SHORT).show()
+                    }
+                }
         }
 
     }
@@ -291,7 +418,7 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
     }
 
 /*
-    // TODO: Rename method, update argument and hook method into UI event
+    TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
     }

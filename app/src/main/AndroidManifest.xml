@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
-    <!-- Camera and storage permission will be required-->
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
@@ -52,8 +52,6 @@
                 android:exported="true">
         </receiver>
 
-        <activity android:name=".Activities.charging">
-        </activity>
         <activity android:name=".Activities.versions">
         </activity>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

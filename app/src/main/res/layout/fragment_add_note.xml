@@ -4,41 +4,55 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
              tools:context=".fragments.addNote"
-                android:background="@drawable/fondo">
+             android:background="@drawable/fondo">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buttonAudio"
+            android:id="@+id/menu"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/micro"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="80dp"
             android:theme="@style/ThemeOverlay.MyDarkButton"
-            android:layout_marginBottom="16dp"
-            android:layout_gravity="bottom|right"
-            android:layout_marginVertical="180dp" android:tint="@android:color/white"/>
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/starwhite" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buttonCamara"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/buttonAudio"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginVertical="180dp"
+                    android:layout_marginBottom="1dp"
+                    android:theme="@style/ThemeOverlay.MyDarkButton"
+                    android:visibility="invisible"
+                    android:tint="@android:color/white"
+                    app:srcCompat="@drawable/micro" />
 
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:theme="@style/ThemeOverlay.MyDarkButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/camera"
-            android:layout_marginBottom="16dp"
-            android:layout_gravity="bottom|right"
-            android:layout_marginVertical="250dp" android:tint="@android:color/white"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buttonGuardar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/save"
-            android:layout_gravity="top|right"
-            android:layout_marginTop="70dp"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:theme="@style/ThemeOverlay.MyDarkButton" android:tint="@android:color/white"
-            app:fabCustomSize="50dp"
-    />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/buttonCamara"
+
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:theme="@style/ThemeOverlay.MyDarkButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/camera"
+                    android:visibility="invisible"
+                    android:layout_marginBottom="16dp"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginVertical="250dp" android:tint="@android:color/white"/>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/buttonGuardar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/save"
+                    android:layout_gravity="top|right"
+                    android:layout_marginTop="70dp"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:theme="@style/ThemeOverlay.MyDarkButton" android:tint="@android:color/white"
+                    app:fabCustomSize="50dp"
+        />
 
     <include
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -57,20 +71,22 @@
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:orientation="vertical" android:layout_marginRight="60dp"
                           android:layout_marginLeft="10dp">
-                <EditText android:layout_width="300dp" android:layout_height="wrap_content"
-                          android:layout_marginTop="15dp"
-                          android:textColorHint="@color/white"
-                          android:layout_marginBottom="200dp"
-                          android:id="@+id/content"
-                          android:textSize="15dp"
-                          android:hint="Escribe tu nota aquí..."
-                          android:inputType="textMultiLine"
-                          android:outlineSpotShadowColor="@android:color/black"
-                          android:textColorHighlight="@android:color/black"
-                          android:textColor="@android:color/white"
-                          android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                          style="@style/Base.Widget.MaterialComponents.TextInputEditText"
-                />
+
+                <EditText
+                        android:id="@+id/content"
+                        style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="200dp"
+                        android:hint="Escribe tu nota aquí..."
+                        android:inputType="textMultiLine"
+                        android:outlineSpotShadowColor="@android:color/black"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="@android:color/white"
+                        android:textColorHighlight="@android:color/black"
+                        android:textColorHint="@color/white"
+                        android:textSize="15dp" />
                 <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                            android:id="@+id/imageViewP"
                            android:maxHeight="250dp"

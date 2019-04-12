@@ -1,14 +1,18 @@
 package com.example.efpro.notizen.Activities
 
+
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.example.efpro.notizen.Dialog.WarningDeleteDialog
 import com.example.efpro.notizen.R
 import com.example.efpro.notizen.ViewHolder.NoteViewModel
 import com.example.efpro.notizen.models.Nota
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -16,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_view_note.*
 
 class ViewNoteActivity : AppCompatActivity() {
+    private var isOpen: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +33,33 @@ class ViewNoteActivity : AppCompatActivity() {
         val titulo = getIntent().getStringExtra("titulo")
         val descripcion = getIntent().getStringExtra("descripcion")
         NoteViewModel.versions.clear()
+        val btnShare: FloatingActionButton = findViewById(R.id.buttonShare)
+        val btnVersions: FloatingActionButton = findViewById(R.id.buttonVersions)
+        val menuBtn: FloatingActionButton = findViewById(R.id.menuView)
+
+        menuBtn.setOnClickListener {
+            if (isOpen){
+
+                menuBtn.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotatefoward))
+                btnShare.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fabclose))
+                btnVersions.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fabclose))
+                btnShare.isClickable = false
+                btnVersions.isClickable = false
+                btnShare.visibility = View.INVISIBLE
+                btnVersions.visibility = View.INVISIBLE
+                isOpen = !isOpen
+            }else{
+                menuBtn.startAnimation(AnimationUtils.loadAnimation(this, R.anim.backwardrotate))
+                btnShare.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fabopen))
+                btnVersions.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fabopen))
+                btnShare.isClickable = true
+                btnVersions.isClickable = true
+                btnShare.visibility = View.VISIBLE
+                btnVersions.visibility = View.VISIBLE
+                isOpen = !isOpen
+
+            }
+        }
         val referencia = FirebaseDatabase.getInstance().getReference("notes")
         referencia.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
