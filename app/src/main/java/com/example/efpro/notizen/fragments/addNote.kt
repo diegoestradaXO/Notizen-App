@@ -151,6 +151,8 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
 
         // Inflate the layout for this fragment
         cameraPermission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        // Permisos para la utilizacion de la grabacion del audio
         recordPermission = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.RECORD_AUDIO)
         storagePermission = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         val view = inflater.inflate(R.layout.fragment_add_note, container, false)
