@@ -12,6 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|right"
+            android:layout_marginTop="70dp"
             style="@style/Widget.AppCompat.Button.Colored"
             android:theme="@style/ThemeOverlay.MyDarkButton" app:srcCompat="@drawable/home" android:tint="@color/white"/>
 
@@ -20,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|right"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="140dp"
             style="@style/Widget.AppCompat.Button.Colored"
             android:theme="@style/ThemeOverlay.MyDarkButton" app:srcCompat="@drawable/share"
             app:rippleColor="@color/common_google_signin_btn_text_dark_focused" android:tint="@color/white"/>
@@ -45,8 +46,8 @@
                           android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:text="made by" android:id="@+id/correo" android:textColor="@color/main"
                           app:fontFamily="serif-monospace"/>
-                <TextView android:layout_marginRight="15dp" android:layout_marginLeft="15dp"
-                          android:textColor="@color/main" android:layout_width="330dp" android:layout_marginTop="15dp"
+                <TextView android:layout_marginRight="70dp" android:layout_marginLeft="15dp"
+                          android:textColor="@color/main" android:layout_width="300dp" android:layout_marginTop="15dp"
                           android:layout_height="wrap_content"
                           android:text="without description" android:id="@+id/descripcion"
                           app:fontFamily="serif-monospace"/>
