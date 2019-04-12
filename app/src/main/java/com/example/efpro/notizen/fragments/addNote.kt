@@ -244,6 +244,7 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
                 if (!checkCameraPermission()) {
                     //camera permission not allowed, request it
                     requestCameraPermission()
+                    Toast.makeText(activity!!,"Permission were given. Try again!",Toast.LENGTH_LONG).show()
                 } else {
                     //permission allowed, take picture
                     pickCamera()
@@ -254,6 +255,7 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
                 if (!checkStoragePermission()) {
                     //camera permission not allowed, request it
                     requestStoragePermission()
+                    Toast.makeText(activity!!,"Permission were given. Try again!",Toast.LENGTH_LONG).show()
                 } else {
                     //permission allowed, take picture
                     pickGallery()
