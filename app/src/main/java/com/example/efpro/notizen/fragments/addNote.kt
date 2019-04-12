@@ -175,6 +175,7 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
                 btnAudio.visibility = View.INVISIBLE
                 isOpen = !isOpen
             }else{
+                // Visibilidad de los botones
                 menu.startAnimation(AnimationUtils.loadAnimation(context, R.anim.backwardrotate))
                 buttonCamara.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabopen))
                 buttonAudio.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabopen))
