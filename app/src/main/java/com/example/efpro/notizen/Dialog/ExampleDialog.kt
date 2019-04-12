@@ -44,7 +44,7 @@ class ExampleDialog : AppCompatDialogFragment() {
                 val versiones = listOf<String>(content,currentDate)
                 val versiones1= listOf<List<String>>(versiones)
                 writeNewNote(tittle!!.text.toString(), description!!.text.toString  (), swich1!!.isChecked,
-                    tags!!.text.toString().split(",".toRegex()),versiones1)
+                    tags!!.text.toString().toLowerCase().split(",".toRegex()),versiones1)
 
             }
 

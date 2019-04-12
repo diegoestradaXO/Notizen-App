@@ -41,7 +41,6 @@ class ViewNoteActivity : AppCompatActivity() {
 
         menuBtn.setOnClickListener {
             if (isOpen){
-
                 menuBtn.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotatefoward))
                 btnShare.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fabclose))
                 btnVersions.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fabclose))

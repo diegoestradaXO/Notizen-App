@@ -157,7 +157,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         recycler_view.adapter = adapter
 
         botonBuscar.setOnClickListener{
-            val parameter = editText!!.text.toString()
+            val parameter = editText!!.text.toString().toLowerCase()
             if (parameter == ""){
                 adapter.submitList(NoteViewModel.allNotes)
                 recycler_view.adapter = adapter
