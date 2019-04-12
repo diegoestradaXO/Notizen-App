@@ -164,10 +164,11 @@ class addNote : androidx.fragment.app.Fragment(),View.OnClickListener,ExampleDia
 
         menuBtn.setOnClickListener {
             if (isOpen){
-
+                // Botones
                 menuBtn.startAnimation(AnimationUtils.loadAnimation(context, R.anim.rotatefoward))
                 btnCamera.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabclose))
                 btnAudio.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fabclose))
+                // Visibilida de los botones
                 btnCamera.isClickable = false
                 btnAudio.isClickable = false
                 btnCamera.visibility = View.INVISIBLE
