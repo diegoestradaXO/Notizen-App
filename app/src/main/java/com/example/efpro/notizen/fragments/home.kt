@@ -34,7 +34,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlin.collections.HashMap
 
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -51,7 +50,6 @@ private lateinit var auth: FirebaseAuth
  *
  */
 class home : androidx.fragment.app.Fragment(), View.OnClickListener{
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var database: DatabaseReference
@@ -60,7 +58,7 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
 
 // ...
 
-   // private var listener: OnFragmentInteractionListener? = null
+    // private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +87,6 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
         val referencia = FirebaseDatabase.getInstance().getReference("users")
         referencia.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
             override fun onDataChange(p0: DataSnapshot) {
                 val user =p0.getValue() as HashMap<*, *>
@@ -101,15 +98,15 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
                     val idToExtract =navigate.auth.currentUser!!.uid
                     //val user = User(
                     //    currentUser.get("id") as String,
-                     //   currentUser.get("email") as String,
+                    //   currentUser.get("email") as String,
                     //    currentUser.get("biografia") as String,
                     //    currentUser.get("nombre") as String,
-                     //   currentUser.get("seguidores") as List<String>,
+                    //   currentUser.get("seguidores") as List<String>,
                     //    currentUser.get("seguidos") as List<String>
                     //)
                     //if(idToExtract==user.id){
                     //    val descripcion:TextView = view.findViewById(R.id.descripcion)
-                     //   descripcion.text = user.biografia
+                    //   descripcion.text = user.biografia
                     //}
                     //NoteViewModel.allUsers.add(user)
                 }
@@ -120,7 +117,6 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
 
         reference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
             override fun onDataChange(p0: DataSnapshot) {
                 val user =p0.getValue() as HashMap<*, *>
@@ -230,13 +226,13 @@ class home : androidx.fragment.app.Fragment(), View.OnClickListener{
     }
 
     //fun filterList(): List<Nota>{
-      //  var filteredList: MutableList<Nota> = mutableListOf<Nota>()
-        //listData.forEach{
-          //  if(it.etiquetas.contains(searchView.query)){
-            //    filteredList.add(it)
-            //}
-        //}
-        //return filteredList
+    //  var filteredList: MutableList<Nota> = mutableListOf<Nota>()
+    //listData.forEach{
+    //  if(it.etiquetas.contains(searchView.query)){
+    //    filteredList.add(it)
+    //}
+    //}
+    //return filteredList
     //}
 
 /*
