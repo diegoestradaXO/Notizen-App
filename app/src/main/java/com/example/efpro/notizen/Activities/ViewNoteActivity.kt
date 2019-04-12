@@ -36,6 +36,8 @@ class ViewNoteActivity : AppCompatActivity() {
         val btnShare: FloatingActionButton = findViewById(R.id.buttonShare)
         val btnVersions: FloatingActionButton = findViewById(R.id.buttonVersions)
         val menuBtn: FloatingActionButton = findViewById(R.id.menuView)
+        val btnTrash: FloatingActionButton = findViewById(R.id.buttonTrash)
+        val btnEdit: FloatingActionButton = findViewById(R.id.buttonEdit)
 
         menuBtn.setOnClickListener {
             if (isOpen){
@@ -45,16 +47,26 @@ class ViewNoteActivity : AppCompatActivity() {
                 btnVersions.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fabclose))
                 btnShare.isClickable = false
                 btnVersions.isClickable = false
+                btnTrash.isClickable = false
+                btnEdit.isClickable = false
                 btnShare.visibility = View.INVISIBLE
                 btnVersions.visibility = View.INVISIBLE
+                btnTrash.visibility = View.INVISIBLE
+                btnEdit.visibility = View.INVISIBLE
                 isOpen = !isOpen
             }else{
                 menuBtn.startAnimation(AnimationUtils.loadAnimation(this, R.anim.backwardrotate))
                 btnShare.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fabopen))
                 btnVersions.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fabopen))
+                btnTrash.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fabopen))
+                btnEdit.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fabopen))
                 btnShare.isClickable = true
                 btnVersions.isClickable = true
+                btnTrash.isClickable = true
+                btnEdit.isClickable = true
                 btnShare.visibility = View.VISIBLE
+                btnTrash.visibility = View.VISIBLE
+                btnEdit.visibility = View.VISIBLE
                 btnVersions.visibility = View.VISIBLE
                 isOpen = !isOpen
 

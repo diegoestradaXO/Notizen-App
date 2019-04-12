@@ -6,22 +6,22 @@
              android:background="@drawable/fondo"
              tools:context=".fragments.addNote">
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonHome"
+            android:theme="@style/ThemeOverlay.MyDarkButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
-            android:layout_marginTop="70dp"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:theme="@style/ThemeOverlay.MyDarkButton" app:srcCompat="@drawable/home" android:tint="@color/white"/>
+            app:srcCompat="@drawable/home"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="top|right" android:tint="@color/white"
+            app:backgroundTint="@android:color/transparent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|right"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="70dp"
             style="@style/Widget.AppCompat.Button.Colored"
             android:theme="@style/ThemeOverlay.MyDarkButton" app:srcCompat="@drawable/share"
             app:rippleColor="@color/common_google_signin_btn_text_dark_focused" android:tint="@color/white"/>
@@ -39,7 +39,7 @@
                 android:layout_height="match_parent">
             <LinearLayout android:layout_width="match_parent" android:layout_marginBottom="15dp" android:layout_marginTop="5dp" android:layout_height="wrap_content"
                           android:orientation="vertical">
-                <TextView android:layout_width="wrap_content" android:id="@+id/tittle" android:layout_gravity="center"
+                <TextView android:layout_width="200dp" android:gravity="center" android:id="@+id/tittle" android:layout_gravity="center"
                           android:layout_height="wrap_content" android:text="NO TITTE" android:textColor="@color/main"
                           app:fontFamily="monospace"/>
                 <TextView android:layout_marginTop="15dp" android:layout_marginLeft="15dp" android:layout_marginRight="15dp"
