@@ -89,7 +89,7 @@ class Search : androidx.fragment.app.Fragment(){
 
         })
         botonBuscar.setOnClickListener{
-            val parameter = editText.text.toString()
+            val parameter = editText.text.toString().toLowerCase()
             if (parameter == ""){
                 adapter.submitList(NoteViewModel.Notes)
                 recycler_view.adapter = adapter
